@@ -81,7 +81,7 @@
   <script type="importmap">
     {
       "imports": {
-        "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+        "three": "https://unpkg.com/three@0.180.0/build/three.module.js"
       }
     }
   </script>
@@ -89,7 +89,7 @@
   <script type="importmap">
     {
       "imports": {
-        "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+        "three": "https://unpkg.com/three@0.180.0/build/three.module.js"
       }
     }
   </script>
@@ -113,7 +113,7 @@
         <div class="phase-text-block" data-key="intro-1">
           <h1>Transforming Strategy Execution</h1>
           <h2>COMPLEXITY AS AN ASSET</h2>
-          <p>Most transformations fail because complexity overwhelms. We turned that complexity into an advantage—redefining planning, risks, and dashboards inside one integrated model.</p>
+          <p>Most transformations fail because complexity overwhelms. We turned that complexity into an advantage - redefining planning, risks, and dashboards inside one integrated model. <br><b>Good news:</b> its not your fault, its complexity. <br><b>Bad news:</b> it is your fault if you don't explore the alternative.</p>
         </div>
         <div class="phase-text-block" data-key="intro-2">
           <h1>Imagine a Parallel Universe</h1>
@@ -128,7 +128,7 @@
         <div class="phase-text-block" data-key="p23-your-org">
           <h1>The Anatomy of an Organization</h1>
           <h2>WHAT MAKES AN ORGANIZATION?</h2>
-          <p>Many things, like a living system of systems—Strategy, Policies, Processes, Digital—shaped by external forces such as markets and global events. Real transformation means understanding how these components interact, not treating them in isolation.</p>
+          <p>Many things, like a living System of systems: Strategy, Policies, Processes, Digital—shaped by external forces such as markets and global events. Real transformation means understanding how these components interact, not treating them in isolation.</p>
         </div>
         <div class="phase-text-block" data-key="p4-hidden">
           <h1>The Hidden Relations</h1>
@@ -143,12 +143,14 @@
         <div class="phase-text-block" data-key="p7-two-years">
           <h1>Locks, Locks Everywhere</h1>
           <h2>WHAT DID 2 YEARS REVEAL?</h2>
-          <p>Unlock after unlock, the journey was long and often tedious. Every piece had to be dissected, connected, and validated until a full digital twin of dependencies emerged. Just as we reached this milestone, AI leapt forward—suddenly powerful, affordable, and accessible—turning what seemed impossible into reality.</p>
+          <p>Two years of relentless work, unlocking barrier after barrier. Each layer exposed new dependencies, each cube revealed hidden ties. Piece by piece, the digital twin took shape—a living map of complexity. And just as it came together, AI leapt forward, suddenly powerful and accessible, turning years of struggle into a working reality.</p>
         </div>
         <div class="phase-text-block" data-key="p89-future">
           <h1>The Future, Ready Today</h1>
           <h2>WHAT PATH WILL YOU CHOOSE?</h2>
-          <p>With the AI core in place, the Digital Twin comes alive. We’ve hit a milestone, but the journey is still unfolding. Two paths now await: a Knowledge Path, where you contribute ideas and shape the future of transformations; and a Builder Path, where you begin your own strategy execution journey and put the twin to work.</p>
+          <p>With the final piece in place—the very heart of the solution—the AI breathed life into the Digital Twin, reigniting hope for true transformation. The journey is not over for us or you, it continues through two distinct hubs: 
+            <br><b>TwinLab</b> - Access our multi-media knowledge base and contribute to it in Wiki style. Help shape the future of transformations. 
+            <br><b>TwinStudio</b> - Take real steps towards your first use case and prototype V0 of your twin using our free tools. Start shaping your own transformation</p>
         </div>
       </div>
     </div>
@@ -230,12 +232,12 @@
      * - Interactive mouse controls in phases 1 and 9
      */
 
-    import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
-    import { OrbitControls } from 'https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js';
-    import { EffectComposer } from 'https://unpkg.com/three@0.160.0/examples/jsm/postprocessing/EffectComposer.js';
-    import { RenderPass } from 'https://unpkg.com/three@0.160.0/examples/jsm/postprocessing/RenderPass.js';
-    import { UnrealBloomPass } from 'https://unpkg.com/three@0.160.0/examples/jsm/postprocessing/UnrealBloomPass.js';
-    import { RoomEnvironment } from 'https://unpkg.com/three@0.160.0/examples/jsm/environments/RoomEnvironment.js';
+    import * as THREE from 'https://unpkg.com/three@0.180.0/build/three.module.js';
+   // import { OrbitControls } from 'https://unpkg.com/three@0.180.0/examples/jsm/controls/OrbitControls.js';
+    import { EffectComposer } from 'https://unpkg.com/three@0.180.0/examples/jsm/postprocessing/EffectComposer.js';
+    import { RenderPass } from 'https://unpkg.com/three@0.180.0/examples/jsm/postprocessing/RenderPass.js';
+    import { UnrealBloomPass } from 'https://unpkg.com/three@0.180.0/examples/jsm/postprocessing/UnrealBloomPass.js';
+    import { RoomEnvironment } from 'https://unpkg.com/three@0.180.0/examples/jsm/environments/RoomEnvironment.js';
 
     // Background video speed control
     const bgVideo = document.querySelector('.bg-video');
@@ -688,14 +690,26 @@
           // ===== LARGE CUBE CREATION =====
           // 27 large cubes forming the initial Rubik's cube structure
           const pats = shuffle(FACE_PATTERNS.slice()); // Randomize pattern order per cube
+          // Load all 6 bump map textures
+          const bumpTextures = [1,2,3,4,5,6].map(n => {
+            const tex = new THREE.TextureLoader().load(`/images/cubeface${n}.PNG`);
+            tex.wrapS = THREE.RepeatWrapping;
+            tex.wrapT = THREE.RepeatWrapping;
+            tex.repeat.set(1, 1);
+            return tex;
+          });
+          // Randomly assign bump map to each face
           const mats = pats.map((pat, i) => new THREE.MeshStandardMaterial({
-            map: createStickerTexture(pat, BLUES[i%BLUES.length], true, true), // Pattern + gloss
+            // map: createStickerTexture(pat, BLUES[i%BLUES.length], true, true), // Pattern overlay commented out
+            color: BLUES[i%BLUES.length], // Keep color
+            bumpMap: bumpTextures[Math.floor(Math.random()*6)],
+            bumpScale: 1.0, // Maximum bump effect
             transparent: false, // Opaque for performance
             depthWrite: false, // Disable depth writing to prevent z-fighting
             depthTest: true, // Still test depth for proper ordering
             side: THREE.DoubleSide, // Render both sides (important for cube faces)
-            metalness: 0.2, // Slight metallic appearance
-            roughness: 0.6, // Matte finish, not too shiny
+            metalness: 1.0, // Fully metallic
+            roughness: 0.1, // Very shiny
             polygonOffset: true, // Offset depth to prevent z-fighting with edges
             polygonOffsetFactor: -4,
             polygonOffsetUnits: -4
@@ -704,15 +718,32 @@
         } else {
           // ===== MINI CUBE CREATION =====
           // 729 mini cubes that emerge from within large cubes
+         // const miniMaterial = new THREE.MeshStandardMaterial({
+          // --- ORIGINAL MINI CUBE MATERIAL CREATION (commented out) ---
+          // const miniMaterial = new THREE.MeshStandardMaterial({
+          //   color: new THREE.Color(0x0066CC), // Blue color for mini-cubes
+          //   transparent: false, // Opaque
+          //   opacity: 1.0, // Fully opaque
+          //   depthWrite: true, // Enable depth writing to prevent see-through
+          //   depthTest: true, // Test depth
+          //   side: THREE.DoubleSide, // Render both sides
+          //   metalness: 0.25, // Balanced metallic feel
+          //   roughness: 0.5 // Balanced surface roughness
+          // });
+          // mesh = new THREE.Mesh(geom, miniMaterial); // Single metallic material for all faces
+
+          // --- MINI CUBE MATERIAL WITH NO GLOW/EMISSIVE ---
           const miniMaterial = new THREE.MeshStandardMaterial({
-            color: new THREE.Color(0x0066CC), // Blue color for mini-cubes
-            transparent: false, // Opaque
-            opacity: 1.0, // Fully opaque
-            depthWrite: true, // Enable depth writing to prevent see-through
-            depthTest: true, // Test depth
-            side: THREE.DoubleSide, // Render both sides
-            metalness: 0.25, // Balanced metallic feel
-            roughness: 0.5 // Balanced surface roughness
+            color: new THREE.Color(0x0066CC),
+            transparent: false,
+            opacity: 1.0,
+            depthWrite: true,
+            depthTest: true,
+            side: THREE.DoubleSide,
+            metalness: 0.25,
+            roughness: 0.5,
+            emissive: new THREE.Color(0x000000), // No glow
+            emissiveIntensity: 0.0 // No glow
           });
           mesh = new THREE.Mesh(geom, miniMaterial); // Single metallic material for all faces
         }
@@ -725,7 +756,7 @@
           roughness: 0.25, // Smooth surface
           clearcoat: 1.0, // Clear coat layer for extra shine
           clearcoatRoughness: 0.15, // Smooth clear coat
-          envMapIntensity: 1.2 // Environment reflection intensity
+//          envMapIntensity: 1.2 // Environment reflection intensity
         });
         mesh = new THREE.Mesh(geom, mat); // Single material for all faces
       }
@@ -807,11 +838,20 @@
     const hemi = new THREE.HemisphereLight(0x8aa4ff, 0x0e0f15, 0.7);
     scene.add(hemi);
 
-    // Directional light for key lighting and shadows
-    const dir = new THREE.DirectionalLight(0xffffff, 1.0);
-    dir.position.set(6, 10, 8); // Position above and to the side
-    dir.castShadow = true; // Enable shadow casting
-    scene.add(dir);
+  // Directional light for key lighting and shadows
+  const dir = new THREE.DirectionalLight(0xffffff, 2.5); // Increased intensity for bump mapping
+  dir.position.set(6, 10, 8); // Position above and to the side
+  dir.castShadow = true; // Enable shadow casting
+  scene.add(dir);
+
+  // Add a second directional light from the opposite angle for better face illumination
+  const dir2 = new THREE.DirectionalLight(0xffffff, 2.5);
+  dir2.position.set(6, 4, 12); // Match camera position
+  dir2.target = new THREE.Object3D();
+  dir2.target.position.set(0, -0.6, 0); // Match camera lookAt
+  scene.add(dir2.target);
+  dir2.castShadow = false;
+  scene.add(dir2);
 
     // PostFX
     const composer = new EffectComposer(renderer);
@@ -868,7 +908,8 @@
     const frameSize = PHASE1_SPAN; // exactly Phase 1 Rubik cube span
     const frameThickness = frameSize * (0.06 / 2.2); // keep beam thickness ratio from reference
     const half = frameSize * 0.5;
-    const beamMat = new THREE.MeshPhysicalMaterial({ color: 0xffffff, metalness: 1.0, roughness: 0.2, envMapIntensity: 1.0 });
+  // const beamMat = new THREE.MeshPhysicalMaterial({ color: 0xffffff, metalness: 1.0, roughness: 0.2, envMapIntensity: 1.0 }); // original: white
+  const beamMat = new THREE.MeshPhysicalMaterial({ color: 0xFFD700, metalness: 1.0, roughness: 0.2, envMapIntensity: 1.0 }); // gold
     function beam(w,h,d,x,y,z){ const g=new THREE.BoxGeometry(w,h,d); const m=new THREE.Mesh(g, beamMat); m.position.set(x,y,z); frameGroup.add(m); }
     // 4 vertical
     beam(frameThickness, frameSize, frameThickness, -half, 0, -half);
@@ -1387,8 +1428,9 @@
       const tGlow = phase.id < 8 ? 0 : easeInOut(phaseProgress(g, PHASES[7].start, PHASES[7].end));
       bloomEnabled = (phase.id >= 8);
       if (bloomEnabled) {
-        bloomPass.enabled = true;
-        bloomPass.strength = THREE.MathUtils.lerp(0.0, 0.7, tGlow);
+  bloomPass.enabled = true;
+  // Reduced bloom strength for less glow bleed
+  bloomPass.strength = THREE.MathUtils.lerp(0.0, 0.18, tGlow);
       } else {
         bloomPass.enabled = false;
         bloomPass.strength = 0.0;
@@ -1432,6 +1474,13 @@
 
       // Phase 1 — Idle / Mouse Rotation
       if (phase.id === 1) {
+        // Set initial rotation for front-facing cube only once per Phase 1 entry
+        /*
+        if (typeof phase1InitialRotationSet === 'undefined' || lastPhaseId !== 1) {
+          root.rotation.set(-Math.PI/12, -Math.PI/4, 0); // Tilt top and turn front
+          phase1InitialRotationSet = true;
+        }
+        */
         const t = phaseProgress(g, phase.start, phase.end);
         if (mouseLabelEl) mouseLabelEl.style.display = 'none';
         largeGroup.visible = true; miniGroup.visible = false;
@@ -1447,9 +1496,9 @@
           p.position.lerp(targetPos, 0.25);
           if (p.material) {
             if (Array.isArray(p.material)) {
-              p.material.forEach(m => { if (m && m.color) m.color.set(0x00f0ff); if (m){ m.transparent=false; m.opacity=1.0; m.depthWrite=true; }});
+              p.material.forEach(m => { if (m){ m.transparent=false; m.opacity=1.0; m.depthWrite=true; }});
             } else {
-              if (p.material.color) p.material.color.set(0x00f0ff);
+              // Do not override color
               p.material.transparent = false;
               p.material.opacity = 1.0;
               p.material.depthWrite = true;
@@ -1477,11 +1526,12 @@
           const tAuto = perf.now * 0.001;
           const floatY = Math.sin(tAuto * 0.8) * (PHASE1_SPAN * 0.015);
           root.position.y = THREE.MathUtils.damp(root.position.y, floatY, 3, delta);
-          const rx = Math.sin(tAuto * 0.15) * 0.15;
-          const ry = Math.cos(tAuto * 0.12) * 0.22;
+          const rx = Math.sin(tAuto * 0.15) * 0.15 + 1;
+          const ry = Math.cos(tAuto * 0.12) * 0.22 + 3;
           root.rotation.x = THREE.MathUtils.damp(root.rotation.x, rx, 4, delta);
           root.rotation.y = THREE.MathUtils.damp(root.rotation.y, ry, 4, delta);
         }
+
         // strict handover: snapshot end-state once when phase completes
         if (!phase1AnchorSet && g >= phase.end - 1e-6) {
           phase1Anchor.largePositions = largePieces.map(p => p.position.clone());
@@ -1499,12 +1549,18 @@
         // Prepare on each entry using strict handover from current Phase 1 end
         if (!phase2Prepared) {
           phase2FromPositions = largePieces.map(p => p.position.clone());
+          
+          // if (phase1Anchor && phase1Anchor.rootRotation)
+//          root.rotation.x = phase1Anchor.rootRotation.x;
+//          root.rotation.y = phase1Anchor.rootRotation.y;
+          // else {
+          //   root.rotation.set(0, 0, 0);
+          // }
+          
           phase2Prepared = true;
         }
 
         const R = PHASE2_RADIUS;
-        // keep root rotation neutral during cloud
-        root.rotation.set(0, 0, 0);
 
         largePieces.forEach((p, i) => {
           const dir = largeDirs[i];
@@ -1513,9 +1569,9 @@
           p.position.copy(from.clone().lerp(target, t));
           if (p.material) {
             if (Array.isArray(p.material)) {
-              p.material.forEach(m => { if (m && m.color) m.color.set(0x00f0ff); if (m){ m.transparent=false; m.opacity=1.0; m.depthWrite=true; }});
+              p.material.forEach(m => { if (m){ m.transparent=false; m.opacity=1.0; m.depthWrite=true; }});
             } else {
-              if (p.material.color) p.material.color.set(0x00f0ff);
+              // Do not override color
               p.material.transparent = false;
               p.material.opacity = 1.0;
               p.material.depthWrite = true;
@@ -1577,9 +1633,9 @@
           p.position.set(base.x, base.y + hover, base.z);
           if (p.material) {
             if (Array.isArray(p.material)) {
-              p.material.forEach(m => { if (m && m.color) m.color.set(0x00f0ff); if (m){ m.transparent=true; m.opacity=THREE.MathUtils.lerp(1.0, 0.8, t3); }});
+              p.material.forEach(m => { if (m){ m.transparent=true; m.opacity=THREE.MathUtils.lerp(1.0, 0.8, t3); }});
             } else {
-              if (p.material.color) p.material.color.set(0x00f0ff);
+              // Do not override color
               p.material.transparent = true;
               p.material.opacity = THREE.MathUtils.lerp(1.0, 0.8, t3);
             }
@@ -1758,7 +1814,8 @@
 
         // ===== COLOR TRANSITION SYSTEM =====
         const fromColor = new THREE.Color(0x0066CC); // Blue (matches initial mini-cube color)
-        const toColor = new THREE.Color(0xC084FC);   // Purple
+  // const toColor = new THREE.Color(0xC084FC);   // Purple (original)
+  const toColor = new THREE.Color(0x6B21A8);   // Darker purple
         const up = new THREE.Vector3(0,1,0); // Up vector for hover
 
         miniCubes.forEach((m, idx) => {
@@ -1783,6 +1840,7 @@
                   mat.color.lerpColors(fromColor, toColor, p); // Smooth color transition
 
                   // ===== GLOW EFFECT SYSTEM =====
+                  /*
                   // Different approaches for different material types
                   if (!('emissive' in mat)) {
                     // MeshBasicMaterial: Use transparency for glow-like effect
@@ -1796,6 +1854,7 @@
                     mat.emissive.lerpColors(new THREE.Color(0x000000), emissiveTarget, p);
                     mat.emissiveIntensity = THREE.MathUtils.lerp(0.0, 0.75, p); // Glow intensity
                   }
+                  */
                 }
               });
             }
@@ -1855,11 +1914,11 @@
         }
         // Enable subtle glow already in Phase 8 to avoid pop in Phase 9
         if (beamMat && 'emissive' in beamMat) {
-          beamMat.emissive = new THREE.Color(0xC084FC);
+          beamMat.emissive = new THREE.Color(0xFFFFFF); // White color for frame
           beamMat.emissiveIntensity = 0.6 + 0.3 * t8;
         }
         if (coreSphere.material && 'emissive' in coreSphere.material) {
-          coreSphere.material.emissive = new THREE.Color(0xC084FC);
+          coreSphere.material.emissive = new THREE.Color(0xBC9D00); // Soft gold color for core
           coreSphere.material.emissiveIntensity = 0.8 + 0.4 * t8;
         }
         if (!phase8Prepared) {
@@ -1878,7 +1937,7 @@
           m.scale.lerp(targetS, 0.4);
           m.traverse(o => {
             if (o.isMesh && o.material && 'emissiveIntensity' in o.material) {
-              o.material.emissive = new THREE.Color(0xC084FC);
+              o.material.emissive = new THREE.Color(0x4F049A); // deep purple
               o.material.emissiveIntensity = 0.2 + 0.2 * t8;
             }
           });
@@ -1912,27 +1971,33 @@
         coreLight.intensity = 3.2;
         // Make frame and core sphere glow (emissive) in final phase
         if (beamMat && 'emissive' in beamMat) {
-          beamMat.emissive = new THREE.Color(0xC084FC);
+          beamMat.emissive = new THREE.Color(0xFFFFFF); // White color for frame
           beamMat.emissiveIntensity = 1.0;
         }
         if (coreSphere.material && 'emissive' in coreSphere.material) {
-          coreSphere.material.emissive = new THREE.Color(0xC084FC);
-          coreSphere.material.emissiveIntensity = 1.4;
+          coreSphere.material.emissive = new THREE.Color(0xBC9D00); // Soft gold color for core
+          // Reduced emissive intensity for less glow
+          coreSphere.material.emissiveIntensity = 0.9;
         }
         miniCubes.forEach((m, idx) => {
           const ft = sculpturePos[idx];
           m.position.lerp(ft, 0.2);
           m.quaternion.slerp(sculptureQuat[idx], 0.15);
           m.scale.lerp(sculptureScale[idx], 0.15);
+          
           m.traverse(o => {
             if (o.isMesh && o.material && 'emissiveIntensity' in o.material) {
-              o.material.emissive = new THREE.Color(0xC084FC);
-              o.material.emissiveIntensity = 0.35;
+              o.material.emissive = new THREE.Color(0x4F049A); // purple glow
+              o.material.emissiveIntensity = 0.9;
             }
           });
+          
         });
         // purple fills only
-        setCubeFillColor(miniGroup, 0xC084FC);
+  // setCubeFillColor(miniGroup, 0xC084FC); // original: light purple
+  // setCubeFillColor(miniGroup, 0x6B21A8); // previous: dark purple
+  // setCubeFillColor(miniGroup, 0x4B0082); // previous: even darker purple
+  setCubeFillColor(miniGroup, 0x500050); // final: vivid dark purple (#8A008A)
       } else if (phase.id === 4 || phase.id === 5) {
         // During transform and expand, match minis to blue color
         setCubeFillColor(miniGroup, 0x0066CC);
