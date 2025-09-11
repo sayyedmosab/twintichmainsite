@@ -45,11 +45,17 @@ const Header: React.FC = () => {
   const isSketchAppPage = pathname.startsWith('/sketchapp');
   const isAuraPage = pathname.startsWith('/aura');
   const isWeatherMapPage = pathname.startsWith('/weathermap');
+  const isTwinLabPage = pathname.startsWith('/twinlab');
   
   let logoSrc = '/images/aittlogo.png';
   let logoAlt = 'AI Twin Tech';
+  let showTwinLabTitle = false;
   
-  if (isJosoorPage) {
+  if (isTwinLabPage) {
+    logoSrc = '/assets/cosmic/twinlab-logo.png';
+    logoAlt = 'TwinLab';
+    showTwinLabTitle = true;
+  } else if (isJosoorPage) {
     logoSrc = '/images/josoorlogo.png';
     logoAlt = 'Josoor';
   } else if (isSketchAppPage) {
@@ -67,12 +73,22 @@ const Header: React.FC = () => {
     <header className="shadow-md sticky top-0 z-50 text-white" style={{ backgroundColor: '#00122d' }}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          <Link to="/" className="flex items-center">
-            <img 
-              src={logoSrc}
-              alt={logoAlt}
-              className="h-12 w-auto"
-            />
+          <Link to="/" className="flex items-center gap-4">
+            <div className="relative">
+              <img 
+                src={logoSrc}
+                alt={logoAlt}
+                className="h-12 w-auto"
+              />
+              {showTwinLabTitle && (
+                <div className="absolute inset-0 bg-cyan-400/20 rounded-full blur-lg animate-pulse" />
+              )}
+            </div>
+            {showTwinLabTitle && (
+              <h1 className="text-2xl font-allerta text-white tracking-wider">
+                TwinLab - The Future, Ready Today
+              </h1>
+            )}
           </Link>
           <div className="hidden md:flex items-center space-x-8">
             <nav className="flex items-center space-x-6">

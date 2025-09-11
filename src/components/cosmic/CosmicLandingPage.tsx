@@ -365,51 +365,33 @@ export function CosmicLandingPage({
         <div className="absolute inset-0 bg-black/30" />
       </div>
 
-      {/* TOP ROW - Fixed header */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/80 via-black/40 to-transparent">
-        <header className="pt-8 pb-8">
-          <div className="max-w-7xl mx-auto px-8">
-            <div className="flex items-center justify-center mb-8">
-              <div className="flex items-center gap-4">
-                <div className="relative">
-                  <img
-                    src={twinLabLogo}
-                    alt="TwinLab Logo"
-                    className="w-12 h-12 object-contain filter brightness-110"
-                  />
-                  <div className="absolute inset-0 bg-cyan-400/20 rounded-full blur-lg animate-pulse" />
-                </div>
-                <h1 className="text-4xl font-allerta text-white tracking-wider">
-                  TwinLab - The Future, Ready Today
-                </h1>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-center gap-6">
-              <button
-                onClick={onLoginClick}
-                className="px-8 py-3 border-2 border-white/30 text-white hover:border-white/60 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm font-inter"
-              >
-                LOGIN / REGISTER
-              </button>
-              <button
-                onClick={onLoginClick}
-                className="px-8 py-3 border-2 border-white/30 text-white hover:border-white/60 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm font-inter"
-              >
-                CONTRIBUTE KNOWLEDGE
-              </button>
-            </div>
+      {/* TOP ROW - Just buttons for now, title moved to main header */}
+      <div className="fixed top-16 left-0 right-0 z-100 bg-gradient-to-b from-black/40 via-transparent to-transparent">
+        <div className="pt-4 pb-4">
+          <div className="flex items-center justify-center gap-6">
+            <button
+              onClick={onLoginClick}
+              className="px-8 py-3 border-2 border-white/30 text-white hover:border-white/60 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm font-inter"
+            >
+              LOGIN / REGISTER
+            </button>
+            <button
+              onClick={onLoginClick}
+              className="px-8 py-3 border-2 border-white/30 text-white hover:border-white/60 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm font-inter"
+            >
+              CONTRIBUTE KNOWLEDGE
+            </button>
           </div>
-        </header>
+        </div>
       </div>
 
       {/* MIDDLE ROW - Fixed constellation area contained within frame */}
-      <div className="fixed left-0 right-0 z-30" style={{ top: '200px', bottom: '120px' }}>
+      <div className="fixed left-0 right-0 z-10" style={{ top: '140px', bottom: '120px', overflow: 'hidden' }}>
         <div className="relative w-full h-full flex items-center justify-center">
           {/* Rotating HUD - Centered in middle frame only */}
           <div className="absolute inset-0 flex items-center justify-center">
             <motion.div
-              className="relative z-20"
+              className="relative z-12"
               animate={{ rotate: [0, 360] }}
               transition={{
                 rotate: {
@@ -451,7 +433,7 @@ export function CosmicLandingPage({
         )}
 
       {/* BOTTOM ROW - Fixed footer */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+      <div className="fixed bottom-0 left-0 right-0 z-100 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
         <div className="pb-8 pt-8">
           <div className="max-w-7xl mx-auto px-8">
             <div className="text-center">
