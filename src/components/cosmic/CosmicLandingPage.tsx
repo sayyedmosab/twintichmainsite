@@ -263,62 +263,25 @@ export function CosmicLandingPage({
             <motion.div
               className="w-48 h-48 relative rounded-full"
               style={{
-                transformStyle: "preserve-3d",
-                transform: "rotateX(5deg) rotateY(-5deg)",
-                background: `linear-gradient(145deg, ${domain.backgroundColor.replace('linear-gradient(135deg,', '').replace(')', '')})`,
-                boxShadow: `
-                  0 25px 50px -12px rgba(0, 0, 0, 0.4),
-                  inset 0 1px 0 rgba(255, 255, 255, 0.2),
-                  0 0 30px rgba(139, 92, 246, 0.3)
-                `,
-                border: "3px solid rgba(255, 255, 255, 0.1)",
+                border: "6px solid white",
+                boxShadow: "0 8px 25px rgba(0, 0, 0, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.8), inset 0 -2px 0 rgba(0, 0, 0, 0.2)",
+                background: "linear-gradient(145deg, #8B5CF6 0%, #7C3AED 30%, #6D28D9 60%, #5B21B6 100%)",
               }}
-              whileHover={{ 
-                scale: 1.05,
-                rotateX: 8,
-                rotateY: -8,
-                boxShadow: `
-                  0 35px 60px -12px rgba(0, 0, 0, 0.5),
-                  inset 0 1px 0 rgba(255, 255, 255, 0.3),
-                  0 0 40px rgba(139, 92, 246, 0.5)
-                `
-              }}
+              whileHover={{ scale: 1.05 }}
               transition={{
-                duration: 0.3,
+                duration: 0.2,
                 ease: "easeInOut",
-                delay: index * 0.1,
+                delay: index * 0.7,
               }}
             >
-              {/* Glass overlay effect */}
-              <div 
-                className="absolute inset-0 rounded-full"
-                style={{
-                  background: "linear-gradient(145deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 50%, rgba(0,0,0,0.1) 100%)",
-                  backdropFilter: "blur(1px)",
-                }}
-              />
-              
-              {/* Icon container */}
-              <div className="absolute inset-4 flex items-center justify-center">
-                <ImageWithFallback
-                  src={domain.image}
-                  alt={domain.title}
-                  className="w-full h-full object-contain opacity-90 drop-shadow-lg"
-                  style={{
-                    filter: "drop-shadow(0 4px 8px rgba(0,0,0,0.3))"
-                  }}
-                />
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center bg-black/20 rounded-full">
+                <h3 className="text-xl font-bold text-white/90 tracking-wide mb-2">
+                  {domain.title}
+                </h3>
+                <p className="text-sm text-white/80 px-4 leading-tight">
+                  {domain.subtitle}
+                </p>
               </div>
-              
-              {/* Subtle glow ring */}
-              <div 
-                className="absolute inset-0 rounded-full"
-                style={{
-                  background: "conic-gradient(from 0deg, rgba(139, 92, 246, 0.3), rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3))",
-                  mask: "radial-gradient(circle, transparent 85%, black 87%, transparent 89%)",
-                  WebkitMask: "radial-gradient(circle, transparent 85%, black 87%, transparent 89%)",
-                }}
-              />
             </motion.div>
 
             {domain.episodes.map((episode, episodeIndex) => {
@@ -388,7 +351,6 @@ export function CosmicLandingPage({
                             : "0 1px 4px rgba(124, 58, 237, 0.2)",
                         }}
                       >
-                        {faceIndex === 0 ? episodeIndex + 1 : ''}
                       </div>
                     ))}
                   </div>
