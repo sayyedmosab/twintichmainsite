@@ -365,28 +365,8 @@ export function CosmicLandingPage({
         <div className="absolute inset-0 bg-black/30" />
       </div>
 
-      {/* TOP ROW - Just buttons for now, title moved to main header */}
-      <div className="fixed top-16 left-0 right-0 z-100 bg-gradient-to-b from-black/40 via-transparent to-transparent">
-        <div className="pt-4 pb-4">
-          <div className="flex items-center justify-center gap-6">
-            <button
-              onClick={onLoginClick}
-              className="px-8 py-3 border-2 border-white/30 text-white hover:border-white/60 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm font-inter"
-            >
-              LOGIN / REGISTER
-            </button>
-            <button
-              onClick={onLoginClick}
-              className="px-8 py-3 border-2 border-white/30 text-white hover:border-white/60 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm font-inter"
-            >
-              CONTRIBUTE KNOWLEDGE
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* MIDDLE ROW - Fixed constellation area contained within frame */}
-      <div className="fixed left-0 right-0 z-10" style={{ top: '140px', bottom: '120px', overflow: 'hidden' }}>
+      {/* CONSTELLATION AREA - Full space between header and footer */}
+      <div className="fixed left-0 right-0 z-10" style={{ top: '80px', bottom: '80px', overflow: 'hidden' }}>
         <div className="relative w-full h-full flex items-center justify-center">
           {/* Rotating HUD - Centered in middle frame only */}
           <div className="absolute inset-0 flex items-center justify-center">
@@ -433,18 +413,11 @@ export function CosmicLandingPage({
         )}
 
       {/* BOTTOM ROW - Fixed footer */}
-      <div className="fixed bottom-0 left-0 right-0 z-100 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
-        <div className="pb-8 pt-8">
-          <div className="max-w-7xl mx-auto px-8">
-            <div className="text-center">
-              <h2 className="text-2xl font-inter text-white/90 mb-2">
-                EXPLORE THE UNIVERSE OF DIGITAL TWIN KNOWLEDGE
-              </h2>
-              <p className="text-lg text-white/70 font-inter">
-                Navigate. Learn. Contribute.
-              </p>
-            </div>
-          </div>
+      <div className="fixed bottom-8 left-0 right-0 z-100">
+        <div className="flex items-center justify-center">
+          <h2 className="text-2xl font-inter text-white/90 text-center">
+            Shape the Future - Learn. Share. Grow.
+          </h2>
         </div>
       </div>
 

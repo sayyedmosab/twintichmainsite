@@ -145,7 +145,7 @@ export function SphereCanvas({ color, size }: SphereCanvasProps) {
         <div 
             style={{
                 position: 'fixed',
-                top: 'calc(200px + (100vh - 200px - 120px) / 2)', // Centered within middle section
+                top: 'calc(80px + (100vh - 80px - 80px) / 2)', // Centered within constellation area
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
                 width: '140px',

@@ -132,6 +132,16 @@ const Header: React.FC = () => {
               })}
             </nav>
             <div className="flex items-center space-x-4">
+              {/* TwinLab Login Button */}
+              {isTwinLabPage && (
+                <button
+                  onClick={() => navigate('/login')}
+                  className="px-6 py-2 border-2 border-white/30 text-white hover:border-white/60 hover:bg-white/10 transition-all duration-300 backdrop-blur-sm rounded-md"
+                >
+                  LOGIN / REGISTER
+                </button>
+              )}
+              
               {/* Language Toggle */}
               <button
                 onClick={() => setLanguage(language === 'EN' ? 'AR' : 'EN')}
