@@ -404,58 +404,40 @@ export function CosmicLandingPage({
         </header>
       </div>
 
-      {/* MIDDLE ROW - Fixed constellation area */}
-      <div className="fixed inset-0 z-30" style={{ top: '200px', bottom: '120px' }}>
+      {/* MIDDLE ROW - Fixed constellation area contained within frame */}
+      <div className="fixed left-0 right-0 z-30" style={{ top: '200px', bottom: '120px' }}>
         <div className="relative w-full h-full flex items-center justify-center">
-          <div className="relative w-full max-w-4xl mx-auto px-8">
-            {/* Rotating HUD - Isolated */}
-            <div
-              className="flex items-center justify-center"
-              style={{
-                position: "absolute",
-                zIndex: 20,
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
+          {/* Rotating HUD - Centered in middle frame only */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <motion.div
+              className="relative z-20"
+              animate={{ rotate: [0, 360] }}
+              transition={{
+                rotate: {
+                  duration: 60,
+                  repeat: Infinity,
+                  ease: "linear",
+                },
               }}
             >
-              <motion.div
-                className="relative z-20"
-                animate={{ rotate: [0, 360] }}
-                transition={{
-                  rotate: {
-                    duration: 60,
-                    repeat: Infinity,
-                    ease: "linear",
-                  },
-                }}
-              >
-                <div className="relative">
-                  <ImageWithFallback
-                    src={centralHUD}
-                    alt="Central HUD Interface"
-                    className="object-contain border-none outline-none w-auto h-auto"
-                    style={{
-                      imageRendering: "crisp-edges",
-                      transform: "scale(0.73)",
-                      transformOrigin: "center center",
-                    }}
-                  />
-                </div>
-              </motion.div>
-            </div>
+              <div className="relative">
+                <ImageWithFallback
+                  src={centralHUD}
+                  alt="Central HUD Interface"
+                  className="object-contain border-none outline-none w-auto h-auto"
+                  style={{
+                    imageRendering: "crisp-edges",
+                    transform: "scale(0.73)",
+                    transformOrigin: "center center",
+                  }}
+                />
+              </div>
+            </motion.div>
+          </div>
 
-            {/* Stationary Domain Elements - Separate Container */}
-            <div
-              className="flex items-center justify-center"
-              style={{
-                position: "absolute",
-                zIndex: 19,
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-              }}
-            >
+          {/* Stationary Domain Elements - Centered in middle frame only */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="relative">
               {domainElements}
             </div>
           </div>
