@@ -264,8 +264,8 @@ export function CosmicLandingPage({
               className="w-48 h-48 relative rounded-full"
               style={{
                 border: "6px solid white",
-                boxShadow: "0 8px 25px rgba(0, 0, 0, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.8), inset 0 -2px 0 rgba(0, 0, 0, 0.2)",
-                background: "linear-gradient(145deg, #8B5CF6 0%, #7C3AED 30%, #6D28D9 60%, #5B21B6 100%)",
+                boxShadow: "0 8px 25px rgba(0, 0, 0, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.6), inset 0 -2px 0 rgba(0, 0, 0, 0.2)",
+                backgroundColor: "var(--sphere-base)",
               }}
               whileHover={{ scale: 1.05 }}
               transition={{
@@ -274,7 +274,7 @@ export function CosmicLandingPage({
                 delay: index * 0.7,
               }}
             >
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-center bg-black/20 rounded-full">
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center rounded-full">
                 <h3 className="text-xl font-bold text-white/90 tracking-wide mb-2">
                   {domain.title}
                 </h3>
@@ -340,11 +340,11 @@ export function CosmicLandingPage({
                         key={face.name}
                         className="absolute w-8 h-8 flex items-center justify-center text-xs font-bold text-white border border-white/30"
                         style={{
-                          background: "linear-gradient(145deg, #8B5CF6 0%, #7C3AED 30%, #6D28D9 60%, #5B21B6 100%)",
+                          backgroundColor: "var(--sphere-base)",
                           transform: face.transform,
                           boxShadow: faceIndex === 0 
-                            ? "0 2px 8px rgba(124, 58, 237, 0.4)"
-                            : "0 1px 4px rgba(124, 58, 237, 0.2)",
+                            ? "0 2px 8px rgba(0, 0, 0, 0.35)"
+                            : "0 1px 4px rgba(0, 0, 0, 0.2)",
                         }}
                       >
                         {faceIndex === 0 ? episodeIndex + 1 : ''}
@@ -361,7 +361,7 @@ export function CosmicLandingPage({
   );
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden" style={{"--sphere-base": sphereColor}}>
       {/* Background */}
       <div className="fixed inset-0 z-0">
         <img
