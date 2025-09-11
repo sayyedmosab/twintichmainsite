@@ -8,13 +8,7 @@ import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { SphereCanvas } from "./SphereCanvas";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
+// Removed unused Select imports
 import * as THREE from "three";
 
 // Import assets
