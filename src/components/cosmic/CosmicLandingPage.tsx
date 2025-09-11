@@ -340,17 +340,14 @@ export function CosmicLandingPage({
                         key={face.name}
                         className="absolute w-8 h-8 flex items-center justify-center text-xs font-bold text-white border border-white/30"
                         style={{
-                          background: faceIndex === 0 
-                            ? "linear-gradient(45deg, #7C3AED 0%, #8B5CF6 50%, #A855F7 100%)"
-                            : faceIndex < 4 
-                            ? "linear-gradient(45deg, #5B21B6 0%, #7C3AED 50%, #8B5CF6 100%)"
-                            : "linear-gradient(45deg, #4C1D95 0%, #5B21B6 50%, #7C3AED 100%)",
+                          background: "linear-gradient(145deg, #8B5CF6 0%, #7C3AED 30%, #6D28D9 60%, #5B21B6 100%)",
                           transform: face.transform,
                           boxShadow: faceIndex === 0 
                             ? "0 2px 8px rgba(124, 58, 237, 0.4)"
                             : "0 1px 4px rgba(124, 58, 237, 0.2)",
                         }}
                       >
+                        {faceIndex === 0 ? episodeIndex + 1 : ''}
                       </div>
                     ))}
                   </div>
