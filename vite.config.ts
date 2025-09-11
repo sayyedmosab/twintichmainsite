@@ -7,9 +7,13 @@ export default defineConfig({
     port: 5000,
     host: '0.0.0.0',
     strictPort: true,
+    allowedHosts: true, // Allow any host for Replit preview
     hmr: {
       overlay: false
     }
+  },
+  preview: {
+    allowedHosts: true // Also needed for preview mode
   },
   resolve: {
     alias: {
