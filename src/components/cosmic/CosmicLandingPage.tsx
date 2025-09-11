@@ -18,7 +18,7 @@ const urbanFabricIcon = "/assets/cosmic/chapter1-icon.svg";
 const futureCitiesIcon = "/assets/cosmic/chapter2-icon.svg";
 const buildingLifecycleIcon = "/assets/cosmic/chapter3-icon.svg";
 const infrastructureIcon = "/assets/cosmic/chapter4-icon.svg";
-const twinLabLogo = "/assets/cosmic/twinlab-logo.svg";
+const twinLabLogo = "/assets/cosmic/twinlab-logo.png";
 
 const sphereColorPalette = [
   { name: "Dark Gray", value: "#404040" },
