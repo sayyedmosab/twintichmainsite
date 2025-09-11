@@ -45,8 +45,7 @@ const contentTypes = [
 const CUBE_FACE_Z_TRANSLATE = 192;
 const DOMAIN_CIRCLE_WIDTH = 192;
 const DOMAIN_SPACING_MULTIPLIER = 0.4;
-const DOMAIN_RADIUS_BASE = 280;
-const DOMAIN_Y_RADIUS_MULTIPLIER = 0.7;
+const DOMAIN_RADIUS_BASE = 320; // Fixed radius for all circles - just outside HUD edge
 const EPISODE_CUBE_RADIUS = 120;
 const EPISODE_CUBE_ANGLES = [225, 315, 45, 135]; // Start top-left, go clockwise
 const MOUSE_ROTATION_SENSITIVITY = 0.5;
@@ -99,7 +98,7 @@ export function CosmicLandingPage({
         title: "CHAPTER 1",
         subtitle: "The Mechanics of Transformation",
         image: urbanFabricIcon,
-        angle: 225,
+        angle: 225, // Bottom-left corner
         backgroundColor:
           "linear-gradient(135deg, #8B5CF6 0%, #A855F7 50%, #9333EA 100%)",
         episodes: [
@@ -130,7 +129,7 @@ export function CosmicLandingPage({
         title: "CHAPTER 2",
         subtitle: "The Architectural Blueprint in Practice",
         image: futureCitiesIcon,
-        angle: 315,
+        angle: 315, // Bottom-right corner
         backgroundColor:
           "linear-gradient(135deg, #06B6D4 0%, #0891B2 50%, #0E7490 100%)",
         episodes: [
@@ -161,7 +160,7 @@ export function CosmicLandingPage({
         title: "CHAPTER 3",
         subtitle: "The Management Operating System",
         image: buildingLifecycleIcon,
-        angle: 45,
+        angle: 45, // Top-right corner
         backgroundColor:
           "linear-gradient(135deg, #10B981 0%, #059669 50%, #047857 100%)",
         episodes: [
@@ -192,7 +191,7 @@ export function CosmicLandingPage({
         title: "CHAPTER 4",
         subtitle: "An Open-Source Toolkit for Your First 90 Days",
         image: infrastructureIcon,
-        angle: 135,
+        angle: 135, // Top-left corner
         backgroundColor:
           "linear-gradient(135deg, #F59E0B 0%, #D97706 50%, #B45309 100%)",
         episodes: [
@@ -247,9 +246,9 @@ export function CosmicLandingPage({
     () =>
       knowledgeDomains.map((domain, index) => {
         const angle = (domain.angle * Math.PI) / 180;
-        const radius = DOMAIN_RADIUS_BASE + index * 20;
+        const radius = DOMAIN_RADIUS_BASE; // Same distance for all circles
         const x = Math.cos(angle) * radius;
-        const y = Math.sin(angle) * radius * DOMAIN_Y_RADIUS_MULTIPLIER;
+        const y = Math.sin(angle) * radius; // No Y multiplier - perfect circle positioning
 
         return (
           <motion.div
