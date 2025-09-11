@@ -25,7 +25,7 @@ const navLinks: NavLinkType[] = [
   { id: 1, text: 'Home', href: '/', icon: Home },
   { id: 2, text: 'About', href: '/about', icon: BookOpen },
   { id: 3, text: 'Roadmap', href: '/roadmap', icon: Target },
-  { id: 4, text: 'The Deep', href: '/forum', icon: MessageSquare },
+  { id: 4, text: 'TwinLab', href: '/twinlab', icon: MessageSquare },
 ];
 
 const Header: React.FC = () => {
