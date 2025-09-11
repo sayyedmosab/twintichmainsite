@@ -435,9 +435,9 @@ export function CosmicLandingPage({
 
       {/* Selected Cube Modal */}
       {selectedCube && (
-        <div className="fixed inset-0 z-60 flex items-center justify-center">
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center">
           <div
-            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/80 backdrop-blur-md"
             onClick={() => setSelectedCube(null)}
           />
 
