@@ -12,7 +12,7 @@ import { SphereCanvas } from "./SphereCanvas";
 import * as THREE from "three";
 
 // Import assets
-const cosmicBackground = "/assets/cosmic/cosmic-background.svg";
+const cosmicBackground = "/assets/cosmic/cosmic-background.png";
 const centralHUD = "/assets/cosmic/central-hud.png";
 const urbanFabricIcon = "/assets/cosmic/chapter1-icon.svg";
 const futureCitiesIcon = "/assets/cosmic/chapter2-icon.svg";
@@ -104,28 +104,24 @@ export function CosmicLandingPage({
           "linear-gradient(135deg, #8B5CF6 0%, #A855F7 50%, #9333EA 100%)",
         episodes: [
           {
-            id: "ep1-1",
-            title: "What is an Organizational Transformation?",
-            description:
-              "Defines transformation as a fundamental re-engineering of an organization's core logic to meet a new strategic ambition that exceeds its current capacity.",
+            id: "episode-1-1",
+            title: "Understanding Digital Twin Foundations",
+            description: "Core concepts and principles of digital twin technology",
           },
           {
-            id: "ep1-2",
-            title: "What is a Sector Transformation?",
-            description:
-              "Elevates the transformation challenge from a single entity to an entire ecosystem. It redesigns how value flows across multiple, interdependent organizations.",
+            id: "episode-1-2",
+            title: "Data Integration Strategies",
+            description: "How to effectively collect and organize data for digital twins",
           },
           {
-            id: "ep1-3",
-            title: "What is the People Transformation?",
-            description:
-              "Addresses the human and political resistance inherent in public sector reform. Acknowledging that a perfect plan can be derailed by cultural inertia.",
+            id: "episode-1-3",
+            title: "Real-time Synchronization",
+            description: "Keeping your digital twin updated with physical reality",
           },
           {
-            id: "ep1-4",
-            title: "The Entangled Transformation Battleground",
-            description:
-              'Introduces "entangled" transformations where multiple entities must change simultaneously. Presents the Complexity Index (CI) as a risk assessment tool.',
+            id: "episode-1-4",
+            title: "Performance Optimization",
+            description: "Making your digital twin efficient and responsive",
           },
         ],
       },
@@ -136,31 +132,27 @@ export function CosmicLandingPage({
         image: futureCitiesIcon,
         angle: 315,
         backgroundColor:
-          "linear-gradient(135deg, #7C3AED 0%, #8B5CF6 50%, #7C2D12 100%)",
+          "linear-gradient(135deg, #06B6D4 0%, #0891B2 50%, #0E7490 100%)",
         episodes: [
           {
-            id: "ep2-1",
-            title: "Strategic Performance (KPIs)",
-            description:
-              'Explains how to create a "golden thread" from a high-level national objective (L0) down to a frontline process metric (L3).',
+            id: "episode-2-1",
+            title: "System Architecture Design",
+            description: "Building scalable digital twin architectures",
           },
           {
-            id: "ep2-2",
-            title: "Portfolios & Initiatives",
-            description:
-              "Defines the portfolio as the control system that translates strategy into funded work with direct links to strategic KPIs.",
+            id: "episode-2-2",
+            title: "Integration Patterns",
+            description: "Common patterns for connecting systems and data sources",
           },
           {
-            id: "ep2-3",
-            title: "Process Architecture",
-            description:
-              "Establishes that strategy is executed through processes. Defining L3 executable processes and linking them to owners and metrics.",
+            id: "episode-2-3",
+            title: "Security and Compliance",
+            description: "Protecting your digital twin infrastructure",
           },
           {
-            id: "ep2-4",
-            title: "Organizational Design",
-            description:
-              "Frames organizational structure as the backbone of accountability. A dynamic structure where every role maps to specific L3 processes and KPIs.",
+            id: "episode-2-4",
+            title: "Deployment Strategies",
+            description: "Moving from development to production environments",
           },
         ],
       },
@@ -171,69 +163,58 @@ export function CosmicLandingPage({
         image: buildingLifecycleIcon,
         angle: 45,
         backgroundColor:
-          "linear-gradient(135deg, #6D28D9 0%, #7C3AED 50%, #5B21B6 100%)",
+          "linear-gradient(135deg, #10B981 0%, #059669 50%, #047857 100%)",
         episodes: [
           {
-            id: "ep3-1",
-            title: "The Integrated Governance",
-            description:
-              'Defines governance as the decision-making "operating system" that integrates strategy, execution (PMO), and operations through structured reviews.',
+            id: "episode-3-1",
+            title: "Governance Frameworks",
+            description: "Establishing proper governance for digital twin projects",
           },
           {
-            id: "ep3-2",
-            title: "The Delivery Engine",
-            description:
-              "Outlines the dual disciplines of Value Assurance (Program Management) and Delivery Assurance (Project Management) that execute governance decisions.",
+            id: "episode-3-2",
+            title: "Team Collaboration",
+            description: "Managing cross-functional teams in digital twin development",
           },
           {
-            id: "ep3-3",
-            title: "Change Architecture",
-            description:
-              "Presents Change Architecture as the discipline for mitigating adoption risk by integrating human readiness activities with technical deliverables.",
+            id: "episode-3-3",
+            title: "Process Optimization",
+            description: "Streamlining workflows and improving efficiency",
           },
           {
-            id: "ep3-4",
-            title: "The Enablers",
-            description:
-              "Describes foundational capabilities required for sustainable transformation: Digital Support, Corporate Knowledge Management, and talent culture.",
+            id: "episode-3-4",
+            title: "Change Management",
+            description: "Handling updates and evolution in digital twin systems",
           },
         ],
       },
       {
         id: "chapter-4",
         title: "CHAPTER 4",
-        subtitle:
-          "An Open-Source Toolkit for Your First 90 Days",
+        subtitle: "An Open-Source Toolkit for Your First 90 Days",
         image: infrastructureIcon,
         angle: 135,
         backgroundColor:
-          "linear-gradient(135deg, #5B21B6 0%, #6D28D9 50%, #4C1D95 100%)",
+          "linear-gradient(135deg, #F59E0B 0%, #D97706 50%, #B45309 100%)",
         episodes: [
           {
-            id: "ep4-1",
-            title: "Day 1-15: Diagnose Your Starting Point",
-            description:
-              "Using the Public Sector Complexity Index (CI) to assess your transformation readiness and identify key risk factors.",
+            id: "episode-4-1",
+            title: "Quick Start Guide",
+            description: "Get your first digital twin up and running",
           },
           {
-            id: "ep4-2",
-            title:
-              "Day 16-60: Architect Your First Golden Thread",
-            description:
-              "Using the open source DTO Entity-Relationship Diagram (ERD) to create your strategic alignment framework.",
+            id: "episode-4-2",
+            title: "Essential Tools and Libraries",
+            description: "Open-source tools to accelerate development",
           },
           {
-            id: "ep4-3",
-            title:
-              "Day 61-90: Launch Your First GenAI-powered Use Case",
-            description:
-              "Implementing your first AI-powered transformation use case to demonstrate value and build momentum for broader adoption.",
+            id: "episode-4-3",
+            title: "Best Practices Checklist",
+            description: "Proven practices for successful implementation",
           },
           {
-            id: "ep4-4",
-            title: "Beyond 90 Days: Scale and Sustain",
-            description:
-              "Strategies for scaling successful transformation initiatives and building sustainable change management capabilities across the organization.",
+            id: "episode-4-4",
+            title: "Community Resources",
+            description: "Connecting with the digital twin community",
           },
         ],
       },
@@ -242,28 +223,20 @@ export function CosmicLandingPage({
     setKnowledgeDomains(knowledgeDomainsData);
   }, []);
 
-  const handleCubeMouseDown = (
-    e: React.MouseEvent<HTMLDivElement>,
-  ) => {
+  const handleCubeMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     const startX = e.clientX;
-    const startRotation = rotationRef.current;
+    let currentRotation = cubeRotation;
 
     const handleMouseMove = (moveEvent: MouseEvent) => {
       const deltaX = moveEvent.clientX - startX;
-      const newRotation =
-        startRotation + deltaX * MOUSE_ROTATION_SENSITIVITY;
-      rotationRef.current = newRotation;
-      setCubeRotation(newRotation); // Update immediately during drag
+      const rotationDelta = deltaX * MOUSE_ROTATION_SENSITIVITY;
+      setCubeRotation(currentRotation + rotationDelta);
     };
 
     const handleMouseUp = () => {
-      document.removeEventListener(
-        "mousemove",
-        handleMouseMove,
-      );
+      document.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseup", handleMouseUp);
-      // No need to cancel animationFrame since we're not using continuous animation
     };
 
     document.addEventListener("mousemove", handleMouseMove);
@@ -273,15 +246,10 @@ export function CosmicLandingPage({
   const domainElements = useMemo(
     () =>
       knowledgeDomains.map((domain, index) => {
-        const spacing =
-          DOMAIN_CIRCLE_WIDTH * DOMAIN_SPACING_MULTIPLIER;
-        const radius = DOMAIN_RADIUS_BASE + spacing;
-        const angleRad = (domain.angle * Math.PI) / 180;
-        const x = Math.cos(angleRad) * radius;
-        const y =
-          Math.sin(angleRad) *
-          radius *
-          DOMAIN_Y_RADIUS_MULTIPLIER;
+        const angle = (domain.angle * Math.PI) / 180;
+        const radius = DOMAIN_RADIUS_BASE + index * 20;
+        const x = Math.cos(angle) * radius;
+        const y = Math.sin(angle) * radius * DOMAIN_Y_RADIUS_MULTIPLIER;
 
         return (
           <motion.div
@@ -314,74 +282,67 @@ export function CosmicLandingPage({
                 className="w-full h-full object-contain rounded-full opacity-80"
               />
               <div className="absolute inset-0 flex flex-col items-center justify-center text-center bg-black/20 rounded-full">
-                <h3 className="text-lg font-inter font-bold text-white mb-1 leading-tight">
+                <h3 className="text-xl font-bold text-white/90 tracking-wide mb-2">
                   {domain.title}
                 </h3>
-                <p className="text-sm font-inter text-white/90 leading-tight whitespace-pre-line">
+                <p className="text-sm text-white/80 px-4 leading-tight">
                   {domain.subtitle}
                 </p>
               </div>
             </motion.div>
 
-            {domain.episodes?.map(
-              (episode: Episode, episodeIndex: number) => {
-                const cubeAngle =
-                  EPISODE_CUBE_ANGLES[episodeIndex];
-                const cubeAngleRad =
-                  (cubeAngle * Math.PI) / 180;
-                const cubeX =
-                  Math.cos(cubeAngleRad) * EPISODE_CUBE_RADIUS;
-                const cubeY =
-                  Math.sin(cubeAngleRad) * EPISODE_CUBE_RADIUS;
+            {domain.episodes.map((episode, episodeIndex) => {
+              const episodeAngle = (EPISODE_CUBE_ANGLES[episodeIndex] * Math.PI) / 180;
+              const cubeX = Math.cos(episodeAngle) * EPISODE_CUBE_RADIUS;
+              const cubeY = Math.sin(episodeAngle) * EPISODE_CUBE_RADIUS;
 
-                return (
-                  <motion.div
-                    key={episode.id}
-                    className="absolute cursor-pointer z-30"
+              return (
+                <motion.div
+                  key={episode.id}
+                  className="absolute cursor-pointer z-30"
+                  style={{
+                    left: `calc(50% + ${cubeX - 16}px)`,
+                    top: `calc(50% + ${cubeY + (episodeIndex === 2 || episodeIndex === 3 ? -16 : 0)}px)`,
+                    transform: "translate(-50%, -50%)",
+                    perspective: "200px",
+                    width: "32px",
+                    height: "32px",
+                  }}
+                  whileHover={{ scale: 1.2 }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    setSelectedCube({
+                      chapterId: domain.id,
+                      episodeId: episode.id,
+                    });
+                  }}
+                  animate={{ y: [0, -5, 0] }}
+                  transition={{
+                    y: {
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: episodeIndex * 0.5,
+                    },
+                  }}
+                >
+                  <div
+                    className="w-8 h-8 flex items-center justify-center text-xs font-bold text-white border border-white/20"
                     style={{
-                      left: `calc(50% + ${cubeX - 16}px)`,
-                      top: `calc(50% + ${cubeY + (episodeIndex === 2 || episodeIndex === 3 ? -16 : 0)}px)`,
-                      transform: "translate(-50%, -50%)",
-                      perspective: "200px",
-                      width: "32px",
-                      height: "32px",
-                    }}
-                    whileHover={{ scale: 1.2 }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                      setSelectedCube({
-                        chapterId: domain.id,
-                        episodeId: episode.id,
-                      });
-                    }}
-                    animate={{ y: [0, -5, 0] }}
-                    transition={{
-                      y: {
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: episodeIndex * 0.5,
-                      },
+                      background:
+                        "linear-gradient(45deg, #7C3AED 0%, #8B5CF6 50%, #A855F7 100%)",
+                      boxShadow:
+                        "0 2px 8px rgba(124, 58, 237, 0.4)",
+                      transform: "rotateX(15deg) rotateY(-15deg)",
+                      transformStyle: "preserve-3d",
                     }}
                   >
-                    <div
-                      className="w-8 h-8 flex items-center justify-center text-xs font-bold text-white border border-white/20"
-                      style={{
-                        background:
-                          "linear-gradient(45deg, #7C3AED 0%, #8B5CF6 50%, #A855F7 100%)",
-                        boxShadow:
-                          "0 2px 8px rgba(124, 58, 237, 0.4)",
-                        transform: "rotateX(15deg) rotateY(-15deg)",
-                        transformStyle: "preserve-3d",
-                      }}
-                    >
-                      {episodeIndex + 1}
-                    </div>
-                  </motion.div>
-                );
-              },
-            )}
+                    {episodeIndex + 1}
+                  </div>
+                </motion.div>
+              );
+            })}
           </motion.div>
         );
       }),
@@ -390,6 +351,7 @@ export function CosmicLandingPage({
 
   return (
     <div className="min-h-screen relative overflow-hidden">
+      {/* Background */}
       <div className="fixed inset-0 z-0">
         <img
           src={cosmicBackground}
@@ -404,7 +366,8 @@ export function CosmicLandingPage({
         <div className="absolute inset-0 bg-black/30" />
       </div>
 
-      <div className="relative z-20 min-h-screen flex flex-col">
+      {/* TOP ROW - Fixed header */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/80 via-black/40 to-transparent">
         <header className="pt-8 pb-8">
           <div className="max-w-7xl mx-auto px-8">
             <div className="flex items-center justify-center mb-8">
@@ -439,14 +402,17 @@ export function CosmicLandingPage({
             </div>
           </div>
         </header>
+      </div>
 
-        <div className="flex-1 flex items-center justify-center py-16">
+      {/* MIDDLE ROW - Fixed constellation area */}
+      <div className="fixed inset-0 z-30" style={{ top: '200px', bottom: '120px' }}>
+        <div className="relative w-full h-full flex items-center justify-center">
           <div className="relative w-full max-w-4xl mx-auto px-8">
             {/* Rotating HUD - Isolated */}
             <div
               className="flex items-center justify-center"
               style={{
-                position: "fixed",
+                position: "absolute",
                 zIndex: 20,
                 top: "50%",
                 left: "50%",
@@ -483,7 +449,7 @@ export function CosmicLandingPage({
             <div
               className="flex items-center justify-center"
               style={{
-                position: "fixed",
+                position: "absolute",
                 zIndex: 19,
                 top: "50%",
                 left: "50%",
@@ -494,18 +460,18 @@ export function CosmicLandingPage({
             </div>
           </div>
         </div>
+      </div>
 
-        {isMounted &&
-          createPortal(
-            <SphereCanvas color={sphereColor} size={35} />,
-            document.body,
-          )}
+      {/* Sphere Canvas */}
+      {isMounted &&
+        createPortal(
+          <SphereCanvas color={sphereColor} size={35} />,
+          document.body,
+        )}
 
-        <div className="pb-16">
-          <div className="max-w-7xl mx-auto px-8"></div>
-        </div>
-
-        <div className="pb-16">
+      {/* BOTTOM ROW - Fixed footer */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+        <div className="pb-8 pt-8">
           <div className="max-w-7xl mx-auto px-8">
             <div className="text-center">
               <h2 className="text-2xl font-inter text-white/90 mb-2">
@@ -517,12 +483,11 @@ export function CosmicLandingPage({
             </div>
           </div>
         </div>
-
-        <div className="pb-16"></div>
       </div>
 
+      {/* Selected Cube Modal */}
       {selectedCube && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
+        <div className="fixed inset-0 z-60 flex items-center justify-center">
           <div
             className="absolute inset-0 bg-black/70 backdrop-blur-sm"
             onClick={() => setSelectedCube(null)}
@@ -558,18 +523,20 @@ export function CosmicLandingPage({
                     backfaceVisibility: "hidden",
                   }}
                   onClick={() => {
-                    const selectedEpisode = knowledgeDomains
-                      .find(
-                        (d) => d.id === selectedCube.chapterId,
-                      )
-                      ?.episodes?.find(
-                        (ep) => ep.id === selectedCube.episodeId,
-                      );
-                    if (selectedEpisode) {
-                      // TODO: Implement a proper modal/UI to display content
-                      console.log(
-                        `Opening ${contentType.name} for: "${selectedEpisode.title}"`,
-                      );
+                    if (selectedCube) {
+                      const selectedEpisode = knowledgeDomains
+                        .find(
+                          (d) => d.id === selectedCube.chapterId,
+                        )
+                        ?.episodes?.find(
+                          (ep) => ep.id === selectedCube.episodeId,
+                        );
+                      if (selectedEpisode) {
+                        // TODO: Implement a proper modal/UI to display content
+                        console.log(
+                          `Opening ${contentType.name} for: "${selectedEpisode.title}"`,
+                        );
+                      }
                     }
                   }}
                 >
