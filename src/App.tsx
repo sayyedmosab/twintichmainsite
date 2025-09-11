@@ -16,8 +16,8 @@ import JosoorVisionPage from './pages/josoor/JosoorVisionPage';
 import RoadmapPage from './pages/RoadmapPage';
 import ArchitectsForumPage from './pages/ArchitectsForumPage';
 import SimpleTestPage from './pages/SimpleTestPage';
-// Import Cosmic Components
-import { CosmicLandingPage } from './components/cosmic/CosmicLandingPage';
+// Import TwinLab Page
+import TwinLabPage from './pages/TwinLabPage';
 
 // Simple test component to verify routing
 const TestRoute = () => {
@@ -56,7 +56,7 @@ const App: React.FC = () => {
             {/* Main Navigation Routes (existing only) */}
             <Route path="/about" element={<JosoorVisionPage />} />
             <Route path="/roadmap" element={<RoadmapPage />} />
-            <Route path="/twinlab" element={<CosmicLandingPage onLoginClick={() => console.log('Login clicked')} />} />
+            <Route path="/twinlab" element={<TwinLabPage />} />
             <Route path="/forum" element={<ArchitectsForumPage />} />
             <Route path="/test" element={<SimpleTestPage />} />
             <Route path="/architect" element={<ArchitectLessonsPage />} />
