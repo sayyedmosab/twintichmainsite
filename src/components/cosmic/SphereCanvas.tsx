@@ -145,12 +145,12 @@ export function SphereCanvas({ color, size }: SphereCanvasProps) {
         <div 
             style={{
                 position: 'fixed',
-                top: '50%',
+                top: 'calc(200px + (100vh - 200px - 120px) / 2)', // Centered within middle section
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
                 width: '140px',
                 height: '140px',
-                zIndex: 50,
+                zIndex: 25, // Between HUD (z-20) and header/footer (z-50)
             }}
         >
             <Canvas
