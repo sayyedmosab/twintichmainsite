@@ -261,33 +261,64 @@ export function CosmicLandingPage({
             }}
           >
             <motion.div
-              className="w-48 h-48 relative shadow-2xl rounded-full border-8 border-white"
+              className="w-48 h-48 relative rounded-full"
               style={{
-                borderColor: "rgba(255, 255, 255, 0.9)",
-                borderWidth: "8px",
-                boxShadow: "0 0 10px rgba(255, 255, 255, 0.3)",
-                background: domain.backgroundColor,
+                transformStyle: "preserve-3d",
+                transform: "rotateX(5deg) rotateY(-5deg)",
+                background: `linear-gradient(145deg, ${domain.backgroundColor.replace('linear-gradient(135deg,', '').replace(')', '')})`,
+                boxShadow: `
+                  0 25px 50px -12px rgba(0, 0, 0, 0.4),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                  0 0 30px rgba(139, 92, 246, 0.3)
+                `,
+                border: "3px solid rgba(255, 255, 255, 0.1)",
               }}
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ 
+                scale: 1.05,
+                rotateX: 8,
+                rotateY: -8,
+                boxShadow: `
+                  0 35px 60px -12px rgba(0, 0, 0, 0.5),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                  0 0 40px rgba(139, 92, 246, 0.5)
+                `
+              }}
               transition={{
-                duration: 0.2,
+                duration: 0.3,
                 ease: "easeInOut",
-                delay: index * 0.7,
+                delay: index * 0.1,
               }}
             >
-              <ImageWithFallback
-                src={domain.image}
-                alt={domain.title}
-                className="w-full h-full object-contain rounded-full opacity-80"
+              {/* Glass overlay effect */}
+              <div 
+                className="absolute inset-0 rounded-full"
+                style={{
+                  background: "linear-gradient(145deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 50%, rgba(0,0,0,0.1) 100%)",
+                  backdropFilter: "blur(1px)",
+                }}
               />
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-center bg-black/20 rounded-full">
-                <h3 className="text-xl font-bold text-white/90 tracking-wide mb-2">
-                  {domain.title}
-                </h3>
-                <p className="text-sm text-white/80 px-4 leading-tight">
-                  {domain.subtitle}
-                </p>
+              
+              {/* Icon container */}
+              <div className="absolute inset-4 flex items-center justify-center">
+                <ImageWithFallback
+                  src={domain.image}
+                  alt={domain.title}
+                  className="w-full h-full object-contain opacity-90 drop-shadow-lg"
+                  style={{
+                    filter: "drop-shadow(0 4px 8px rgba(0,0,0,0.3))"
+                  }}
+                />
               </div>
+              
+              {/* Subtle glow ring */}
+              <div 
+                className="absolute inset-0 rounded-full"
+                style={{
+                  background: "conic-gradient(from 0deg, rgba(139, 92, 246, 0.3), rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3))",
+                  mask: "radial-gradient(circle, transparent 85%, black 87%, transparent 89%)",
+                  WebkitMask: "radial-gradient(circle, transparent 85%, black 87%, transparent 89%)",
+                }}
+              />
             </motion.div>
 
             {domain.episodes.map((episode, episodeIndex) => {
@@ -303,7 +334,7 @@ export function CosmicLandingPage({
                     left: `calc(50% + ${cubeX - 16}px)`,
                     top: `calc(50% + ${cubeY + (episodeIndex === 2 || episodeIndex === 3 ? -16 : 0)}px)`,
                     transform: "translate(-50%, -50%)",
-                    perspective: "200px",
+                    perspective: "300px",
                     width: "32px",
                     height: "32px",
                   }}
@@ -327,17 +358,39 @@ export function CosmicLandingPage({
                   }}
                 >
                   <div
-                    className="w-8 h-8 flex items-center justify-center text-xs font-bold text-white border border-white/20"
+                    className="w-8 h-8 relative"
                     style={{
-                      background:
-                        "linear-gradient(45deg, #7C3AED 0%, #8B5CF6 50%, #A855F7 100%)",
-                      boxShadow:
-                        "0 2px 8px rgba(124, 58, 237, 0.4)",
-                      transform: "rotateX(15deg) rotateY(-15deg)",
                       transformStyle: "preserve-3d",
+                      transform: "rotateX(-15deg) rotateY(15deg)",
                     }}
                   >
-                    {episodeIndex + 1}
+                    {/* Cube faces */}
+                    {[
+                      { name: 'front', transform: 'translateZ(16px)' },
+                      { name: 'back', transform: 'translateZ(-16px) rotateY(180deg)' },
+                      { name: 'right', transform: 'rotateY(90deg) translateZ(16px)' },
+                      { name: 'left', transform: 'rotateY(-90deg) translateZ(16px)' },
+                      { name: 'top', transform: 'rotateX(90deg) translateZ(16px)' },
+                      { name: 'bottom', transform: 'rotateX(-90deg) translateZ(16px)' },
+                    ].map((face, faceIndex) => (
+                      <div
+                        key={face.name}
+                        className="absolute w-8 h-8 flex items-center justify-center text-xs font-bold text-white border border-white/30"
+                        style={{
+                          background: faceIndex === 0 
+                            ? "linear-gradient(45deg, #7C3AED 0%, #8B5CF6 50%, #A855F7 100%)"
+                            : faceIndex < 4 
+                            ? "linear-gradient(45deg, #5B21B6 0%, #7C3AED 50%, #8B5CF6 100%)"
+                            : "linear-gradient(45deg, #4C1D95 0%, #5B21B6 50%, #7C3AED 100%)",
+                          transform: face.transform,
+                          boxShadow: faceIndex === 0 
+                            ? "0 2px 8px rgba(124, 58, 237, 0.4)"
+                            : "0 1px 4px rgba(124, 58, 237, 0.2)",
+                        }}
+                      >
+                        {faceIndex === 0 ? episodeIndex + 1 : ''}
+                      </div>
+                    ))}
                   </div>
                 </motion.div>
               );
