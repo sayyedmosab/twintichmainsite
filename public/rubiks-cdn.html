@@ -846,16 +846,14 @@
     });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5)); // Conservative pixel ratio
     
-    // Handle context loss
+    // Handle context loss gracefully
     canvas.addEventListener('webglcontextlost', e => { 
       e.preventDefault(); 
-      console.warn('WebGL context lost'); 
+      console.warn('WebGL context lost - will attempt recovery'); 
     });
     
-    // Cleanup on page unload
-    window.addEventListener('beforeunload', () => { 
-      if (renderer.forceContextLoss) renderer.forceContextLoss();
-      if (renderer.dispose) renderer.dispose();
+    canvas.addEventListener('webglcontextrestored', () => {
+      console.log('WebGL context restored');
     });
     renderer.outputColorSpace = THREE.SRGBColorSpace; // Standard color space
     renderer.toneMapping = THREE.ACESFilmicToneMapping; // Film-like color grading
