@@ -9,7 +9,7 @@
     html, body { height: 100%; margin: 0; background: transparent; color: var(--text); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; scrollbar-width: none; -ms-overflow-style: none; }
     html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
     .wrap { position: relative; height: 100%; }
-    .bg-video { position: fixed; inset: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 0; }
+    .bg-image { position: fixed; inset: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 0; }
     .bg-tint { position: fixed; inset: 0; background: rgba(10,15,28,0.64); z-index: 0; }
 .hero-row { display: none; }
 .text-col { width: 450px; max-width: 640px; padding: 0 19px 0 60px; color: #ffffff; font-family: Poppins, sans-serif; position: sticky; top: 60px; }
@@ -102,9 +102,7 @@
 </head>
 <body>
   <div class="wrap">
-    <video class="bg-video" autoplay loop muted playsinline>
-      <source src="/images/3129576-uhd_2560_1440_30fps.mp4" type="video/mp4" />
-    </video>
+    <img class="bg-image" src="/assets/background.png" alt="Background" />
     <div class="bg-tint"></div>
 
     <!-- Phase-driven overlay text -->
@@ -239,12 +237,8 @@
     import { UnrealBloomPass } from 'https://unpkg.com/three@0.180.0/examples/jsm/postprocessing/UnrealBloomPass.js';
     import { RoomEnvironment } from 'https://unpkg.com/three@0.180.0/examples/jsm/environments/RoomEnvironment.js';
 
-    // Background video speed control
-    const bgVideo = document.querySelector('.bg-video');
-    const VIDEO_PLAYBACK_RATE = 0.4;
-    function applyVideoSpeed(){ try { if (bgVideo) bgVideo.playbackRate = VIDEO_PLAYBACK_RATE; } catch(_){} }
-    if (bgVideo) { bgVideo.addEventListener('loadeddata', applyVideoSpeed); bgVideo.addEventListener('play', applyVideoSpeed); }
-    applyVideoSpeed();
+    // Background image reference
+    const bgImage = document.querySelector('.bg-image');
 
     // ===== UTILITY FUNCTIONS =====
     /**
@@ -1481,8 +1475,8 @@
         bloomPass.strength = 0.0;
       }
 
-      // Background handling with smooth tint darkening and video fade
-      const bgVid = document.querySelector('.bg-video');
+      // Background handling with smooth tint darkening and image fade
+      const bgImg = document.querySelector('.bg-image');
       // Compute darkness progress across phases 6 -> 7
       const p6 = PHASES[5], p7 = PHASES[6];
       const darkT = THREE.MathUtils.clamp((g - p6.start) / Math.max(1e-6, (p7.end - p6.start)), 0, 1);
