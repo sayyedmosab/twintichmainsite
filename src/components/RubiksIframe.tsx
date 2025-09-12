@@ -54,7 +54,8 @@ const RubiksIframe: React.FC<RubiksIframeProps> = ({ height = '100vh', progress 
         src="/rubiks-cdn.html"
         title="Rubiks Animation"
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }}
-        allow="autoplay"
+        allow="autoplay; fullscreen; xr-spatial-tracking; clipboard-write"
+        sandbox="allow-scripts allow-same-origin allow-pointer-lock"
       />
     </div>
   );
