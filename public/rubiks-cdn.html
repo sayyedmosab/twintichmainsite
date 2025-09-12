@@ -9,7 +9,7 @@
     html, body { height: 100%; margin: 0; background: transparent; color: var(--text); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; scrollbar-width: none; -ms-overflow-style: none; }
     html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
     .wrap { position: relative; height: 100%; }
-    .bg-image { position: fixed; inset: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 0; }
+    .bg-video { position: fixed; inset: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 0; }
     .bg-tint { position: fixed; inset: 0; background: rgba(10,15,28,0.64); z-index: 0; }
 .hero-row { display: none; }
 .text-col { width: 450px; max-width: 640px; padding: 0 19px 0 60px; color: #ffffff; font-family: Poppins, sans-serif; position: sticky; top: 60px; }
@@ -77,6 +77,14 @@
     header, footer, .coords-panel, .phase-indicator, .metrics { display: none !important; }
   </style>
 
+  <!-- map the baare specifier 'three' to the CDN module -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.180.0/build/three.module.js"
+      }
+    }
+  </script>
   <!-- map the bare specifier 'three' to the CDN module -->
   <script type="importmap">
     {
@@ -94,7 +102,9 @@
 </head>
 <body>
   <div class="wrap">
-    <img class="bg-image" src="/assets/background.png" alt="Background" />
+    <video class="bg-video" autoplay loop muted playsinline>
+      <source src="/images/3129576-uhd_2560_1440_30fps.mp4" type="video/mp4" />
+    </video>
     <div class="bg-tint"></div>
 
     <!-- Phase-driven overlay text -->
@@ -229,8 +239,12 @@
     import { UnrealBloomPass } from 'https://unpkg.com/three@0.180.0/examples/jsm/postprocessing/UnrealBloomPass.js';
     import { RoomEnvironment } from 'https://unpkg.com/three@0.180.0/examples/jsm/environments/RoomEnvironment.js';
 
-    // Background image reference
-    const bgImage = document.querySelector('.bg-image');
+    // Background video speed control
+    const bgVideo = document.querySelector('.bg-video');
+    const VIDEO_PLAYBACK_RATE = 0.4;
+    function applyVideoSpeed(){ try { if (bgVideo) bgVideo.playbackRate = VIDEO_PLAYBACK_RATE; } catch(_){} }
+    if (bgVideo) { bgVideo.addEventListener('loadeddata', applyVideoSpeed); bgVideo.addEventListener('play', applyVideoSpeed); }
+    applyVideoSpeed();
 
     // ===== UTILITY FUNCTIONS =====
     /**
@@ -792,10 +806,7 @@
     const containerEl = document.querySelector('.sticky-canvas');
     
     // Guard against multiple initialization
-    if (window.__rubiksInit) {
-      console.log('Rubiks already initialized');
-      return; // Exit if already initialized
-    }
+    if (window.__rubiksInit) return;
     window.__rubiksInit = true;
     
     // Create WebGL context explicitly with fallbacks
@@ -823,7 +834,7 @@
           <p>WebGL is not supported in this environment.</p>
         </div>`;
       canvas.parentElement.appendChild(fallbackMsg);
-      return; // Exit entire script if no WebGL
+      return;
     }
     
     console.log('WebGL context created:', gl.getParameter(gl.VERSION));
@@ -835,14 +846,16 @@
     });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5)); // Conservative pixel ratio
     
-    // Handle context loss gracefully
+    // Handle context loss
     canvas.addEventListener('webglcontextlost', e => { 
       e.preventDefault(); 
-      console.warn('WebGL context lost - will attempt recovery'); 
+      console.warn('WebGL context lost'); 
     });
     
-    canvas.addEventListener('webglcontextrestored', () => {
-      console.log('WebGL context restored');
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', () => { 
+      if (renderer.forceContextLoss) renderer.forceContextLoss();
+      if (renderer.dispose) renderer.dispose();
     });
     renderer.outputColorSpace = THREE.SRGBColorSpace; // Standard color space
     renderer.toneMapping = THREE.ACESFilmicToneMapping; // Film-like color grading
@@ -1470,8 +1483,8 @@
         bloomPass.strength = 0.0;
       }
 
-      // Background handling with smooth tint darkening and image fade
-      const bgImg = document.querySelector('.bg-image');
+      // Background handling with smooth tint darkening and video fade
+      const bgVid = document.querySelector('.bg-video');
       // Compute darkness progress across phases 6 -> 7
       const p6 = PHASES[5], p7 = PHASES[6];
       const darkT = THREE.MathUtils.clamp((g - p6.start) / Math.max(1e-6, (p7.end - p6.start)), 0, 1);
@@ -2181,8 +2194,6 @@
     // ===== EXTERNAL COMMUNICATION =====
     // Notify parent component that animation is ready
     try { window.parent && window.parent.postMessage({ type: 'RUBIKS_READY' }, '*'); } catch (_) {}
-    
-    } // Missing closing brace found and added
   </script>
 </body>
 </html>
