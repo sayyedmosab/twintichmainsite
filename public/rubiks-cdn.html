@@ -77,14 +77,6 @@
     header, footer, .coords-panel, .phase-indicator, .metrics { display: none !important; }
   </style>
 
-  <!-- map the baare specifier 'three' to the CDN module -->
-  <script type="importmap">
-    {
-      "imports": {
-        "three": "https://unpkg.com/three@0.180.0/build/three.module.js"
-      }
-    }
-  </script>
   <!-- map the bare specifier 'three' to the CDN module -->
   <script type="importmap">
     {
@@ -800,8 +792,10 @@
     const containerEl = document.querySelector('.sticky-canvas');
     
     // Guard against multiple initialization
-    if (window.__rubiksInit) return;
-    window.__rubiksInit = true;
+    if (window.__rubiksInit) {
+      console.log('Rubiks already initialized');
+    } else {
+      window.__rubiksInit = true;
     
     // Create WebGL context explicitly with fallbacks
     const contextOptions = { 
@@ -2186,6 +2180,8 @@
     // ===== EXTERNAL COMMUNICATION =====
     // Notify parent component that animation is ready
     try { window.parent && window.parent.postMessage({ type: 'RUBIKS_READY' }, '*'); } catch (_) {}
+    
+    } // End initialization guard
   </script>
 </body>
 </html>
