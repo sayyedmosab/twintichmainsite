@@ -692,7 +692,7 @@
           const pats = shuffle(FACE_PATTERNS.slice()); // Randomize pattern order per cube
           // Load all 6 bump map textures
           const bumpTextures = [1,2,3,4,5,6].map(n => {
-            const tex = new THREE.TextureLoader().load(`/assets/textures/cubeface${n}.png`);
+            const tex = new THREE.TextureLoader().load(`/images/cubeface${n}.PNG`);
             tex.wrapS = THREE.RepeatWrapping;
             tex.wrapT = THREE.RepeatWrapping;
             tex.repeat.set(1, 1);
