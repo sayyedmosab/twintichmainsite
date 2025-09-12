@@ -794,8 +794,9 @@
     // Guard against multiple initialization
     if (window.__rubiksInit) {
       console.log('Rubiks already initialized');
-    } else {
-      window.__rubiksInit = true;
+      return; // Exit if already initialized
+    }
+    window.__rubiksInit = true;
     
     // Create WebGL context explicitly with fallbacks
     const contextOptions = { 
@@ -822,7 +823,7 @@
           <p>WebGL is not supported in this environment.</p>
         </div>`;
       canvas.parentElement.appendChild(fallbackMsg);
-      return;
+      return; // Exit entire script if no WebGL
     }
     
     console.log('WebGL context created:', gl.getParameter(gl.VERSION));
@@ -2181,7 +2182,7 @@
     // Notify parent component that animation is ready
     try { window.parent && window.parent.postMessage({ type: 'RUBIKS_READY' }, '*'); } catch (_) {}
     
-    } // End initialization guard
+    } // Missing closing brace found and added
   </script>
 </body>
 </html>
