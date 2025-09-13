@@ -24,7 +24,7 @@ import {
 const navLinks: NavLinkType[] = [
   { id: 1, text: 'Home', href: '/', icon: Home },
   { id: 2, text: 'About', href: '/about', icon: BookOpen },
-  { id: 3, text: 'Roadmap', href: '/roadmap', icon: Target },
+  { id: 3, text: 'TwinStudio', href: '/roadmap', icon: Target },
   { id: 4, text: 'TwinLab', href: '/twinlab', icon: MessageSquare },
 ];
 
@@ -161,7 +161,14 @@ const Header: React.FC = () => {
             </div>
           </div>
           <div className="md:hidden">
-            <button onClick={() => setIsOpen(!isOpen)} className="text-gray-200 focus:outline-none">
+            <button 
+              onClick={() => setIsOpen(!isOpen)} 
+              className="text-gray-200 focus:outline-none"
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isOpen}
+              aria-controls="mobile-navigation"
+              title={isOpen ? "Close navigation menu" : "Open navigation menu"}
+            >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
@@ -169,7 +176,7 @@ const Header: React.FC = () => {
       </div>
       {isOpen && (
         <div className="md:hidden pb-4" style={{ backgroundColor: '#00122d' }}>
-          <nav className="flex flex-col items-center space-y-4">
+          <nav id="mobile-navigation" className="flex flex-col items-center space-y-4">
             {navLinks.map((link) => {
               const IconComponent = link.icon;
               return (

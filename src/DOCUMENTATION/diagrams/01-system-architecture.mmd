@@ -1,0 +1,60 @@
+graph TB
+    subgraph "User Journey Flow"
+        U[User with Pain Point] --> LP[Landing Page]
+        LP --> PS[Pain Selector]
+        PS --> TM[Template Matcher]
+        TM --> DT[Digital Twin Generator]
+        DT --> AI[AI Magic Moment]
+        AI --> CP[Conversion Pipeline]
+    end
+
+    subgraph "Frontend Layer"
+        LP --> NextJS[Next.js 14 + TypeScript]
+        NextJS --> TailwindCSS[Tailwind CSS + RTL]
+        NextJS --> ReactComponents[React Components]
+        ReactComponents --> UILibrary[shadcn/ui Library]
+    end
+
+    subgraph "Backend Layer"
+        NextJS --> APIRoutes[API Routes]
+        APIRoutes --> ExpressServer[Express Server + TypeScript]
+        ExpressServer --> StorageLayer[Storage Layer]
+        ExpressServer --> AIServices[AI Services]
+        ExpressServer --> ChatbotManager[Chatbot Manager]
+    end
+
+    subgraph "AI Integration Layer"
+        AIServices --> OpenAI[OpenAI GPT-4]
+        AIServices --> Gemini[Google Gemini]
+        AIServices --> NLPProcessor[Arabic/English NLP]
+        OpenAI --> DTDLGeneration[DTDL Generation]
+        Gemini --> ConversationAI[Contextual AI Chat]
+    end
+
+    subgraph "Data Layer"
+        StorageLayer --> Supabase[(Supabase PostgreSQL)]
+        Supabase --> Projects[Projects Table]
+        Supabase --> Templates[Templates Table]
+        Supabase --> DTDLModels[DTDL Models Table]
+        Supabase --> ChatMessages[Chat Messages Table]
+        Supabase --> DatabaseSchemas[Database Schemas Table]
+    end
+
+    subgraph "Infrastructure Layer"
+        ExpressServer --> Vercel[Vercel Deployment]
+        Supabase --> AWS[AWS Saudi Region]
+        Vercel --> CDN[Global CDN]
+        AWS --> DataSovereignty[Saudi Data Residency]
+    end
+
+    classDef frontend fill:#e1f5fe
+    classDef backend fill:#f3e5f5
+    classDef ai fill:#fff3e0
+    classDef data fill:#e8f5e8
+    classDef infra fill:#fce4ec
+
+    class NextJS,TailwindCSS,ReactComponents,UILibrary frontend
+    class APIRoutes,ExpressServer,StorageLayer,ChatbotManager backend
+    class OpenAI,Gemini,NLPProcessor,DTDLGeneration,ConversationAI ai
+    class Supabase,Projects,Templates,DTDLModels,ChatMessages,DatabaseSchemas data
+    class Vercel,AWS,CDN,DataSovereignty infra

@@ -1,0 +1,81 @@
+erDiagram
+    PROJECTS {
+        uuid id PK
+        text title
+        text description
+        varchar status
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    DTDL_MODELS {
+        uuid id PK
+        uuid project_id FK
+        text model_id
+        text display_name
+        varchar model_type
+        jsonb dtdl_content
+        boolean is_valid
+        jsonb validation_errors
+        timestamp created_at
+    }
+
+    DATABASE_SCHEMAS {
+        uuid id PK
+        uuid project_id FK
+        varchar database_type
+        text schema_content
+        integer table_count
+        boolean has_vector_search
+        boolean has_audit_tables
+        timestamp created_at
+    }
+
+    CHAT_MESSAGES {
+        uuid id PK
+        uuid project_id FK
+        varchar role
+        text content
+        text sql_query
+        jsonb query_results
+        timestamp timestamp
+    }
+
+    TEMPLATES {
+        uuid id PK
+        text name
+        text description
+        varchar category
+        varchar icon
+        text template_content
+        boolean is_active
+    }
+
+    PAIN_POINTS {
+        uuid id PK
+        text title
+        text description
+        varchar category
+        varchar saudi_sector
+        text relief_promise
+        integer complexity_score
+        jsonb matching_criteria
+        timestamp created_at
+    }
+
+    USER_SESSIONS {
+        uuid id PK
+        varchar session_token
+        uuid pain_point_id FK
+        uuid template_id FK
+        varchar conversion_stage
+        jsonb journey_data
+        timestamp created_at
+        timestamp last_activity
+    }
+
+    PROJECTS ||--o{ DTDL_MODELS : contains
+    PROJECTS ||--o{ DATABASE_SCHEMAS : generates
+    PROJECTS ||--o{ CHAT_MESSAGES : has
+    PAIN_POINTS ||--o{ USER_SESSIONS : triggers
+    TEMPLATES ||--o{ USER_SESSIONS : uses

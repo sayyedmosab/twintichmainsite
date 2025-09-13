@@ -1,0 +1,59 @@
+graph TB
+    subgraph "Development Environment"
+        Dev[Developer] --> Git[Git Repository]
+        Git --> GitHub[GitHub Actions CI/CD]
+    end
+
+    subgraph "Frontend Deployment"
+        GitHub --> VercelBuild[Vercel Build Pipeline]
+        VercelBuild --> VercelEdge[Vercel Edge Network]
+        VercelEdge --> GlobalCDN[Global CDN Distribution]
+    end
+
+    subgraph "Backend Deployment"
+        GitHub --> DockerBuild[Docker Container Build]
+        DockerBuild --> AWSRegion[AWS Saudi Region]
+        AWSRegion --> ECS[AWS ECS/Fargate]
+        ECS --> LoadBalancer[Application Load Balancer]
+    end
+
+    subgraph "Database Layer"
+        Supabase[(Supabase PostgreSQL)]
+        SupabaseAPI[Supabase API Gateway]
+        SupabaseAuth[Supabase Auth]
+        
+        Supabase --> SupabaseAPI
+        Supabase --> SupabaseAuth
+    end
+
+    subgraph "External Services"
+        OpenAIAPI[OpenAI API]
+        GeminiAPI[Google Gemini API]
+        SaudiGov[Saudi Gov APIs]
+    end
+
+    subgraph "Monitoring & Analytics"
+        Vercel --> VercelAnalytics[Vercel Analytics]
+        ECS --> CloudWatch[AWS CloudWatch]
+        Supabase --> SupabaseMetrics[Supabase Metrics]
+    end
+
+    GlobalCDN --> Users[End Users]
+    LoadBalancer --> SupabaseAPI
+    LoadBalancer --> OpenAIAPI
+    LoadBalancer --> GeminiAPI
+    LoadBalancer --> SaudiGov
+
+    classDef dev fill:#fff3e0
+    classDef frontend fill:#e1f5fe
+    classDef backend fill:#f3e5f5
+    classDef data fill:#e8f5e8
+    classDef external fill:#fce4ec
+    classDef monitoring fill:#f1f8e9
+
+    class Dev,Git,GitHub dev
+    class VercelBuild,VercelEdge,GlobalCDN frontend
+    class DockerBuild,AWSRegion,ECS,LoadBalancer backend
+    class Supabase,SupabaseAPI,SupabaseAuth data
+    class OpenAIAPI,GeminiAPI,SaudiGov external
+    class VercelAnalytics,CloudWatch,SupabaseMetrics monitoring

@@ -1,0 +1,51 @@
+graph TD
+    subgraph "AI Orchestration Layer"
+        AO[AI Orchestrator] --> ChatbotFactory[Chatbot Factory]
+        ChatbotFactory --> OpenAIChatbot[OpenAI Chatbot]
+        ChatbotFactory --> GeminiChatbot[Gemini Chatbot]
+    end
+
+    subgraph "Core AI Services"
+        DTDLService[DTDL Generation Service]
+        DatabaseService[Database Schema Service]
+        ChatService[Chat Processing Service]
+        NLPService[NLP Processing Service]
+    end
+
+    subgraph "AI Providers"
+        OpenAIAPI[OpenAI API]
+        GeminiAPI[Google Gemini API]
+    end
+
+    subgraph "Saudi-Specific AI Components"
+        ArabicNLP[Arabic Language Processing]
+        GovKnowledge[Saudi Gov Knowledge Base]
+        SectorModels[Sector-Specific Models]
+        Vision2030[Vision 2030 Alignment]
+    end
+
+    AO --> DTDLService
+    AO --> DatabaseService
+    AO --> ChatService
+    AO --> NLPService
+
+    DTDLService --> OpenAIAPI
+    DatabaseService --> OpenAIAPI
+    ChatService --> OpenAIAPI
+    ChatService --> GeminiAPI
+    NLPService --> GeminiAPI
+
+    NLPService --> ArabicNLP
+    ChatService --> GovKnowledge
+    DTDLService --> SectorModels
+    ChatService --> Vision2030
+
+    classDef orchestration fill:#fff3e0
+    classDef services fill:#e8f5e8
+    classDef providers fill:#e1f5fe
+    classDef saudi fill:#fce4ec
+
+    class AO,ChatbotFactory,OpenAIChatbot,GeminiChatbot orchestration
+    class DTDLService,DatabaseService,ChatService,NLPService services
+    class OpenAIAPI,GeminiAPI providers
+    class ArabicNLP,GovKnowledge,SectorModels,Vision2030 saudi
