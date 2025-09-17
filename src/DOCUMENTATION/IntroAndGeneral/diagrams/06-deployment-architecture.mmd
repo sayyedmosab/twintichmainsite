@@ -1,0 +1,40 @@
+graph TB
+    subgraph "Development Environment"
+        Dev[Developer] --> Git[Git Repository]
+        Git --> GitHub[GitHub Actions CI/CD]
+    end
+
+    subgraph "Frontend Deployment"
+        GitHub --> VercelBuild[Vercel Build Pipeline]
+        VercelBuild --> VercelEdge[Vercel Edge Network]
+        VercelEdge --> GlobalCDN[Global CDN Distribution]
+    end
+
+    subgraph "Backend Deployment (for Auth)"
+        GitHub --> DockerBuild[Docker Container Build]
+        DockerBuild --> AWSRegion[AWS Saudi Region]
+        AWSRegion --> ECS[AWS ECS/Fargate]
+        ECS --> LoadBalancer[Application Load Balancer]
+    end
+
+    subgraph "Database Layer"
+        Supabase[(Supabase PostgreSQL)]
+        SupabaseAPI[Supabase API Gateway]
+        SupabaseAuth[Supabase Auth]
+        
+        Supabase --> SupabaseAPI
+        Supabase --> SupabaseAuth
+    end
+
+    GlobalCDN --> Users[End Users]
+    LoadBalancer --> SupabaseAPI
+
+    classDef dev fill:#fff3e0
+    classDef frontend fill:#e1f5fe
+    classDef backend fill:#f3e5f5
+    classDef data fill:#e8f5e8
+
+    class Dev,Git,GitHub dev
+    class VercelBuild,VercelEdge,GlobalCDN frontend
+    class DockerBuild,AWSRegion,ECS,LoadBalancer backend
+    class Supabase,SupabaseAPI,SupabaseAuth data

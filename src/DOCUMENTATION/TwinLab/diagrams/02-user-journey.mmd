@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant U as User
+    participant TLP as TwinLab Page
+    participant Chapter as Chapter Sphere
+    participant Episode as Episode Cube
+    participant Content as Content Modal
+
+    U->>TLP: Navigates to /twinlab
+    TLP-->>U: Displays cosmic UI with chapter spheres
+
+    U->>Chapter: Hovers over a chapter sphere
+    Chapter-->>U: Shows chapter title and subtitle
+
+    U->>Episode: Clicks on an episode cube
+    Episode-->>Content: Opens the content type selection modal
+
+    U->>Content: Selects a content type (e.g., Video)
+    Content-->>U: Displays the selected content

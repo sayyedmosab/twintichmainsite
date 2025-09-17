@@ -1,0 +1,9 @@
+# Decision Log
+
+| Date | Decision | Rationale |
+|------|----------|-----------|
+| 2025-09-14 | Use memory bank tools for structured project tracking instead of MCP memory tools. | Memory bank tools are available and reliable for logging context, progress, decisions, and plans. MCP memory tools are currently not functioning due to environment issues. |
+| 2025-09-14 | Do not perform any destructive actions (such as deleting, overwriting, or removing files or data) without explicit user approval. | To ensure project safety and prevent accidental loss of data or work, all destructive actions require user confirmation before execution. |
+| 2025-09-14 | When running 'npm run dev', do not get stuck waiting for errors. Always account for the possibility that no errors occur and proceed with the next investigation step if the server starts successfully. | To avoid unnecessary delays and ensure progress, the investigation should continue even if no errors are reported when starting the dev server. |
+| 2025-09-14 | When running 'npm run dev', always run it in detached/background mode to avoid blocking further actions. Avoid running other terminal commands in the same terminal session as the dev server to prevent accidental shutdowns and infinite restart loops. Use separate terminals for server and investigation commands. | Running the dev server in the background and using separate terminals for commands ensures uninterrupted server operation and prevents workflow deadlocks or confusion. |
+| 2025-09-14 | RubiksIframe is used in HomePage.tsx to render public/rubiks-cdn.html as an iframe. Any changes to public/rubiks-cdn.html should be visible when accessing the HomePage route in the running app. | This confirms the direct usage and rendering path for rubiks-cdn.html, ensuring that debugging efforts are focused on the correct component and route. |

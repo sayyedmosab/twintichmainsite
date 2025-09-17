@@ -1,0 +1,27 @@
+graph TB
+    subgraph "Development Environment"
+        Dev[Developer] --> Git[Git Repository]
+        Git --> GitHub[GitHub Actions CI/CD]
+    end
+
+    subgraph "Frontend Deployment"
+        GitHub --> VercelBuild[Vercel Build Pipeline]
+        VercelBuild --> VercelEdge[Vercel Edge Network]
+        VercelEdge --> GlobalCDN[Global CDN Distribution]
+    end
+
+    subgraph "Data Layer (Hardcoded)"
+        direction LR
+        HardcodedData[Hardcoded Knowledge Domains]
+    end
+
+    GlobalCDN --> Users[End Users]
+    VercelEdge --> HardcodedData
+
+    classDef dev fill:#fff3e0
+    classDef frontend fill:#e1f5fe
+    classDef data fill:#e8f5e8
+
+    class Dev,Git,GitHub dev
+    class VercelBuild,VercelEdge,GlobalCDN frontend
+    class HardcodedData data

@@ -1,0 +1,24 @@
+sequenceDiagram
+    participant U as User
+    participant HP as HomePage
+    participant Nav as Navigation
+    participant About as About Page
+    participant Studio as TwinStudio Page
+    participant Lab as TwinLab Page
+
+    U->>HP: Arrives at the website
+    HP-->>U: Displays Rubik's Cube animation and intro text
+
+    U->>Nav: Interacts with the main navigation
+    Nav-->>U: Shows options: About, TwinStudio, TwinLab
+
+    alt Exploration Path
+        U->>About: Clicks on "About"
+        About-->>U: Shows the vision and mission of AI Twin Tech
+    else Another Path
+        U->>Studio: Clicks on "TwinStudio"
+        Studio-->>U: Navigates to the TwinStudio section
+    else Yet Another Path
+        U->>Lab: Clicks on "TwinLab"
+        Lab-->>U: Navigates to the TwinLab section
+    end

@@ -1,0 +1,20 @@
+graph TD
+    subgraph "Intro and General Section"
+        direction LR
+        HomePage[HomePage]
+        AboutPage[About Page]
+    end
+
+    subgraph "AI Services (Not Directly Used)"
+        direction LR
+        AIService[AI Orchestration Layer]
+    end
+
+    HomePage -- "No Direct Interaction" --> AIService
+    AboutPage -- "No Direct Interaction" --> AIService
+
+    classDef intro fill:#e1f5fe
+    classDef ai fill:#fff3e0
+
+    class HomePage,AboutPage intro
+    class AIService ai

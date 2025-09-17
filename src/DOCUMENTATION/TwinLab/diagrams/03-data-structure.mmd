@@ -1,0 +1,20 @@
+erDiagram
+    KNOWLEDGE_DOMAINS {
+        string id
+        string title
+        string subtitle
+        string image
+        float angle
+        string backgroundColor
+        list episodes
+    }
+
+    EPISODES {
+        string id
+        string title
+        string description
+    }
+
+    KNOWLEDGE_DOMAINS ||--o{ EPISODES : contains
+
+    note "This is a representation of the hardcoded data structure in the CosmicLandingPage.tsx component, not a database schema."

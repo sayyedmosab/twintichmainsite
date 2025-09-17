@@ -26,11 +26,12 @@
 .sticky-canvas { position: fixed; top: 0; left: 33.333vw; width: 66.666vw; height: 100vh; overflow: hidden; background: transparent; z-index: 2; }
     #stage { background: transparent !important; }
     #stage { width: 100%; height: 100%; display:block; }
-    .spacer { height: 18000px; } /* Scroll length to span all phases */
+    .spacer { height: 20000px; } /* Scroll length to span all phases */
     .phase-pad { height: 0px; }
     .phase-overlay { position: fixed; inset: 0; z-index: 3; pointer-events: none; }
     .phase-overlay .overlay-inner { position: absolute; top: 60px; left: 0; font-family: Poppins, sans-serif; color: #ffffff; }
     .phase-text-block { position: absolute; top: 0; left: 0; width: 575px !important; max-width: none !important; padding: 0 19px 0 56px; box-sizing: content-box; opacity: 1; pointer-events: none; font-family: Poppins, sans-serif; color: #ffffff; transform: translateY(0); transition: none; z-index: 1; visibility: hidden; will-change: transform; }
+    .phase-text-block.finale-blocks { pointer-events: auto; }
     /* Match backup typography inside overlay */
     .phase-overlay .phase-text-block h1 { margin: 20px 0 12px; font: 400 65px/76.1px "Allerta Stencil", sans-serif; color: #ffffff; text-shadow: 0 0 2px rgba(255,255,255,0.544), 0 0 12px rgba(76,201,255,0.531), 0 0 28px rgba(76,201,255,0.498), 0 0 56px rgba(30,144,255,0.476), 0 0 110px rgba(14,110,253,0.434); }
     .phase-overlay .phase-text-block[data-key="intro-1"] h1 { font: 400 92px/91.1px "Allerta Stencil", sans-serif; color: #ffffff; text-shadow: 0 0 3px rgba(255,255,255,0.544), 0 0 18px rgba(76,201,255,0.544), 0 0 40px rgba(76,201,255,0.52), 0 0 84px rgba(30,144,255,0.488), 0 0 140px rgba(14,110,253,0.462); }
@@ -48,20 +49,20 @@
     .phase-text-block.leaving { visibility: visible; }
 
     /* Overlay-specific typography and sizing */
-    .phase-overlay .phase-text-block[data-key="intro-1"] { width: 640px !important; max-width: none !important; }
-    .phase-overlay .phase-text-block[data-key="p89-future"] { width: 575px !important; max-width: none !important; }
+    .phase-overlay .phase-text-block[data-key="intro-1"] { width: 650px !important; max-width: none !important; }
+    .phase-overlay .phase-text-block[data-key="p89-future"] { width: 560px !important; max-width: none !important; }
     .phase-overlay .phase-text-block[data-key="intro-2"],
     .phase-overlay .phase-text-block[data-key="intro-3"],
     .phase-overlay .phase-text-block[data-key="p23-your-org"],
     .phase-overlay .phase-text-block[data-key="p4-hidden"],
     .phase-overlay .phase-text-block[data-key="p56-where"],
-    .phase-overlay .phase-text-block[data-key="p7-two-years"] { width: 575px !important; max-width: none !important; }
+    .phase-overlay .phase-text-block[data-key="p7-two-years"] { width: 560px !important; max-width: none !important; } 
         /* Ensure children use container width */
     .phase-text-block > h1, .phase-text-block > h2, .phase-text-block > p { display: block; max-width: 100%; }
     /* Ensure consistent top alignment between blocks */
     #phaseOverlay .phase-text-block h1:first-child { margin-top: 20px; }
         .phase-overlay .phase-text-block[data-key="intro-1"] h1 { font: 400 92px/91.1px "Allerta Stencil", sans-serif; color: #ffffff; text-shadow: 0 0 3px rgba(255,255,255,0.544), 0 0 18px rgba(76,201,255,0.544), 0 0 40px rgba(76,201,255,0.52), 0 0 84px rgba(30,144,255,0.488), 0 0 140px rgba(14,110,253,0.462); }
-    .phase-overlay .phase-text-block[data-key="intro-1"] h2 { font-size: 28px; font-weight: 700; color: rgba(37, 128, 250, 1); }
+    .phase-overlay .phase-text-block[data-key="intro-1"] h2 { font-size: 24px; font-weight: 700; color: rgba(37, 128, 250, 1); }
     .phase-overlay .phase-text-block[data-key="intro-1"] p  { font-size: 18px; line-height: 24px; }
     
     /* Finale columns styling */
@@ -77,13 +78,14 @@
       font-family: Poppins, sans-serif;
       color: #ffffff;
       z-index: 10;
+      pointer-events: auto; /* Enable pointer events for finale columns */
       will-change: transform;
     }
     
     .finale-left-column,
     .finale-right-column {
       width: 400px;
-      padding: 30px;
+      padding: 30px 30px 60px 30px; /* Added padding-bottom */
       background: rgba(10, 15, 28, 0.8);
       border: 1px solid rgba(37, 128, 250, 0.3);
       border-radius: 12px;
@@ -157,10 +159,15 @@
       font-weight: 600;
       padding: 12px 32px;
       cursor: pointer;
+      pointer-events: auto; /* Explicitly enable pointer events */
       transition: all 0.3s ease;
       box-shadow: 0 4px 16px rgba(37, 128, 250, 0.3);
       text-transform: uppercase;
       letter-spacing: 1px;
+      text-decoration: none; /* Add this line */
+      position: relative; /* Ensure proper stacking */
+      z-index: 11; /* Higher than parent container */
+      margin-top: 50px; /* Added to move the button down */
     }
     
     .finale-enter-btn:hover {
@@ -189,6 +196,15 @@
     /* Hide UI overlays for clean animation */
     header, footer, .coords-panel, .phase-indicator, .metrics { display: none !important; }
   </style>
+  <!-- Import required fonts -->
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href=
+     "https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Poppins:wght@400;600;700&display=swap" rel=
+     "stylesheet">
+    
+   <!-- Load GSAP for animations -->
+   <script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
 
   <!-- map the baare specifier 'three' to the CDN module -->
   <script type="importmap">
@@ -198,20 +214,6 @@
       }
     }
   </script>
-  <!-- map the bare specifier 'three' to the CDN module -->
-  <script type="importmap">
-    {
-      "imports": {
-        "three": "https://unpkg.com/three@0.180.0/build/three.module.js"
-      }
-    }
-  </script>
-  <!-- Web fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
-  <!-- GSAP for robust text animations -->
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 </head>
 <body>
   <div class="wrap">
@@ -224,12 +226,12 @@
         <div class="phase-text-block" data-key="intro-1">
           <h1>Transforming Strategy Execution</h1>
           <h2>COMPLEXITY AS AN ASSET</h2>
-          <p>Most transformations fail because complexity overwhelms. We turned that complexity into an advantage - redefining planning, risks, and dashboards inside one integrated model. <br><b>Good news:</b> its not your fault, its complexity. <br><b>Bad news:</b> it is your fault if you don't explore the alternative.</p>
+          <p>Most transformations fail because complexity overwhelms. We turned that complexity into an advantage—redefining planning, risks, and dashboards inside one integrated model.</p>
         </div>
         <div class="phase-text-block" data-key="intro-2">
-          <h1>Imagine a Parallel Universe</h1>
-          <h2>WHERE TRANSFORMATIONS<br>FLOW</h2>
-          <p>Let us show you a week in that universe — A Week in the Life of a Transformation Team &lt;video link&gt;. Farfetched? It’s here. We built the MVP: a Net.js web app with a Supabase database and a Gemini Assistant, built on a five-year scenario dataset inspired by real transformation events.</p>
+          <h1>Imagine a parallel universe</h1>
+          <h2>WHERE TRANSFORMATIONS FLOW</h2>
+          <p>Let us show you a week in that universe — A Week in the Life of a Transformation Team <b><a href="/assets/aweekin.mp4">video</a></b>. Farfetched? It’s here. We built the MVP: a Net.js web app with a Supabase database and a Gemini Assistant, built on a five-year scenario dataset inspired by real transformation events.</p>
         </div>
         <div class="phase-text-block" data-key="intro-3">
           <h1>So How Did We Do It?</h1>
@@ -239,7 +241,7 @@
         <div class="phase-text-block" data-key="p23-your-org">
           <h1>The Anatomy of an Organization</h1>
           <h2>WHAT MAKES AN ORGANIZATION?</h2>
-          <p>Many things, like a living System of systems: Strategy, Policies, Processes, Digital—shaped by external forces such as markets and global events. Real transformation means understanding how these components interact, not treating them in isolation.</p>
+          <p>Many things, like a living system of systems—Strategy, Policies, Processes, Digital—shaped by external forces such as markets and global events. Real transformation means understanding how these components interact, not treating them in isolation.</p>
         </div>
         <div class="phase-text-block" data-key="p4-hidden">
           <h1>The Hidden Relations</h1>
@@ -253,13 +255,49 @@
         </div>
         <div class="phase-text-block" data-key="p7-two-years">
           <h1>Locks, Locks Everywhere</h1>
-          <h2>WHAT DID 2 YEARS REVEAL?</h2>
+          <h2>WHAT DID TWO YEARS REVEAL?</h2>
           <p>Two years of relentless work, unlocking barrier after barrier. Each layer exposed new dependencies, each cube revealed hidden ties. Piece by piece, the digital twin took shape—a living map of complexity. And just as it came together, AI leapt forward, suddenly powerful and accessible, turning years of struggle into a working reality.</p>
         </div>
         <div class="phase-text-block" data-key="p89-future">
           <h1>The Future, Ready Today</h1>
-          <h2>WHAT PATH WILL YOU CHOOSE?</h2>
-          <p>With the final piece in place—the very heart of the solution—the AI breathed life into the Digital Twin, reigniting hope for true transformation. The journey is not over for us or you, it continues through two distinct hubs.</p>
+          <h2>WHICH PATH WILL YOU CHOOSE?</h2>
+          <p>With the final piece in place—the very heart of the solution—the AI breathed life into the Digital Twin, reigniting hope for true transformation. The journey is not over for us or you, it continues through two distinct hubs... Scroll down to explore.</p>
+          </div>
+
+          <div class="phase-text-block" data-key="twinlab">
+            <h1>TwinLab</h1>
+            <h2>KNOWLEDGE HUB</h2>
+            <p>Contribute ideas, research, and insights to shape the future of transformations. Join a community of thinkers exploring the frontier of organizational complexity.</p>
+          </div>
+          <div class="phase-text-block" data-key="twinstudio">
+            <h1>TwinStudio</h1>
+            <h2>BUILDERS HUB</h2>
+            <p>Begin your own strategy execution journey. Put the Digital Twin to work with tools, templates, and guided implementations. Start transforming with actionable insights.</p>
+          </div>
+            <div class="phase-text-block finale-blocks" data-key="finale-twinlab-twinstudio">
+              <div class="finale-columns">
+                <div class="finale-left-column">
+                  <div class="finale-header">
+                    <img src="/assets/cosmic/twinlab-logo.png" alt="TwinLab Logo" class="finale-logo">
+                    <h1>TwinLab</h1>
+                  </div>
+                  <h2>KNOWLEDGE PATH</h2>
+                  <p>Contribute ideas, research, and insights to shape the future of transformations. Join a community of thinkers exploring the frontier of organizational complexity.</p>
+                  <div style="height: 36px;"></div>
+                  <a href="#/twinlab" class="finale-enter-btn" aria-label="Enter TwinLab platform" title="Navigate to TwinLab - Knowledge Path" target="_top">Enter</a>
+                </div>
+                <div class="finale-right-column">
+                  <div class="finale-header">
+                    <img src="/images/josoorlogo.png" alt="TwinStudio Logo" class="finale-logo">
+                    <h1>TwinStudio</h1>
+                  </div>
+                  <h2>BUILDER PATH</h2>
+                  <p>Begin your own strategy execution journey. Put the Digital Twin to work with tools, templates, and guided implementations. Transform your organization with actionable insights.</p>
+                  <div style="height: 36px;"></div>
+                  <a href="#/roadmap" class="finale-enter-btn" aria-label="Enter TwinStudio" title="Navigate to TwinStudio - Roadmap" target="_top">Enter</a>
+                </div>
+              </div>
+            </div>
         </div>
         
         <!-- Two-column finale blocks that scroll up with the cube exit -->
@@ -271,15 +309,9 @@
             </div>
             <h2>KNOWLEDGE PATH</h2>
             <p>Contribute ideas, research, and insights to shape the future of transformations. Join a community of thinkers exploring the frontier of organizational complexity.</p>
-            <ul>
-              <li>Research Publications</li>
-              <li>Case Study Database</li>
-              <li>Expert Discussions</li>
-              <li>Innovation Challenges</li>
-            </ul>
             <button 
               class="finale-enter-btn" 
-              data-nav-path="/twinlab"
+              data-nav-path="#/twinlab"
               aria-label="Enter TwinLab platform"
               title="Navigate to TwinLab - Knowledge Path"
             >
@@ -292,19 +324,12 @@
               <h1>TwinStudio</h1>
             </div>
             <h2>BUILDER PATH</h2>
-            <p>Begin your own strategy execution journey. Put the Digital Twin to work with tools, templates, and guided implementations.</p>
-            <ul>
-              <li>Strategy Modeling</li>
-              <li>Execution Planning</li>
-              <li>Risk Assessment</li>
-              <li>Performance Dashboards</li>
-            </ul>
+            <p>Begin your own strategy execution journey. Put the Digital Twin to work with tools, templates, and guided implementations. Transform your organization with actionable insights.</p>
             <button 
               class="finale-enter-btn" 
-              data-nav-path="/twinstudio"
-              aria-label="Enter TwinStudio platform"
-              title="Navigate to TwinStudio - Builder Path"
-            >
+              data-nav-path="#/roadmap"
+              aria-label="Enter TwinStudio forum"
+              title="Navigate to TwinStudio - Forum & Discussions">
               Enter
             </button>
           </div>
@@ -320,7 +345,8 @@
       </div></section>
       <section class="text-section"><div class="text-col">
         <h1>Imagine a Parallel Universe</h1>
-        <h2>WHERE TRANSFORMATIONS<br>FLOW</h2>
+        <h2>WHERE TRANSFORMATIONS<br>
+FLOW</h2>
         <p>Let us show you a week in that universe — A Week in the Life of a Transformation Team &lt;video link&gt;. Farfetched? It’s here. We built the MVP: a Net.js web app with a Supabase database and a Gemini Assistant, built on a five-year scenario dataset inspired by real transformation events.</p>
       </div></section>
       <section class="text-section"><div class="text-col">
@@ -399,89 +425,29 @@
     // Background video speed control
     const bgVideo = document.querySelector('.bg-video');
     const VIDEO_PLAYBACK_RATE = 0.4;
-    function applyVideoSpeed(){ try { if (bgVideo) bgVideo.playbackRate = VIDEO_PLAYBACK_RATE; } catch(_){} }
+    function applyVideoSpeed() { 
+      try { if (bgVideo) bgVideo.playbackRate = VIDEO_PLAYBACK_RATE; } catch(_){}
+    }
     if (bgVideo) { bgVideo.addEventListener('loadeddata', applyVideoSpeed); bgVideo.addEventListener('play', applyVideoSpeed); }
     applyVideoSpeed();
 
-    // Navigation handler for finale buttons
-    // ===== ENHANCED NAVIGATION WITH GSAP CONTEXT =====
-    let navigationContext = null;
-    
-    function initializeNavigation() {
-      // Create GSAP context for button interactions
-      navigationContext = gsap.context(() => {
-        // Find all navigation buttons
-        const buttons = document.querySelectorAll('[data-nav-path]');
-        
-        buttons.forEach(button => {
-          const path = button.getAttribute('data-nav-path');
-          
-          // Add proper event listeners using GSAP contextSafe
-          const handleClick = gsap.utils.contextSafe(() => {
-            console.log('Button clicked with path:', path);
-            handleNavigation(path);
-          });
-          
-          // Remove any existing onclick attributes to avoid conflicts
-          button.removeAttribute('onclick');
-          
-          // Add proper event listener
-          button.addEventListener('click', handleClick);
-          
-          // Add hover effects with GSAP
-          button.addEventListener('mouseenter', gsap.utils.contextSafe(() => {
-            gsap.to(button, { scale: 1.05, duration: 0.2, ease: "power2.out" });
-          }));
-          
-          button.addEventListener('mouseleave', gsap.utils.contextSafe(() => {
-            gsap.to(button, { scale: 1, duration: 0.2, ease: "power2.out" });
-          }));
-        });
-      });
-    }
-    
-    function handleNavigation(path) {
-      console.log('handleNavigation called with path:', path);
-      console.log('Current location:', window.location.href);
-      
-      try {
-        // Direct navigation to external URLs
-        if (path === '/twinlab') {
-          console.log('Navigating to TwinLab');
-          window.open('https://twinlab.ai', '_blank');
-          return;
-        }
-        if (path === '/twinstudio') {
-          console.log('Navigating to TwinStudio');
-          window.open('https://twinstudio.ai', '_blank');
-          return;
-        }
-        
-        // For other paths, try hash router first, then direct navigation
-        console.log('Attempting hash navigation');
-        if (window.location.hash) {
-          window.location.hash = '#' + path;
-        } else {
-          window.location.href = path;
-        }
-      } catch (error) {
-        console.error('Navigation error:', error);
-        // Enhanced fallback with more options
-        if (path === '/twinlab') {
-          console.log('Fallback: opening TwinLab in new tab');
-          window.open('https://twinlab.ai', '_blank');
-        } else if (path === '/twinstudio') {
-          console.log('Fallback: opening TwinStudio in new tab');
-          window.open('https://twinstudio.ai', '_blank');
-        } else {
-          console.log('Fallback: direct navigation to', path);
-          window.location.href = path;
-        }
+    // ===== ENHANCED NAVIGATION FOR FINALE BUTTONS =====
+    function handleNavigation(e) {
+      e.preventDefault();
+      const navPath = e.currentTarget.getAttribute('href');
+      if (navPath && window.top) {
+        window.top.location.hash = navPath;
       }
     }
 
-    // Make navigation function globally available
-    window.handleNavigation = handleNavigation;
+    function initializeNavigation() {
+      const btns = document.querySelectorAll('.finale-enter-btn');
+      btns.forEach(btn => {
+        btn.addEventListener('click', handleNavigation);
+      });
+    }
+    
+    setTimeout(initializeNavigation, 200); // Increased timeout for safety
 
     // ===== UTILITY FUNCTIONS =====
     /**
@@ -656,6 +622,15 @@
     const STICKER_CACHE = { largeTexs: null, miniTexs: null };
     const FACE_PATTERNS = ['grid','stripes','ring','chevron','hex','wave'];
     const BLUES = ['#000033','#000066','#000099','#0000CC','#000033','#000066'];
+
+    let fixedFaceAssignments = [];
+
+    fetch('/faces.json')
+      .then(response => response.json())
+      .then(data => {
+        fixedFaceAssignments = data.faces.map(face => face.pattern);
+      })
+      .catch(error => console.error('Error loading face patterns:', error));
 
     /**
      * Create a procedural sticker texture with pattern and optional gloss
@@ -918,7 +893,7 @@
      * @param {number} edgeColor - Edge color (typically dark navy)
      * @returns {THREE.Mesh} Configured cube mesh with edges
      */
-    function makeCube(size, fillColor, edgeColor) {
+    function makeCube(size, fillColor, edgeColor, cubeIndex = 0) {
       const geom = new THREE.BoxGeometry(size, size, size);
       let mesh;
 
@@ -926,7 +901,7 @@
         if (size >= 0.99) {
           // ===== LARGE CUBE CREATION =====
           // 27 large cubes forming the initial Rubik's cube structure
-          const pats = shuffle(FACE_PATTERNS.slice()); // Randomize pattern order per cube
+          const pats = fixedFaceAssignments.length > 0 ? fixedFaceAssignments.slice() : shuffle(FACE_PATTERNS.slice()); // Randomize pattern order per cube
           // Load all 6 bump map textures
           const bumpTextures = [1,2,3,4,5,6].map(n => {
             const tex = new THREE.TextureLoader().load(`/assets/textures/cubeface${n}.png`);
@@ -938,7 +913,7 @@
           // Randomly assign bump map to each face
           const mats = pats.map((pat, i) => new THREE.MeshStandardMaterial({
             // map: createStickerTexture(pat, BLUES[i%BLUES.length], true, true), // Pattern overlay commented out
-            color: BLUES[i%BLUES.length], // Keep color
+            color: new THREE.Color(fillColor), // Use the fillColor parameter instead of hardcoded value
             bumpMap: bumpTextures[Math.floor(Math.random()*6)],
             bumpScale: 1.0, // Maximum bump effect
             transparent: false, // Opaque for performance
@@ -1043,7 +1018,7 @@
     const containerEl = document.querySelector('.sticky-canvas');
     
     // Guard against multiple initialization
-  if (window.__rubiksInit) {}
+  if (window.__rubiksInit) {} // This line seems to be a no-op, likely for debugging or state management.
     window.__rubiksInit = true;
     
     // Create WebGL context explicitly with fallbacks
@@ -1076,12 +1051,12 @@
     
     console.log('WebGL context created:', gl.getParameter(gl.VERSION));
     
-    const renderer = new THREE.WebGLRenderer({ 
+    const renderer = new THREE.WebGLRenderer({
       canvas, 
       context: gl,
       alpha: true
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5)); // Conservative pixel ratio
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2.0)); // Conservative pixel ratio
     
     // Handle context loss
     canvas.addEventListener('webglcontextlost', e => { 
@@ -1123,13 +1098,13 @@
     scene.add(hemi);
 
   // Directional light for key lighting and shadows
-  const dir = new THREE.DirectionalLight(0xffffff, 2.5); // Increased intensity for bump mapping
+  const dir = new THREE.DirectionalLight(0xffffff, 1.0); // Adjusted intensity to 1.0
   dir.position.set(6, 10, 8); // Position above and to the side
   dir.castShadow = true; // Enable shadow casting
   scene.add(dir);
 
   // Add a second directional light from the opposite angle for better face illumination
-  const dir2 = new THREE.DirectionalLight(0xffffff, 2.5);
+  const dir2 = new THREE.DirectionalLight(0xffffff, 1.0); // Adjusted intensity to 1.0
   dir2.position.set(6, 4, 12); // Match camera position
   dir2.target = new THREE.Object3D();
   dir2.target.position.set(0, -0.6, 0); // Match camera lookAt
@@ -1167,10 +1142,11 @@
     root.add(largeGroup);
 
     // Generate 3x3x3 grid of large cubes
+    let cubeIndex = 0;
     for (let x = -1; x <= 1; x++) {
       for (let y = -1; y <= 1; y++) {
         for (let z = -1; z <= 1; z++) {
-          const cube = makeCube(LARGE_SIZE, 0x00f0ff, 0xffffff);
+          const cube = makeCube(LARGE_SIZE, 0x000096, 0xffffff, cubeIndex++);
           cube.position.set(x * STEP, y * STEP, z * STEP); // Position in grid
           largeGroup.add(cube);
           largePieces.push(cube);
@@ -1460,7 +1436,8 @@
       { id: 6, start: 0.43, end: 0.52, label: 'Phase 6 — Popcorn Recolor' },
       { id: 7, start: 0.52, end: 0.62, label: 'Phase 7 — Dance' },
       { id: 8, start: 0.62, end: 0.70, label: 'Phase 8 — Final Morph' },
-      { id: 9, start: 0.70, end: 1.0, label: 'Phase 9 — Final Formation' }
+      { id: 9, start: 0.70, end: 0.85, label: 'Phase 9 — Final Formation' },
+      { id: 10, start: 0.85, end: 1.0, label: 'Phase 10 — Finale Choice' }
     ];
 
     // Fixed dismantle radius for Phase 2 (no viewport-based formula)
@@ -1569,7 +1546,7 @@
       if (sections.length < 8) return; // expect 8 sections
       // Use a fixed scroll budget (the spacer) to avoid feedback loops that desync phases
       const spacer = document.querySelector('.spacer');
-      const baseBudget = spacer ? parseFloat(getComputedStyle(spacer).height) || 18000 : 18000;
+      const baseBudget = spacer ? parseFloat(getComputedStyle(spacer).height) || 20000 : 20000;
       // Mapping of section index (0-based) to one or more animation phases to pin through
       const mapping = new Map([
         [3, [2,3]],   // The Anatomy of an Organization: P2 + P3
@@ -1606,7 +1583,7 @@
     // ===== UNIFIED GSAP TIMELINE SYSTEM =====
     const overlayRoot = document.getElementById('phaseOverlay');
     const overlayBlocks = overlayRoot ? Array.from(overlayRoot.querySelectorAll('.phase-text-block')) : [];
-    const overlayOrder = ['intro-1','intro-2','intro-3','p23-your-org','p4-hidden','p56-where','p7-two-years','p89-future'];
+    const overlayOrder = ['intro-1','intro-2','intro-3','p23-your-org','p4-hidden','p56-where','p7-two-years','p89-future','finale-twinlab-twinstudio'];
     const orderIndex = new Map(overlayOrder.map((k,i)=>[k,i]));
     let activeKey = '';
     let lastActiveEl = null;
@@ -1650,7 +1627,7 @@
       // Phase 8-9: Text exit and cube movement synchronized
         .add("finale-start")
         .to({}, { 
-          duration: 1.8, 
+          duration: 2.0, // Standardized duration for major phase transitions
           ease: "power2.out",
           onUpdate: function() {
             updateFinaleSync(this.progress());
@@ -1700,6 +1677,16 @@
     function setActive(key){
       if (!overlayRoot || key === activeKey) return;
       setupOverlayViewport();
+      
+      // Clean up any previous phase-specific states before transition
+      overlayBlocks.forEach(el => {
+        el.removeAttribute('data-slide-triggered');
+        el.removeAttribute('data-pause-applied');
+        if (el.style.opacity !== '1' && el.style.opacity !== '') {
+          el.style.opacity = '1'; // Reset any opacity modifications
+        }
+      });
+      
       const nextEl = overlayBlocks.find(el => el.getAttribute('data-key') === key) || null;
       const prevEl = overlayBlocks.find(el => el.classList.contains('active')) || null;
       activeKey = key;
@@ -1712,7 +1699,7 @@
       
       // Create text transition timeline with proper sequencing
       textAnimationTween = gsap.timeline({
-        duration: 1.8,
+        duration: 1.8, // Original slower timing for text transitions
         ease: "power2.out",
         onComplete: function() {
           measureViewport();
@@ -1742,24 +1729,24 @@
         if (prevEl) {
           textAnimationTween.fromTo(prevEl, 
             { y: 0 },
-            { 
+            {
               y: forward ? -H : H, 
-              duration: 0.9,
+              duration: 1.8, // SLOWER exit - not too fast
               ease: "power2.out",
               onComplete: () => { 
                 prevEl.style.visibility = 'hidden'; 
                 prevEl.classList.remove('active');
               }
             }, 
-            0
+            0  // Start immediately
           );
         }
 
-        // Animate in next element
+        // Animate in next element - START AT SAME TIME AS EXIT
         textAnimationTween.fromTo(nextEl, 
           { y: forward ? H : -H, visibility: 'visible' },
-          { y: 0, duration: 0.9, ease: "power2.out" }, 
-          prevEl ? 0.9 : 0
+          { y: 0, duration: 1.8, ease: "power2.out" }, // SAME slower duration as exit
+          0  // SAME START TIME - NO DELAY - SYNCHRONIZED
         );
       }
 
@@ -1789,109 +1776,37 @@
         } else {
           // 5% pause at the end - keep text visible and prevent transition to phase 8
           setActive('p7-two-years');
-          // Add visual indication of pause (optional)
-          const overlay = document.querySelector('.phase-text-block[data-key="p7-two-years"]');
-          if (overlay) {
-            overlay.style.opacity = '0.8'; // Slightly fade to indicate pause
-          }
+          return; // Stay in Phase 7 pause - don't continue to Phase 8 yet
         }
-        return;
       }
       if (p===8) {
-        setActive('p89-future');
+        // Calculate scroll progress within phase 8
+        const phase8 = PHASES[7];
+        const phase8Start = phase8.start;
+        const phase8End = phase8.end;
+        const scrollProgress = clamp((gPhase - phase8Start) / (phase8End - phase8Start), 0, 1);
+        
+        // Keep Phase 7 text briefly (first 30% of Phase 8), then transition to Phase 9 text
+        if (scrollProgress < 0.3) {
+          // Keep showing Phase 7 text briefly in early Phase 8
+          setActive('p7-two-years');
+        } else {
+          // Transition from p7-two-years to p89-future with sliding animation
+          setActive('p89-future');
+        }
       }
       if (p===9) {
-        // Calculate scroll progress within phase 9
-        const phase9 = PHASES[8];
-        const phase9Start = phase9.start;
-        const phase9End = phase9.end;
-        const scrollProgress = clamp((gPhase - phase9Start) / (phase9End - phase9Start), 0, 1);
-        
-        // Phase 9: Synchronize text and cube exit at exactly the same time (0%)
-        const overlay = document.querySelector('.phase-text-block[data-key="p89-future"]');
-        
-        if (scrollProgress === 0) {
-          // At the very start of phase 9 - keep text active briefly
-          setActive('p89-future');
-          if (overlay) {
-            overlay.removeAttribute('data-slide-triggered'); // Reset slide state
-          }
-        } else if (scrollProgress > 0 && overlay && !overlay.hasAttribute('data-slide-triggered')) {
-          // Start sliding immediately when phase 9 begins (synchronized with cube)
-          overlay.setAttribute('data-slide-triggered', 'true');
-          overlay.classList.remove('active');
-          const H = (overlayViewport && overlayViewport.clientHeight) ? overlayViewport.clientHeight : 600;
-          gsap.to(overlay, { 
-            duration: 2.0, // Match cube movement timing
-            y: -H, 
-            ease: 'power2.out', 
-            onComplete: () => { 
-              overlay.style.visibility = 'hidden'; 
-            }
-          });
-        }
-        
-        // Handle finale columns entrance - only animate once
-        const finaleColumns = document.getElementById('finaleColumns');
-        if (finaleColumns) {
-          finaleColumns.style.display = 'flex';
-          
-          if (scrollProgress < 0.4) {
-            // Keep columns hidden and below viewport before 40%
-            if (!finaleColumns.hasAttribute('data-slide-state') || finaleColumns.getAttribute('data-slide-state') !== 'hidden') {
-              finaleColumns.setAttribute('data-slide-state', 'hidden');
-              gsap.set(finaleColumns, { y: window.innerHeight, visibility: 'hidden' });
-            }
-          } else if (scrollProgress >= 0.4 && finaleColumns.getAttribute('data-slide-state') !== 'animated') {
-            // Start sliding in columns at 40% - animate only once
-            finaleColumns.setAttribute('data-slide-state', 'animated');
-            gsap.set(finaleColumns, { y: window.innerHeight, visibility: 'visible' });
-            gsap.to(finaleColumns, { 
-              duration: 1.8, 
-              y: 0, 
-              ease: 'power2.out'
-            });
-          }
-        }
-        
-        // NOTE: Cube sliding is handled in applyPhases function using proper Three.js system
-        // Both cube and text now start moving at scrollProgress > 0 (perfect synchronization)
+        setActive('p89-future');
       }
-      if (p < 8) {
-        // Hide finale columns when not in phase 8 or 9, and reset animation state
-        const finaleColumns = document.getElementById('finaleColumns');
-        if (finaleColumns) {
-          finaleColumns.style.display = 'none';
-          finaleColumns.removeAttribute('data-slide-state'); // Reset animation state for re-entry
-          gsap.killTweensOf(finaleColumns); // Kill any ongoing animations
-        }
-        
-        // Reset "The Future, Ready Today" text state for reverse scrolling
-        const overlay = document.querySelector('.phase-text-block[data-key="p89-future"]');
-        if (overlay) {
-          gsap.killTweensOf(overlay); // Kill any ongoing animations
-          overlay.style.visibility = 'visible';
-          overlay.style.display = 'block';
-          gsap.set(overlay, { y: 0 }); // Reset position
-          overlay.removeAttribute('data-slide-triggered'); // Reset slide state
-          // Force remove active class so setActive can add it properly in phase 8
-          overlay.classList.remove('active');
-        }
+      if (p===10) {
+        setActive('finale-twinlab-twinstudio');
       }
       if (p === 8) {
-        // Ensure finale columns are hidden in phase 8 and text is properly shown
+        // Ensure finale columns are hidden in phase 8
         const finaleColumns = document.getElementById('finaleColumns');
         if (finaleColumns) {
           finaleColumns.style.display = 'none';
           finaleColumns.removeAttribute('data-slide-state');
-        }
-        
-        // Ensure text is ready to be shown in phase 8
-        const overlay = document.querySelector('.phase-text-block[data-key="p89-future"]');
-        if (overlay) {
-          overlay.removeAttribute('data-slide-triggered');
-          overlay.style.visibility = 'visible';
-          gsap.set(overlay, { y: 0 });
         }
       }
     }
@@ -1963,7 +1878,7 @@
       // Base transforms reset
       // Keep root rotation gentle toward targetRot only in Phase 0 and 9
 
-      // Phase 1 — Idle / Mouse Rotation
+      // Phase 1 — Idle / Gentle Float
       if (phase.id === 1) {
         // Set initial rotation for front-facing cube only once per Phase 1 entry
         /*
@@ -2306,7 +2221,7 @@
         // ===== COLOR TRANSITION SYSTEM =====
         const fromColor = new THREE.Color(0x0066CC); // Blue (matches initial mini-cube color)
   // const toColor = new THREE.Color(0xC084FC);   // Purple (original)
-  const toColor = new THREE.Color(0x6B21A8);   // Darker purple
+  const toColor = new THREE.Color(0x6B21A8);   // Darker purple (original)
         const up = new THREE.Vector3(0,1,0); // Up vector for hover
 
         miniCubes.forEach((m, idx) => {
@@ -2352,7 +2267,7 @@
             // ===== EDGE COLOR CHANGE =====
             // Change edges to grey for purple cubes
             if (o.isLineSegments && o.material) {
-              o.material.color.set(0x808080); // Grey color for purple cube edges
+              o.material.color.set(0xcccccc); // Grey color for purple cube edges
             }
           });
         });
@@ -2447,15 +2362,19 @@
         const phase9Start = phase9.start;
         const phase9End = phase9.end;
         let scrollOutProgress = 0;
-        if (g >= phase9Start && g <= phase9End) {
-          scrollOutProgress = clamp((g - phase9Start) / (phase9End - phase9Start), 0, 1);
-        }
+               if (g >= phase9Start && g <= phase9End && window.root) {
+             scrollOutProgress = clamp((g - phase9Start) / (phase9End - phase9Start), 0, 1);
+             // Move root group up by up to 120% of viewport height (scaled to world units)
+             const maxOffset = window.innerHeight * 1.2 * 0.02; // scale for world units
+             window.root.position.y = scrollOutProgress * maxOffset; } // This line seems to be missing a closing parenthesis in the original code.
         if (!isDragging) {
           const tAuto9 = perf.now * 0.001;
           const rootFloat = Math.sin(tAuto9 * 0.8) * (PHASE1_SPAN * 0.02);
-          // Move cube up by up to 12 units to completely leave view
-          const maxOffset = PHASE1_SPAN * 8.0; // significantly increase to ensure cube completely leaves view
-          const scrollY = scrollOutProgress * maxOffset;
+          // Slower, more gentle exit - cube should exit gradually and be mostly gone by 85%
+          const maxOffset = PHASE1_SPAN * 8.0;
+          // Use eased progress for smoother movement
+          const easedProgress = easeInOut(scrollOutProgress);
+          const scrollY = easedProgress * maxOffset;
           root.position.y = rootFloat + scrollY;
           const rx9 = Math.sin(tAuto9 * 0.15) * 0.12;
           const ry9 = Math.cos(tAuto9 * 0.12) * 0.20;
@@ -2498,26 +2417,116 @@
   // setCubeFillColor(miniGroup, 0xC084FC); // original: light purple
   // setCubeFillColor(miniGroup, 0x6B21A8); // previous: dark purple
   // setCubeFillColor(miniGroup, 0x4B0082); // previous: even darker purple
-  setCubeFillColor(miniGroup, 0x500050); // final: vivid dark purple (#8A008A)
+  setCubeFillColor(miniGroup, 0x9f7bff); // final: vivid dark purple (#8A008A)
+      }
+
+      // Phase 10 — Finale Choice (maintain Phase 9 final state)
+      if (phase.id === 10) {
+        const t = easeInOut(phaseProgress(g, phase.start, phase.end));
+        largeGroup.visible = false; miniGroup.visible = true; frameGroup.visible = true; coreSphere.visible = true; coreLight.visible = true;
+        if (mouseLabelEl) mouseLabelEl.style.display = 'none';
+
+        // Keep cube in final raised position (no further movement)
+        frameGroup.position.y = 0; coreSphere.position.y = 0;
+        
+        if (!isDragging) {
+          const tAuto10 = perf.now * 0.001;
+          const rootFloat = Math.sin(tAuto10 * 0.8) * (PHASE1_SPAN * 0.02);
+          // Keep cube at maximum offset from Phase 9
+          const maxOffset = PHASE1_SPAN * 8.0;
+          root.position.y = rootFloat + maxOffset; // Maintain final position
+          const rx10 = Math.sin(tAuto10 * 0.15) * 0.12;
+          const ry10 = Math.cos(tAuto10 * 0.12) * 0.20;
+          root.rotation.x = THREE.MathUtils.damp(root.rotation.x, rx10, 4, delta);
+          root.rotation.y = THREE.MathUtils.damp(root.rotation.y, ry10, 4, delta);
+        }
+        
+        // Maintain final scale
+        const FINAL_SCALE = INTRO_START_SCALE / PHASE1_INITIAL_SCALE;
+        root.scale.setScalar(FINAL_SCALE);
+        coreSphere.scale.setScalar(1.0);
+        coreLight.distance = PHASE1_SPAN * 4.0;
+        coreLight.intensity = 3.2;
+        
+        // Maintain frame and core sphere glow
+        if (beamMat && 'emissive' in beamMat) {
+          beamMat.emissive = new THREE.Color(0xFFFFFF);
+          beamMat.emissiveIntensity = 1.0;
+        }
+        if (coreSphere.material && 'emissive' in coreSphere.material) {
+          coreSphere.material.emissive = new THREE.Color(0xBC9D00);
+          coreSphere.material.emissiveIntensity = 0.9;
+        }
+        
+        // Maintain sculpture formation and purple glow
+        miniCubes.forEach((m, idx) => {
+          const ft = sculpturePos[idx];
+          m.position.lerp(ft, 0.2);
+          m.quaternion.slerp(sculptureQuat[idx], 0.15);
+          m.scale.lerp(sculptureScale[idx], 0.15);
+          
+          m.traverse(o => {
+            if (o.isMesh && o.material && 'emissiveIntensity' in o.material) {
+              o.material.emissive = new THREE.Color(0x4F049A);
+              o.material.emissiveIntensity = 0.9;
+            }
+          });
+        });
+        
+        // Maintain purple fills
+        setCubeFillColor(miniGroup, 0x9f7bff);
       } else if (phase.id === 4 || phase.id === 5) {
         // During transform and expand, match minis to blue color
         setCubeFillColor(miniGroup, 0x0066CC);
       } else if (phase.id === 6 || phase.id === 7 || phase.id === 8) {
         // Carry over per-cube colors from prior phase; no global override
-      } else {
-        // other phases: neutral fill while preserving white edges
-        setCubeFillColor(miniGroup, 0x1f2937);
-        miniCubes.forEach((m) => {
-          m.traverse(o => {
-            if (o.isMesh && o.material && 'emissiveIntensity' in o.material) {
-              o.material.emissive = new THREE.Color(0x000000);
-              o.material.emissiveIntensity = 0.0;
-            }
-          });
-        });
-        frameGroup.visible = false; coreSphere.visible = false; if (typeof coreLight !== 'undefined') coreLight.visible = false;
-      }
+} else {
+          // This block now handles the final state for phases 9 & 10,
+            // and resets the state for all other phases that fall through.
+  if (phase.id === 9 || phase.id === 10) {
+    // --- Set and hold the final static state from Phase 9 ---
 
+    // 1. Make sure all final elements are visible
+    frameGroup.visible = true;
+    coreSphere.visible = true;
+    if (typeof coreLight !== 'undefined') coreLight.visible = true;
+
+    // 2. Set the final colors AND emissive properties to match Phase 9
+    setCubeFillColor(miniGroup, 0x6B21A8); // Set final purple fill color
+
+    if (beamMat && 'emissive' in beamMat) {
+      beamMat.emissive.setHex(0xFFFFFF);
+      beamMat.emissiveIntensity = 1.0;
+    }
+    if (coreSphere.material && 'emissive' in coreSphere.material) {
+      coreSphere.material.emissive.setHex(0xBC9D00);
+      coreSphere.material.emissiveIntensity = 0.9;
+    }
+    miniCubes.forEach(m => {
+        m.traverse(o => {
+            if (o.isMesh && o.material && 'emissiveIntensity' in o.material) {
+                o.material.emissive.setHex(0x4F049A);
+                o.material.emissiveIntensity = 0.9;
+            }
+        });
+    });
+
+  } else {
+    // For all other phases, perform the original reset.
+    setCubeFillColor(miniGroup, 0x1f2937); // Dark neutral color
+    miniCubes.forEach((m) => {
+      m.traverse(o => {
+        if (o.isMesh && o.material && 'emissiveIntensity' in o.material) {
+          o.material.emissive.setHex(0x000000);
+          o.material.emissiveIntensity = 0.0;
+        }
+      });
+    });
+    frameGroup.visible = false;
+    coreSphere.visible = false;
+    if (typeof coreLight !== 'undefined') coreLight.visible = false;
+            }
+          }
       // Locking behavior: large pieces remain at their phase-end positions after Phase 2 completion (implicitly handled by continuous lerp to cloud target before transform)
 
       // Autonomous rotation in phases 1 and 9 is applied above; otherwise settle to neutral
@@ -2537,7 +2546,7 @@
       // Metrics
       if (metricsEl) metricsEl.textContent = label;
       updateCoords(phase.id);
-    }
+  }
 
     // ===== Resize =====
     function fitCameraToPhase1Bounds() {
@@ -2635,12 +2644,11 @@
       const phase9Start = phase9.start;
       const phase9End = phase9.end;
       let scrollOutProgress = 0;
-      if (gPhase >= phase9Start && gPhase <= phase9End && window.root) {
-        scrollOutProgress = clamp((gPhase - phase9Start) / (phase9End - phase9Start), 0, 1);
-        // Move root group up by up to 120% of viewport height (scaled to world units)
-        const maxOffset = window.innerHeight * 1.2 * 0.02; // scale for world units
-        window.root.position.y = scrollOutProgress * maxOffset;
-      }
+             if (g >= phase9Start && g <= phase9End && window.root) {
+           scrollOutProgress = clamp((g - phase9Start) / (phase9End - phase9Start), 0, 1);
+           // Move root group up by up to 120% of viewport height (scaled to world units)
+           const maxOffset = window.innerHeight * 1.2 * 0.02; // scale for world units
+           window.root.position.y = scrollOutProgress * maxOffset; } // This line seems to be missing a closing parenthesis in the original code.
       applyPhases(gPhase); // Apply current phase animations
 
       // Update text overlays based on phase
@@ -2656,10 +2664,7 @@
     // ===== ANIMATION INITIALIZATION =====
     render(); // Start the animation loop
     
-    // Initialize navigation system with proper event handlers
-    setTimeout(() => {
-      initializeNavigation();
-    }, 100);
+    
 
     // ===== EXTERNAL COMMUNICATION =====
     // Notify parent component that animation is ready

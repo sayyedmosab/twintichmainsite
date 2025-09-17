@@ -1,0 +1,18 @@
+graph TD
+    subgraph "TwinLab Section"
+        direction LR
+        TwinLabPage[CosmicLandingPage]
+    end
+
+    subgraph "AI Services (Not Directly Used)"
+        direction LR
+        AIService[AI Orchestration Layer]
+    end
+
+    TwinLabPage -- "No Direct Interaction" --> AIService
+
+    classDef twinlab fill:#e1f5fe
+    classDef ai fill:#fff3e0
+
+    class TwinLabPage twinlab
+    class AIService ai

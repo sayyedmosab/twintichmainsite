@@ -1,0 +1,35 @@
+graph TD
+    subgraph "React Component Hierarchy"
+        App[App.tsx] --> AppLayout[AppLayout]
+        AppLayout --> Header[Header Component]
+        AppLayout --> Outlet[React Router Outlet]
+        AppLayout --> Footer[Footer Component]
+
+        Outlet --> HomePage[HomePage]
+        HomePage --> RubiksIframe[RubiksIframe]
+        HomePage --> Hero[Hero (intended)]
+        HomePage --> Frame[Frame (intended)]
+    end
+
+    subgraph "UI Components Library"
+        shadcn[shadcn/ui] --> Button[Button]
+        shadcn --> Card[Card]
+    end
+
+    subgraph "Hooks & State Management"
+        AuthContext[AuthContext] --> useAuth[useAuth Hook]
+        ReactRouter[React Router] --> useNavigate[useNavigate Hook]
+        ReactRouter --> useLocation[useLocation Hook]
+    end
+
+    Header --> useAuth
+    Header --> useNavigate
+    Header --> useLocation
+
+    classDef components fill:#e1f5fe
+    classDef ui fill:#f3e5f5
+    classDef state fill:#fff3e0
+
+    class App,AppLayout,Header,Outlet,Footer,HomePage,RubiksIframe,Hero,Frame components
+    class shadcn,Button,Card ui
+    class AuthContext,useAuth,ReactRouter,useNavigate,useLocation state

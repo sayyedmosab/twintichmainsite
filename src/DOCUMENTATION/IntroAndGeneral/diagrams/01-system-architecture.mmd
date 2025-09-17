@@ -1,0 +1,43 @@
+graph TB
+    subgraph "User Journey Flow"
+        U[User] --> HomePage[Home Page]
+        HomePage --> Nav[Main Navigation]
+        Nav --> AboutPage[About Page]
+        Nav --> TwinStudioPage[TwinStudio Page]
+        Nav --> TwinLabPage[TwinLab Page]
+        Nav --> LoginPage[Login Page]
+    end
+
+    subgraph "Frontend Layer"
+        HomePage --> React[React 18 + Vite]
+        React --> Header[Header Component]
+        React --> Footer[Footer Component]
+        React --> RubiksIframe[RubiksIframe Component]
+        React --> Routing[React Router]
+    end
+
+    subgraph "Backend Layer"
+        React --> APIRoutes[API Routes (for auth)]
+        APIRoutes --> ExpressServer[Express Server]
+        ExpressServer --> AuthController[Auth Controller]
+    end
+
+    subgraph "Data Layer"
+        AuthController --> Supabase[Supabase PostgreSQL]
+        Supabase --> UsersTable[Users Table]
+    end
+
+    subgraph "Infrastructure Layer"
+        ExpressServer --> Vercel[Vercel Deployment]
+        Supabase --> AWS[AWS Saudi Region]
+    end
+
+    classDef frontend fill:#e1f5fe
+    classDef backend fill:#f3e5f5
+    classDef data fill:#e8f5e8
+    classDef infra fill:#fce4ec
+
+    class React,Header,Footer,RubiksIframe,Routing frontend
+    class APIRoutes,ExpressServer,AuthController backend
+    class Supabase,UsersTable data
+    class Vercel,AWS infra

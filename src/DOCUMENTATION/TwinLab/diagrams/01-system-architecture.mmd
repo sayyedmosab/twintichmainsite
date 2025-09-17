@@ -1,0 +1,24 @@
+graph TB
+    subgraph "User Journey Flow"
+        U[User] --> TwinLabPage[TwinLab Page]
+        TwinLabPage --> Chapter[Selects Chapter]
+        Chapter --> Episode[Selects Episode]
+        Episode --> Content[Views Content]
+    end
+
+    subgraph "Frontend Layer"
+        TwinLabPage --> React[React 18 + Vite]
+        React --> CosmicLandingPage[CosmicLandingPage Component]
+        CosmicLandingPage --> ThreeJS[React Three Fiber (for 3D)]
+        CosmicLandingPage --> FramerMotion[Framer Motion (for animation)]
+    end
+
+    subgraph "Data Layer (Hardcoded)"
+        CosmicLandingPage --> KnowledgeDomains[Knowledge Domains Data]
+    end
+
+    classDef frontend fill:#e1f5fe
+    classDef data fill:#e8f5e8
+
+    class React,CosmicLandingPage,ThreeJS,FramerMotion frontend
+    class KnowledgeDomains data

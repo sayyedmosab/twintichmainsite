@@ -1,0 +1,25 @@
+graph TD
+    subgraph "React Component Hierarchy"
+        CosmicLandingPage[CosmicLandingPage] --> SphereCanvas[SphereCanvas]
+        CosmicLandingPage --> ImageWithFallback[ImageWithFallback]
+        CosmicLandingPage --> MotionDiv[framer-motion Divs]
+    end
+
+    subgraph "3D Components (React Three Fiber)"
+        SphereCanvas --> Canvas[Canvas]
+        Canvas --> Sphere[Sphere]
+        Canvas --> OrbitControls[OrbitControls]
+    end
+
+    subgraph "UI Components"
+        CosmicLandingPage --> Buttons[Buttons]
+        CosmicLandingPage --> Text[Text Elements]
+    end
+
+    classDef components fill:#e1f5fe
+    classDef 3d fill:#f3e5f5
+    classDef ui fill:#fff3e0
+
+    class CosmicLandingPage,SphereCanvas,ImageWithFallback,MotionDiv components
+    class Canvas,Sphere,OrbitControls 3d
+    class Buttons,Text ui
