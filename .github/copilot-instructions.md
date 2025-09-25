@@ -2,7 +2,8 @@ Of course. Here is an integrated, contradiction-free version of the instructions
 
 This revised document modifies the project-specific rules to align with the Constitution's emphasis on autonomy and streamlined workflows.
 
------
+## Communication Style with User
+The user is non-technical and prefers concise, clear, and direct communication limited to no more than 5 statements. Avoid technical jargon and lengthy explanations. Use simple language and focus on the key points. Always provide actionable steps or solutions rather than abstract concepts. Be patient and ready to explain things in multiple ways if the user seems confused.-----
 
 ## Integrated Copilot Instructions (Constitution-Priority)
 
