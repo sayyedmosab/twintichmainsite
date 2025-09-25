@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import { useTranslation } from 'react-i18next';
 
 interface HeaderProps {
   currentUser: any;
@@ -8,6 +9,7 @@ interface HeaderProps {
 }
 
 export function Header({ currentUser, onLoginClick, onBackToLanding, showBackButton = false }: HeaderProps) {
+  const { t } = useTranslation();
 
   return (
     <header className="sticky top-0 z-50 h-16 bg-gradient-to-r from-stone-500 via-stone-400 to-stone-500 relative">
@@ -36,30 +38,30 @@ export function Header({ currentUser, onLoginClick, onBackToLanding, showBackBut
 
       <div className="relative h-full px-8">
         <div className="flex items-center justify-between h-full">
-          {/* TwinLab Title */}
+          {/* Title */}
           <div className="flex items-center gap-6">
             {showBackButton && onBackToLanding && (
               <button
                 onClick={onBackToLanding}
                 className="px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white border border-cyan-400/30 transition-colors font-inter text-sm"
               >
-                ← Back to Universe
+                ← {t('header.backToUniverse', 'Back to Universe')}
               </button>
             )}
             <div>
               <h1 className="text-3xl font-bold text-white font-allerta" style={{ 
                 textShadow: '0 0 15px rgba(173, 216, 230, 0.8), 0 0 30px rgba(173, 216, 230, 0.6)' 
               }}>
-                TWINLAB
+                {t('header.twinUniTitle', 'TwinUni')}
               </h1>
-              <p className="text-sm text-cyan-300 font-inter -mt-1">The Future, Ready Today</p>
+              <p className="text-sm text-cyan-300 font-inter -mt-1">{t('header.twinUniSubtitle', 'The Future, Ready Today')}</p>
             </div>
           </div>
 
           {/* Right Side - Learn, Share, Grow & User */}
           <div className="flex items-center gap-6">
             <div className="text-xl font-bold text-cyan-300 font-inter">
-              Learn, Share, Grow
+              {t('header.learnShareGrow', 'Learn, Share, Grow')}
             </div>
             
             {currentUser ? (
@@ -77,7 +79,7 @@ export function Header({ currentUser, onLoginClick, onBackToLanding, showBackBut
                 onClick={onLoginClick}
                 className="px-4 py-2 bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800 text-white border border-cyan-400/30 transition-colors font-inter text-sm"
               >
-                🔑 LOGIN
+                🔑 {t('header.login', 'Login')}
               </button>
             )}
           </div>

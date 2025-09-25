@@ -1,0 +1,88 @@
+{
+  "nav": {
+    "home": "ابدأ",
+    "about": "من نحن",
+    "twinScience": "علوم التوأمة",
+    "twinStudio": "ستوديو التوأمة",
+    "twinFactory": "حلول متقدمة"
+  },
+  "header": {
+    "login": "تسجيل الدخول / التسجيل",
+    "logout": "تسجيل الخروج",
+    "language": "اللغة",
+    "languageToggle": {
+      "arabic": "العربية",
+      "english": "English"
+    },
+  "twinScienceTitle": "علوم التوأمة - فهم التوائم الرقمية للمؤسسات",
+  "twinUniTitle": "الجامعة للتوأمة",
+    "closeMenu": "إغلاق القائمة",
+    "openMenu": "فتح القائمة",
+    "closeNavigation": "إغلاق قائمة التنقل",
+    "openNavigation": "فتح قائمة التنقل"
+  },
+  "contentViewer": {
+    "backTo": "العودة إلى {{topic}}",
+    "videoPlaceholder": "مشغل الفيديو (عنصر نائب)",
+    "audioPlaceholder": "مشغل الصوت (عنصر نائب)",
+    "duration": "المدة: {{duration}}",
+    "like": "أعجبني",
+    "liked": "مُعجب",
+    "share": "مشاركة",
+    "comments": "التعليقات"
+    ,
+    "studyGuideTitle": "ميزات دليل الدراسة",
+    "studyFeature1": "تمارين تفاعلية وأمثلة",
+    "studyFeature2": "أسئلة تقييم ذاتي",
+    "studyFeature3": "موارد ومراجع إضافية",
+    "studyFeature4": "قدرات تتبع التقدم",
+    "suggestAddition": "اقتراح إضافة"
+  },
+  "authModal": {
+    "welcomeBack": "مرحباً بعودتك",
+    "joinCommunity": "انضم إلى المجتمع",
+    "loginPrompt": "سجّل الدخول للمساهمة بالتعليقات والأسئلة والاقتراحات.",
+    "createAccountPrompt": "أنشئ حسابًا للانضمام إلى مجتمع المعرفة الرقمية.",
+    "login": "تسجيل الدخول",
+    "createAccount": "إنشاء حساب",
+    "dontHaveAccount": "ليس لديك حساب؟",
+    "alreadyHaveAccount": "هل لديك حساب بالفعل؟",
+    "createOneHere": "أنشئ واحدًا هنا",
+    "loginHere": "سجل الدخول هنا",
+    "demoNote": "ملاحظة: هذا نموذج أولي. استخدم أي بريد إلكتروني/كلمة مرور لتسجيل الدخول أو إنشاء حساب.",
+    "fullName": "الاسم الكامل",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "iAmA": "أنا...",
+    "roleLearner": "باحث عن المعرفة",
+    "roleArchitect": "مساهم معرفي"
+  ,
+    "demoNoteLabel": "ملاحظة:"
+  ,
+    "placeholderFullName": "أدخل اسمك الكامل",
+    "placeholderEmail": "أدخل بريدك الإلكتروني",
+    "placeholderPassword": "أدخل كلمة المرور",
+    "roleLearnerDescription": "التعلم عن التوائم الرقمية والبحث عن المعرفة",
+    "roleArchitectDescription": "مهندس أو محترف يساهم بخبرته"
+  },
+  "pages": {
+    "twinFactory": {
+      "title": "حلول متقدمة",
+      "subtitle": "حلول متقدمة لمنظمات التوائم الرقمية",
+      "comingSoon": "قريباً",
+      "description1": "تمثل الحلول المتقدمة الجيل القادم من الأدوات والحلول المتطورة لمنظمات التوائم الرقمية.",
+      "description2": "ستوفر مجموعتنا الشاملة منهجيات وأطر عمل وتقنيات متطورة لتحويل طريقة تنفيذ المنظمات وإدارة النظم البيئية للتوائم الرقمية.",
+      "feature1Title": "أطر عمل متقدمة",
+      "feature1Description": "منهجيات وأطر عمل متطورة مصممة لتطبيقات التوائم الرقمية المعقدة عبر مختلف الصناعات والمقاييس.",
+      "feature2Title": "أنظمة ذكية",
+      "feature2Description": "حلول مدعومة بالذكاء الاصطناعي تعزز أداء التوائم الرقمية والتحسين والقدرات التنبؤية للتميز التنظيمي.",
+      "feature3Title": "تقنيات المستقبل",
+      "feature3Description": "أدوات ومنصات الجيل القادم التي تدفع حدود ما هو ممكن في تكنولوجيا التوائم الرقمية والنمذجة التنظيمية."
+    }
+  },
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "خطأ",
+    "success": "نجح"
+  }
+}

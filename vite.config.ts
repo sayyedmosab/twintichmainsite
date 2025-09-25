@@ -4,16 +4,15 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  // Main app runs on port 3002 for development
+  // Main app runs on port 3100 for development
   server: {
-    port: 3002,
+    port: 3100,
     host: '0.0.0.0',
     strictPort: true,
     allowedHosts: true, // Allow any host for Replit preview
     hmr: {
       overlay: false
-    },
-    historyApiFallback: true
+    }
   },
   preview: {
     allowedHosts: true // Also needed for preview mode

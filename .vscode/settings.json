@@ -27,5 +27,8 @@
         "8e5eaadee839",
         "bd4ea6619256",
         "5536d7efcdce"
-    ]
+    ],
+    "chat.editor.fontSize": 16,
+    "editor.fontSize": 16,
+    "chat.fontSize": 15
 }

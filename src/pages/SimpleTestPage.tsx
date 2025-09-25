@@ -293,7 +293,7 @@ const SimpleTestPage: React.FC = () => {
     if (newComment.trim()) {
       const comment = {
         id: Date.now().toString(),
-        user: user.email,
+        user: user ? user.email : 'anonymous',
         text: newComment,
         timestamp: new Date(),
         likes: 0,
@@ -308,7 +308,7 @@ const SimpleTestPage: React.FC = () => {
     if (replyText.trim()) {
       const reply = {
         id: `${commentId}-${Date.now()}`,
-        user: user.email,
+        user: user ? user.email : 'anonymous',
         text: replyText,
         timestamp: new Date(),
         likes: 0

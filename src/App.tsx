@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashRouter, Routes, Route, Outlet, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Outlet, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -17,7 +17,8 @@ import RoadmapPage from './pages/RoadmapPage';
 import ArchitectsForumPage from './pages/ArchitectsForumPage';
 import SimpleTestPage from './pages/SimpleTestPage';
 // Import Cosmic Components
-import { TwinLabPage } from './pages/TwinLabPage';
+import { TwinSciencePage } from './pages/TwinSciencePage';
+import TwinFactoryPage from './pages/TwinFactoryPage';
 
 // Simple test component to verify routing
 const TestRoute = () => {
@@ -31,8 +32,11 @@ const TestRoute = () => {
 };
 
 const AppLayout: React.FC = () => {
+  const location = useLocation();
+  const isTwinSciencePage = location.pathname === '/twinscience';
+  
   return (
-    <div className="grid grid-rows-[auto,1fr,auto] h-screen bg-gray-100 text-gray-800">
+    <div className={`grid grid-rows-[auto,1fr,auto] h-screen text-gray-800 ${isTwinSciencePage ? '' : 'bg-gray-100'}`}>
       <Header />
       <main className="overflow-y-auto min-h-0">
         <Outlet />
@@ -56,7 +60,8 @@ const App: React.FC = () => {
             {/* Main Navigation Routes (existing only) */}
             <Route path="/about" element={<JosoorVisionPage />} />
             <Route path="/roadmap" element={<RoadmapPage />} />
-            <Route path="/twinlab" element={<TwinLabPage />} />
+            <Route path="/twinscience" element={<TwinSciencePage />} />
+            <Route path="/twinfactory" element={<TwinFactoryPage />} />
             <Route path="/forum" element={<ArchitectsForumPage />} />
             <Route path="/test" element={<SimpleTestPage />} />
             <Route path="/architect" element={<ArchitectLessonsPage />} />

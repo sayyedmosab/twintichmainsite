@@ -13,11 +13,11 @@ const JosoorVisionPage: React.FC = () => {
                 className="absolute inset-0 bg-cover bg-center bg-fixed"
                 style={{ backgroundImage: `url(/images/think.png)` }}
             ></div>
-            <div className="absolute inset-0 bg-black/50"></div>
+            <div className="absolute inset-0 bg-black/70"></div>
             <div className="relative p-8 md:p-12 text-white container mx-auto">
-                <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center text-electric-blue-400">Founder's Letter: Origins</h1>
+                <h1 className="standardized-title text-center text-white mb-8">Founder's Letter: Origins</h1>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-                    <div className="text-white text-base leading-8 text-left space-y-4 bg-black/30 rounded-lg p-4 md:p-6">
+                    <div className="text-white text-base leading-8 text-left space-y-4 bg-black/60 rounded-lg p-4 md:p-6 border border-white/20">
                       <div className="space-y-4">
                         <p>
                           Just over two years ago was my first introduction to GenAI. What started as a basic ask to ChatGPT to design a training program to teach me "AI", continued non-stop over the entire weekend to end with contemplating how unlocking the human potential is not in the pursuit of answers but rather the articulation of the right questions. And from that came the concept of the Living Transformation Network, a semi-sentient network of AIs carrying one mission to improve humanity and life by taking over the complexity of society and daring us to think.
@@ -33,7 +33,7 @@ const JosoorVisionPage: React.FC = () => {
                         </p>
                       </div>
                     </div>
-                    <div className="text-white text-base leading-8 text-left space-y-4 bg-black/30 rounded-lg p-4 md:p-6">
+                    <div className="text-white text-base leading-8 text-left space-y-4 bg-black/60 rounded-lg p-4 md:p-6 border border-white/20">
                       <p>
                         So I kept it on a slow burner, refining and tweaking based on real life client setups I encounter.
                       </p>

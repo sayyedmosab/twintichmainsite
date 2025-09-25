@@ -1,6 +1,6 @@
-import { Domain } from '../types';
+import type { Domain as CosmicDomain } from '../types/cosmic';
 
-export const mockDomains: Domain[] = [
+export const mockDomains = [
   {
     id: 'bim-modeling',
     title: 'BIM & 3D Modeling',

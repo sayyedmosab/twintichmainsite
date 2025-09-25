@@ -1,0 +1,85 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "twinScience": "TwinScience",
+    "twinStudio": "TwinStudio",
+    "twinFactory": "TwinFactory"
+  },
+  "header": {
+    "login": "LOGIN / REGISTER",
+    "logout": "Logout",
+    "language": "Language",
+    "twinScienceTitle": "TwinScience - Understanding Digital Twin Organizations",
+    "twinUniTitle": "TwinUni - The University for Digital Twins",
+    "closeMenu": "Close menu",
+    "openMenu": "Open menu",
+    "closeNavigation": "Close navigation menu",
+    "openNavigation": "Open navigation menu",
+    "languageToggle": {
+      "arabic": "العربية",
+      "english": "English"
+    }
+  },
+  "contentViewer": {
+    "backTo": "Back to {{topic}}",
+    "videoPlaceholder": "Video Player Placeholder",
+    "audioPlaceholder": "Audio Player Placeholder",
+    "duration": "Duration: {{duration}}",
+    "like": "Like",
+    "liked": "Liked",
+    "share": "Share",
+    "comments": "Comments",
+    "studyGuideTitle": "Study Guide Features",
+    "studyFeature1": "Interactive exercises and examples",
+    "studyFeature2": "Self-assessment questions",
+    "studyFeature3": "Additional resources and references",
+    "studyFeature4": "Progress tracking capabilities",
+    "suggestAddition": "Suggest Addition"
+  },
+  "authModal": {
+    "welcomeBack": "Welcome Back",
+    "joinCommunity": "Join the Community",
+    "loginPrompt": "Login to contribute comments, questions, and suggestions.",
+    "createAccountPrompt": "Create an account to join the digital twin knowledge community.",
+    "login": "Login",
+    "createAccount": "Create Account",
+    "dontHaveAccount": "Don't have an account?",
+    "alreadyHaveAccount": "Already have an account?",
+    "createOneHere": "Create one here",
+    "loginHere": "Login here",
+    "demoNote": "Demo Note: This is a prototype. Use any email/password to login or create an account.",
+    "fullName": "Full Name",
+    "email": "Email",
+    "password": "Password",
+    "iAmA": "I am a...",
+    "roleLearner": "Knowledge Seeker",
+    "roleArchitect": "Knowledge Contributor",
+    "demoNoteLabel": "Demo Note:",
+    "placeholderFullName": "Enter your full name",
+    "placeholderEmail": "Enter your email",
+    "placeholderPassword": "Enter your password",
+    "roleLearnerDescription": "Learning about digital twins and seeking knowledge",
+    "roleArchitectDescription": "Architect or professional contributing expertise"
+  },
+  "pages": {
+    "twinFactory": {
+      "title": "TwinFactory",
+      "subtitle": "Advanced Solutions for Digital Twin Organizations",
+      "comingSoon": "Coming Soon",
+      "description1": "TwinFactory represents the next generation of advanced solutions and tools for digital twin organizations.",
+      "description2": "Our comprehensive suite will provide cutting-edge methodologies, frameworks, and technologies to transform how organizations implement and manage digital twin ecosystems.",
+      "feature1Title": "Advanced Frameworks",
+      "feature1Description": "Sophisticated methodologies and frameworks designed for complex digital twin implementations across various industries and scales.",
+      "feature2Title": "Intelligent Systems",
+      "feature2Description": "AI-powered solutions that enhance digital twin performance, optimization, and predictive capabilities for organizational excellence.",
+      "feature3Title": "Future Technologies",
+      "feature3Description": "Next-generation tools and platforms that push the boundaries of what's possible in digital twin technology and organizational modeling."
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
+  }
+}

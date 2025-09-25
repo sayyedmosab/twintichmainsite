@@ -18,7 +18,7 @@ const urbanFabricIcon = "/assets/cosmic/chapter1-icon.svg";
 const futureCitiesIcon = "/assets/cosmic/chapter2-icon.svg";
 const buildingLifecycleIcon = "/assets/cosmic/chapter3-icon.svg";
 const infrastructureIcon = "/assets/cosmic/chapter4-icon.svg";
-const twinLabLogo = "/assets/cosmic/twinlab-logo.png";
+const twinScienceLogo = "/assets/cosmic/twinscience-logo.png";
 
 const sphereColorPalette = [
   { name: "Dark Gray", value: "#404040" },
@@ -31,7 +31,7 @@ const sphereColorPalette = [
   { name: "Amber", value: "#F59E0B" },
 ];
 
-interface TwinLabPageProps {}
+interface TwinSciencePageProps {}
 
 const contentTypes = [
   { name: "Audio Podcast", icon: "🎧", color: "#FF6B6B" },
@@ -67,7 +67,7 @@ interface Domain {
   episodes: Episode[];
 }
 
-export function TwinLabPage({}: TwinLabPageProps) {
+export function TwinSciencePage({}: TwinSciencePageProps) {
   const [showDebugPanel, setShowDebugPanel] = useState(false);
   const [selectedCube, setSelectedCube] = useState<{
     chapterId: string;
@@ -257,8 +257,9 @@ export function TwinLabPage({}: TwinLabPageProps) {
             }}
           >
             <motion.div
-              className="w-48 h-48 relative rounded-full"
+              className="w-48 h-48 relative"
               style={{
+                borderRadius: "50%",
                 border: "6px solid white",
                 boxShadow: "0 8px 25px rgba(0, 0, 0, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.6), inset 0 -2px 0 rgba(0, 0, 0, 0.2)",
                 backgroundColor: "var(--sphere-base)",
@@ -270,7 +271,7 @@ export function TwinLabPage({}: TwinLabPageProps) {
                 delay: index * 0.7,
               }}
             >
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-center rounded-full">
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center" style={{ borderRadius: "50%" }}>
                 <h3 className="text-xl font-bold text-white/90 tracking-wide mb-2">
                   {domain.title}
                 </h3>
@@ -298,7 +299,7 @@ export function TwinLabPage({}: TwinLabPageProps) {
                     height: "32px",
                   }}
                   whileHover={{ scale: 1.2 }}
-                  onClick={(e) => {
+                  onClick={(e: React.MouseEvent) => {
                     e.stopPropagation();
                     e.preventDefault();
                     setSelectedCube({
@@ -357,7 +358,7 @@ export function TwinLabPage({}: TwinLabPageProps) {
   );
 
   return (
-    <div className="min-h-screen relative overflow-hidden" style={{"--sphere-base": sphereColor}}>
+    <div className="min-h-screen relative overflow-hidden" style={{"--sphere-base": sphereColor} as any}>
       {/* Background */}
       <div className="fixed inset-0 z-0">
         <img
@@ -373,8 +374,18 @@ export function TwinLabPage({}: TwinLabPageProps) {
         <div className="absolute inset-0 bg-black/30" />
       </div>
 
+      {/* TOP ROW - TwinScience Title and Logo ABOVE cosmic images */}
+      <div className="fixed top-24 left-0 right-0 z-50">
+        <div className="flex items-center justify-center gap-4">
+          <img src={twinScienceLogo} alt="TwinScience" className="h-8 w-auto" />
+      <h1 className="text-white/90 text-center">
+        Shape the Future - Learn. Share. Grow.
+      </h1>
+        </div>
+      </div>
+
       {/* CONSTELLATION AREA - Full space between header and footer */}
-      <div className="fixed left-0 right-0 z-10" style={{ top: '80px', bottom: '80px', overflow: 'hidden' }}>
+      <div className="fixed left-0 right-0 z-10" style={{ top: '120px', bottom: '40px', overflow: 'hidden' }}>
         <div className="relative w-full h-full flex items-center justify-center">
           {/* Rotating HUD - Centered in middle frame only */}
           <div className="absolute inset-0 flex items-center justify-center">
@@ -419,15 +430,6 @@ export function TwinLabPage({}: TwinLabPageProps) {
           <SphereCanvas color={sphereColor} size={35} />,
           document.body,
         )}
-
-      {/* BOTTOM ROW - Fixed footer */}
-      <div className="fixed bottom-8 left-0 right-0 z-100">
-        <div className="flex items-center justify-center">
-          <h2 className="text-2xl font-inter text-white/90 text-center">
-            Shape the Future - Learn. Share. Grow.
-          </h2>
-        </div>
-      </div>
 
       {/* Selected Cube Modal */}
       {selectedCube && (

@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Separator } from './ui/separator';
-import { ContentPiece, Topic, Domain, Comment } from '../types';
+import { ContentPiece, Topic, Domain, Comment } from '../../types/cosmic';
 import { CommentSection } from './CommentSection';
 
 interface ContentViewerProps {
@@ -17,6 +18,7 @@ interface ContentViewerProps {
 }
 
 export function ContentViewer({ content, topic, domain, onBack, currentUser, onLoginRequired }: ContentViewerProps) {
+  const { t } = useTranslation();
   const [showComments, setShowComments] = useState(false);
   const [liked, setLiked] = useState(false);
 
@@ -50,7 +52,7 @@ export function ContentViewer({ content, topic, domain, onBack, currentUser, onL
   };
 
   const renderContentBody = () => {
-    const paragraphs = content.content.split('\n').filter(p => p.trim());
+  const paragraphs = content.content.split('\n').filter((p: string) => p.trim());
     
     return (
       <div className="prose prose-gray max-w-none">
@@ -58,8 +60,8 @@ export function ContentViewer({ content, topic, domain, onBack, currentUser, onL
           <div className="aspect-video bg-muted rounded-lg flex items-center justify-center mb-6">
             <div className="text-center">
               <span className="text-6xl mb-2">📺</span>
-              <p className="text-muted-foreground">Video Player Placeholder</p>
-              <p className="text-sm text-muted-foreground">Duration: {content.duration}</p>
+              <p className="text-muted-foreground">{t('contentViewer.videoPlaceholder')}</p>
+              <p className="text-sm text-muted-foreground">{t('contentViewer.duration', { duration: content.duration })}</p>
             </div>
           </div>
         )}
@@ -68,13 +70,13 @@ export function ContentViewer({ content, topic, domain, onBack, currentUser, onL
           <div className="bg-muted rounded-lg p-6 flex items-center justify-center mb-6">
             <div className="text-center">
               <span className="text-6xl mb-2">🎧</span>
-              <p className="text-muted-foreground">Audio Player Placeholder</p>
-              <p className="text-sm text-muted-foreground">Duration: {content.duration}</p>
+              <p className="text-muted-foreground">{t('contentViewer.audioPlaceholder')}</p>
+              <p className="text-sm text-muted-foreground">{t('contentViewer.duration', { duration: content.duration })}</p>
             </div>
           </div>
         )}
 
-        {paragraphs.map((paragraph, index) => (
+        {paragraphs.map((paragraph: string, index: number) => (
           <p key={index} className="mb-4 leading-relaxed">
             {paragraph}
           </p>
@@ -82,12 +84,12 @@ export function ContentViewer({ content, topic, domain, onBack, currentUser, onL
 
         {content.type === 'guide' && (
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-6">
-            <h4 className="font-semibold text-blue-900 mb-2">Study Guide Features</h4>
+            <h4 className="font-semibold text-blue-900 mb-2">{t('contentViewer.studyGuideTitle')}</h4>
             <ul className="text-blue-800 space-y-1">
-              <li>• Interactive exercises and examples</li>
-              <li>• Self-assessment questions</li>
-              <li>• Additional resources and references</li>
-              <li>• Progress tracking capabilities</li>
+              <li>• {t('contentViewer.studyFeature1')}</li>
+              <li>• {t('contentViewer.studyFeature2')}</li>
+              <li>• {t('contentViewer.studyFeature3')}</li>
+              <li>• {t('contentViewer.studyFeature4')}</li>
             </ul>
           </div>
         )}
@@ -108,7 +110,7 @@ export function ContentViewer({ content, topic, domain, onBack, currentUser, onL
         className="mb-6 gap-2"
       >
         <span>←</span>
-        Back to {topic.title}
+        {t('contentViewer.backTo', { topic: topic.title })}
       </Button>
 
       {/* Content Header */}
@@ -142,7 +144,7 @@ export function ContentViewer({ content, topic, domain, onBack, currentUser, onL
               </div>
 
               <div className="flex flex-wrap gap-2 mt-3">
-                {content.tags.map((tag) => (
+                {content.tags.map((tag: string) => (
                   <Badge key={tag} variant="outline" className="text-xs">
                     {tag}
                   </Badge>
@@ -174,28 +176,28 @@ export function ContentViewer({ content, topic, domain, onBack, currentUser, onL
         <CardContent className="p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => handleInteraction('like')}
-                className={`gap-2 ${liked ? 'text-red-600' : ''}`}
-              >
-                <span>{liked ? '❤️' : '🤍'}</span>
-                {liked ? 'Liked' : 'Like'}
-              </Button>
-              <Button variant="ghost" size="sm" className="gap-2">
-                <span>📤</span>
-                Share
-              </Button>
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                onClick={() => setShowComments(!showComments)}
-                className="gap-2"
-              >
-                <span>💬</span>
-                Comments
-              </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => handleInteraction('like')}
+                  className={`gap-2 ${liked ? 'text-red-600' : ''}`}
+                >
+                  <span>{liked ? '❤️' : '🤍'}</span>
+                  {liked ? t('contentViewer.liked') : t('contentViewer.like')}
+                </Button>
+                <Button variant="ghost" size="sm" className="gap-2">
+                  <span>📤</span>
+                  {t('contentViewer.share')}
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={() => setShowComments(!showComments)}
+                  className="gap-2"
+                >
+                  <span>💬</span>
+                  {t('contentViewer.comments')}
+                </Button>
             </div>
             <Button 
               onClick={() => handleInteraction('suggest')}
@@ -203,7 +205,7 @@ export function ContentViewer({ content, topic, domain, onBack, currentUser, onL
               className="gap-2"
             >
               <span>➕</span>
-              Suggest Addition
+              {t('contentViewer.suggestAddition')}
             </Button>
           </div>
         </CardContent>
@@ -231,9 +233,9 @@ export function ContentViewer({ content, topic, domain, onBack, currentUser, onL
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {topic.content
-              .filter(c => c.id !== content.id)
+              .filter((c: ContentPiece) => c.id !== content.id)
               .slice(0, 4)
-              .map((relatedContent) => (
+              .map((relatedContent: ContentPiece) => (
                 <div 
                   key={relatedContent.id}
                   className="flex items-center gap-3 p-3 rounded-lg border hover:bg-muted/50 transition-colors cursor-pointer"
