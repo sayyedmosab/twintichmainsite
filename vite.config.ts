@@ -4,9 +4,9 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  // Main app runs on port 3100 for development
+  // Main app runs on port 3103 for development
   server: {
-    port: 3100,
+    port: 3103,
     host: '0.0.0.0',
     strictPort: true,
     allowedHosts: true, // Allow any host for Replit preview

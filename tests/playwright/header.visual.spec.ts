@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('header visual snapshots EN/AR', async ({ page }) => {
-  const base = 'http://localhost:3100';
+  const base = 'http://localhost:3102';
   await page.goto(base, { waitUntil: 'networkidle' });
   await page.waitForSelector('header');
 

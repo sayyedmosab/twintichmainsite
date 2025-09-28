@@ -1,0 +1,84 @@
+
+> ai-twin-tech@0.0.0 dev
+> vite --host --port 3102
+
+
+  VITE v6.3.5  ready in 88 ms
+
+  ➜  Local:   http://localhost:3102/
+  ➜  Network: http://10.255.255.254:3102/
+  ➜  Network: http://172.31.88.220:3102/
+
+> ai-twin-tech@0.0.0 dev
+> vite --host --port 3102
+
+error when starting dev server:
+Error: Port 3102 is already in use
+    at Server.onError (file:///home/mosab/projects/mainsite/twintichmainsite/twintichmainsite/node_modules/vite/dist/node/chunks/dep-DBxKXgDP.js:25023:18)
+    at Server.emit (node:events:518:28)
+    at emitErrorNT (node:net:1976:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+Killed
+
+> ai-twin-tech@0.0.0 dev
+> vite --host --port 3102
+
+
+  VITE v6.3.5  ready in 94 ms
+
+  ➜  Local:   http://localhost:3102/
+  ➜  Network: http://10.255.255.254:3102/
+  ➜  Network: http://172.31.88.220:3102/
+Killed
+
+> ai-twin-tech@0.0.0 dev
+> vite --host --port 3102
+
+
+  VITE v6.3.5  ready in 97 ms
+
+  ➜  Local:   http://localhost:3102/
+  ➜  Network: http://10.255.255.254:3102/
+  ➜  Network: http://172.31.88.220:3102/
+2:16:10 PM [vite] vite.config.ts changed, restarting server...
+2:16:10 PM [vite] server restarted.
+
+> ai-twin-tech@0.0.0 dev
+> vite --host --port 3102
+
+error when starting dev server:
+Error: Port 3102 is already in use
+    at Server.onError (file:///home/mosab/projects/mainsite/twintichmainsite/twintichmainsite/node_modules/vite/dist/node/chunks/dep-DBxKXgDP.js:25023:18)
+    at Server.emit (node:events:518:28)
+    at emitErrorNT (node:net:1976:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+2:16:37 PM [vite] vite.config.ts changed, restarting server...
+2:16:37 PM [vite] server restarted.
+
+> ai-twin-tech@0.0.0 dev
+> vite --host --port 3102
+
+error when starting dev server:
+Error: Port 3102 is already in use
+    at Server.onError (file:///home/mosab/projects/mainsite/twintichmainsite/twintichmainsite/node_modules/vite/dist/node/chunks/dep-DBxKXgDP.js:25023:18)
+    at Server.emit (node:events:518:28)
+    at emitErrorNT (node:net:1976:8)
+    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)
+
+> ai-twin-tech@0.0.0 dev
+> vite --host --port 3103
+
+
+  VITE v6.3.5  ready in 87 ms
+
+  ➜  Local:   http://localhost:3103/
+  ➜  Network: http://10.255.255.254:3103/
+  ➜  Network: http://172.31.88.220:3103/
+4:43:19 AM [vite] (client) hmr update /src/components/TwinScience/components/ContentModal.tsx
+4:43:19 AM [vite] (client) hmr update /src/components/TwinScience/components/ContentModal.tsx
+4:45:00 AM [vite] (client) hmr update /src/components/TwinScience/components/ContentModal.tsx
+4:45:00 AM [vite] (client) hmr update /src/components/TwinScience/components/ContentModal.tsx
+4:45:53 AM [vite] vite.config.ts changed, restarting server...
+4:45:53 AM [vite] vite.config.ts changed, restarting server...
+4:45:53 AM [vite] server restarted.
+4:45:53 AM [vite] server restarted.

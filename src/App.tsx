@@ -17,7 +17,7 @@ import RoadmapPage from './pages/RoadmapPage';
 import ArchitectsForumPage from './pages/ArchitectsForumPage';
 import SimpleTestPage from './pages/SimpleTestPage';
 // Import Cosmic Components
-import { TwinSciencePage } from './pages/TwinSciencePage';
+import { TwinSciencePage } from './pages/TwinSciencePageNew';
 import TwinFactoryPage from './pages/TwinFactoryPage';
 
 // Simple test component to verify routing

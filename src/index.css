@@ -116,7 +116,7 @@ h1.standardized-title {
 .app-header {
   background: #00122d;
   color: white;
-  padding: 0 1rem;
+  padding: 1 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;

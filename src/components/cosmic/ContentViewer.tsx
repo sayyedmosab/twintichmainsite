@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
@@ -21,6 +21,23 @@ export function ContentViewer({ content, topic, domain, onBack, currentUser, onL
   const { t } = useTranslation();
   const [showComments, setShowComments] = useState(false);
   const [liked, setLiked] = useState(false);
+  const [isContentAvailable, setIsContentAvailable] = useState(true);
+
+  useEffect(() => {
+    // Simulate a content availability check (replace with actual API or file system check)
+    const checkContentAvailability = async () => {
+      try {
+        const response = await fetch(`/api/check-content?contentId=${content.id}`);
+        const result = await response.json();
+        setIsContentAvailable(result.isAvailable);
+      } catch (error) {
+        console.error('Error checking content availability:', error);
+        setIsContentAvailable(false);
+      }
+    };
+
+    checkContentAvailability();
+  }, [content.id]);
 
   const getContentIcon = (type: ContentPiece['type']) => {
     switch (type) {
@@ -96,6 +113,15 @@ export function ContentViewer({ content, topic, domain, onBack, currentUser, onL
       </div>
     );
   };
+
+  if (!isContentAvailable) {
+    return (
+      <div className="max-w-4xl mx-auto p-6 text-center">
+        <h2 className="text-2xl font-bold text-red-600 mb-4">{t('contentViewer.contentUnavailable')}</h2>
+        <p className="text-lg text-gray-600">{t('contentViewer.contentUnavailableMessage')}</p>
+      </div>
+    );
+  }
 
   return (
     <motion.div
