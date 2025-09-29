@@ -50,7 +50,7 @@ export function ArticleContent({ episode }: ArticleContentProps) {
     return (
       <div className="w-full h-full flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="animate-spin h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading article content...</p>
         </div>
       </div>
@@ -87,7 +87,7 @@ export function ArticleContent({ episode }: ArticleContentProps) {
               className="article-content prose max-w-none"
               dangerouslySetInnerHTML={{ __html: articleContent }}
               style={{
-                fontFamily: 'Arial, sans-serif',
+
                 lineHeight: '1.6',
                 color: '#333'
               }}
@@ -98,17 +98,17 @@ export function ArticleContent({ episode }: ArticleContentProps) {
       
       {/* Wiki-style Sidebar with contribution features */}
       <div className="w-full lg:w-80 flex-shrink-0 bg-white border-2 border-slate-300 shadow-lg p-6 space-y-6">
-        <div className="text-center p-4 bg-blue-50 border-2 border-blue-300 rounded-lg">
+  <div className="text-center p-4 bg-blue-50 border-2 border-blue-300">
           <h4 className="font-bold text-blue-800 mb-2">📝 Want to contribute?</h4>
           <p className="text-sm text-blue-700 mb-3">
             Help improve this article by adding your insights and expertise.
           </p>
-          <button className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors">
+          <button className="w-full bg-blue-600 text-white py-2 px-4 hover:bg-blue-700 transition-colors">
             Register to Edit
           </button>
         </div>
 
-        <div className="p-4 bg-gray-50 border-2 border-gray-300 rounded-lg">
+  <div className="p-4 bg-gray-50 border-2 border-gray-300">
           <h4 className="font-bold text-gray-800 mb-3">💬 Recent Comments</h4>
           <div className="space-y-3">
             <div className="text-sm">
@@ -120,7 +120,7 @@ export function ArticleContent({ episode }: ArticleContentProps) {
           </div>
         </div>
 
-        <div className="p-4 bg-green-50 border-2 border-green-300 rounded-lg">
+  <div className="p-4 bg-green-50 border-2 border-green-300">
           <h4 className="font-bold text-green-800 mb-3">📚 Related Articles</h4>
           <ul className="space-y-2 text-sm">
             <li><a href="#" className="text-green-700 hover:text-green-900 underline">Episode 1.2: The History of Digital Twins</a></li>
@@ -129,14 +129,14 @@ export function ArticleContent({ episode }: ArticleContentProps) {
           </ul>
         </div>
 
-        <div className="p-4 bg-yellow-50 border-2 border-yellow-300 rounded-lg">
+  <div className="p-4 bg-yellow-50 border-2 border-yellow-300">
           <h4 className="font-bold text-yellow-800 mb-3">⭐ Article Quality</h4>
           <div className="text-sm text-yellow-700">
             <p className="mb-2">Help us maintain quality:</p>
-            <button className="w-full bg-yellow-600 text-white py-1 px-3 rounded text-xs hover:bg-yellow-700 transition-colors mb-2">
+            <button className="w-full bg-yellow-600 text-white py-1 px-3 text-xs hover:bg-yellow-700 transition-colors mb-2">
               Report an Issue
             </button>
-            <button className="w-full bg-yellow-600 text-white py-1 px-3 rounded text-xs hover:bg-yellow-700 transition-colors">
+            <button className="w-full bg-yellow-600 text-white py-1 px-3 text-xs hover:bg-yellow-700 transition-colors">
               Suggest Improvement
             </button>
           </div>

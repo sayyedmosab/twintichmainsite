@@ -1,33 +1,66 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import { Play, Pause, SkipBack, SkipForward, Download, Share2 } from 'lucide-react';
 
 interface PodcastContentProps {
-  lessonId: string;
-  contentAvailability: {
-    article: boolean;
-    podcast: boolean;
-    video: boolean;
-    studyGuide: boolean;
+  episode: {
+    id: string;
+    title: string;
+    description: string;
   };
 }
 
-export function PodcastContent({ lessonId, contentAvailability }: PodcastContentProps) {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [playbackSpeed, setPlaybackSpeed] = useState(1.5);
-  const [currentTime, setCurrentTime] = useState(0);
-  const totalTime = 1847; // 30:47 in seconds
-
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
+export function PodcastContent({ episode }: PodcastContentProps) {
+  // Audio file path pattern: /article-assets/[episode]/[episode].m4a
+  const lessonId = episode.id.replace('-', '.');
+  const audioPath = `/article-assets/${lessonId}/${lessonId}.m4a`;
+  // Download handler
+  const handleDownload = () => {
+    const link = document.createElement('a');
+    link.href = audioPath;
+    link.download = `${lessonId}.m4a`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
+  // Share handler
+  const handleShare = async () => {
+    const shareUrl = window.location.origin + audioPath;
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: episode.title,
+          text: episode.description,
+          url: shareUrl,
+        });
+      } catch (e) {
+        // User cancelled or error
+      }
+    } else {
+      try {
+        await navigator.clipboard.writeText(shareUrl);
+        alert('Audio link copied to clipboard!');
+      } catch (e) {
+        alert('Could not copy link.');
+      }
+    }
+  };
+  const [playbackSpeed, setPlaybackSpeed] = useState(1.5);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  // Audio file path pattern: /article-assets/[episode]/[episode].m4a
+  // (removed duplicate lessonId/audioPath)
   const speeds = [1, 1.25, 1.5, 2];
 
+  // Update playback speed on audio element when changed
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.playbackRate = playbackSpeed;
+    }
+  }, [playbackSpeed]);
+
   return (
-    <div className="w-full h-full flex flex-col lg:flex-row gap-6 p-6">
+  <div className="w-full h-full flex flex-col lg:flex-row gap-6 p-6 overflow-auto" style={{ maxHeight: '90vh' }}>
       {/* Podcast Player */}
       <div className="flex-grow flex items-center justify-center">
         <div className="w-full max-w-lg bg-white border-2 border-gray-300 shadow-2xl p-8 relative">
@@ -35,7 +68,7 @@ export function PodcastContent({ lessonId, contentAvailability }: PodcastContent
           <div className="relative -mt-16 mb-8 flex justify-center">
             <div className="w-64 h-64 border-2 border-gray-400 shadow-2xl overflow-hidden bg-slate-800 p-8 flex items-center justify-center">
               <ImageWithFallback 
-                src="https://images.unsplash.com/photo-1485579149621-3123dd979885?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwb2RjYXN0JTIwbWljcm9waG9uZXxlbnwxfHx8fDE3NTg4OTk1NjN8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                src="/images/podcast-art.jpg"
                 alt="Podcast artwork"
                 className="w-full h-full object-cover opacity-80"
               />
@@ -48,23 +81,20 @@ export function PodcastContent({ lessonId, contentAvailability }: PodcastContent
 
           {/* Episode Title */}
           <div className="text-center mb-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-2">Episode {lessonId}</h2>
-            <p className="text-gray-600 text-sm">TwinScience Podcast</p>
+            <h2 className="text-xl font-bold text-gray-900 mb-2">{episode.title}</h2>
+            <p className="text-gray-600 text-sm">{episode.description}</p>
           </div>
 
-          {/* Progress Bar */}
-          <div className="mb-6">
-            <div className="w-full bg-gray-200 h-2 mb-2">
-              <div 
-                className="bg-blue-600 h-2 transition-all duration-300" 
-                style={{ width: `${(currentTime / totalTime) * 100}%` }}
-              ></div>
-            </div>
-            <div className="flex justify-between text-xs text-gray-500">
-              <span>{formatTime(currentTime)}</span>
-              <span>{formatTime(totalTime)}</span>
-            </div>
+          {/* Audio Player */}
+          <div className="mb-6 flex flex-col items-center">
+            <audio ref={audioRef} controls style={{ width: '100%' }}>
+              <source src={audioPath} type="audio/mpeg" />
+              Your browser does not support the audio element.
+            </audio>
+            <div className="text-xs text-gray-500 mt-2">If the player does not appear, the audio file is not yet uploaded.</div>
           </div>
+
+          {/* Video Player removed: now in Video tab only */}
 
           {/* Playback Speed */}
           <div className="flex justify-center gap-2 mb-6">
@@ -77,37 +107,28 @@ export function PodcastContent({ lessonId, contentAvailability }: PodcastContent
                     ? 'bg-blue-100 text-blue-700 font-semibold' 
                     : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
+                aria-label={`Set playback speed to ${speed}x`}
               >
                 {speed}x
               </button>
             ))}
           </div>
 
-          {/* Controls */}
-          <div className="flex items-center justify-center gap-8 mb-8">
-            <button className="text-gray-600 hover:text-gray-900 transition-colors duration-200">
-              <SkipBack size={24} />
-            </button>
-            
-            <button 
-              onClick={() => setIsPlaying(!isPlaying)}
-              className="w-16 h-16 flex items-center justify-center bg-blue-600 text-white shadow-lg hover:bg-blue-700 transition-all duration-200 border-2 border-blue-700"
-            >
-              {isPlaying ? <Pause size={24} /> : <Play size={24} className="ml-1" />}
-            </button>
-            
-            <button className="text-gray-600 hover:text-gray-900 transition-colors duration-200">
-              <SkipForward size={24} />
-            </button>
-          </div>
+          {/* Controls removed as requested */}
 
           {/* Action Buttons */}
           <div className="flex justify-center gap-8 text-gray-600">
-            <button className="flex flex-col items-center gap-1 hover:text-blue-600 transition-colors duration-200">
+            <button
+              className="flex flex-col items-center gap-1 hover:text-blue-600 transition-colors duration-200"
+              onClick={handleDownload}
+            >
               <Download size={20} />
               <span className="text-xs">Download</span>
             </button>
-            <button className="flex flex-col items-center gap-1 hover:text-blue-600 transition-colors duration-200">
+            <button
+              className="flex flex-col items-center gap-1 hover:text-blue-600 transition-colors duration-200"
+              onClick={handleShare}
+            >
               <Share2 size={20} />
               <span className="text-xs">Share</span>
             </button>
@@ -118,7 +139,7 @@ export function PodcastContent({ lessonId, contentAvailability }: PodcastContent
       {/* Transcript and Comments */}
       <div className="w-full lg:w-96 flex-shrink-0 bg-white border border-gray-300 shadow-lg p-6 flex flex-col">
         <h3 className="font-bold mb-4 pb-2 border-b border-gray-200 flex items-center gap-2">
-          <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+          <span className="w-2 h-2 bg-blue-500"></span>
           Transcript
         </h3>
         
@@ -143,15 +164,15 @@ export function PodcastContent({ lessonId, contentAvailability }: PodcastContent
 
         <div className="border-t border-gray-200 pt-4">
           <h3 className="font-bold mb-3 flex items-center gap-2">
-            <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+            <span className="w-2 h-2 bg-green-500"></span>
             Listener Comments
           </h3>
           <div className="space-y-3">
-            <div className="p-3 bg-gray-50 rounded-lg">
+            <div className="p-3 bg-gray-50">
               <p className="text-sm text-gray-700">Great intro! Finally understand the difference between digital twins and regular simulations.</p>
               <p className="text-xs text-gray-500 mt-1">- Alex Kim • 3 hours ago</p>
             </div>
-            <div className="p-3 bg-gray-50 rounded-lg">
+            <div className="p-3 bg-gray-50">
               <p className="text-sm text-gray-700">Love the real-world examples. More episodes like this please!</p>
               <p className="text-xs text-gray-500 mt-1">- Taylor Morgan • 1 day ago</p>
             </div>

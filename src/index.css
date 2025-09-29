@@ -1,5 +1,5 @@
 /* Simple, direct CSS without Tailwind complexity */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 
 /* Reset and base styles */
 * {
@@ -8,10 +8,11 @@
   padding: 0;
 }
 
+
 html, body {
   height: 100%;
   overflow: auto;
-  font-family: 'Calibri', 'Poppins', sans-serif;
+  font-family: 'Calibri';
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -28,7 +29,7 @@ html, body {
 /* Standardized Title Styles - matching HomePage "Imagine a parallel universe" */
 .standardized-title,
 h1.standardized-title {
-  font-family: 'Calibri', 'Poppins', sans-serif;
+  font-family: 'Calibri';
   font-weight: 600;
   font-size: 2.5rem;
   line-height: 1.2;
@@ -133,8 +134,10 @@ h1.standardized-title {
 }
 
 /* Typography */
+
+/* Headings use only Calibri */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Calibri';
   font-weight: 700;
   letter-spacing: -0.025em;
 }
@@ -178,21 +181,24 @@ button, input, textarea, select {
 }
 
 /* Custom font families - Sharp, non-bendy fonts */
+/* Monospace code uses only Calibri for consistency */
 .font-mono {
-  font-family: 'JetBrains Mono', 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', 'Droid Sans Mono', 'Source Code Pro', monospace;
+  font-family: 'Calibri';
   font-feature-settings: "liga" 0;
   font-variant-ligatures: none;
 }
 
+
 body {
-  font-family: 'Poppins', 'SF Pro Display', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Calibri';
   font-feature-settings: "liga" 0;
   font-variant-ligatures: none;
 }
 
 /* Ensure sharp, geometric text rendering */
+/* Headings use sharp, professional fonts */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
   font-weight: 700;
   letter-spacing: -0.025em;
 }
@@ -202,16 +208,18 @@ h1, h2, h3, h4, h5, h6 {
   max-width: none;
 }
 
+
 .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
   color: #111827;
   font-weight: 700;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Calibri';
 }
+
 
 .prose p {
   color: #374151;
   line-height: 1.7;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Calibri';
 }
 
 .prose img {
@@ -279,8 +287,9 @@ html {
 }
 
 /* Professional button styling */
+
 button {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Calibri';
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -288,8 +297,9 @@ button {
 }
 
 /* Professional input styling */
+
 input, textarea, select {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Calibri';
   border: 1px solid #d1d5db;
 }
 

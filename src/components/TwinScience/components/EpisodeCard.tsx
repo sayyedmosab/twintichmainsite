@@ -42,42 +42,40 @@ export function EpisodeCard({ episode, chapterId, onContentSelect }: EpisodeCard
 
   return (
     <div 
-      className={`group relative bg-white border-2 border-gray-300 shadow-lg overflow-hidden h-96 cursor-pointer transition-all duration-300 hover:shadow-xl hover:border-blue-900 ${
+      className={`group relative bg-white border-2 border-gray-300 shadow-lg overflow-hidden h-96 transition-all duration-300 hover:shadow-xl hover:border-blue-900 ${
         !episode.hasContent ? 'opacity-75' : ''
       }`}
-      style={{fontFamily: 'Calibri, Arial, sans-serif'}}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={() => episode.hasContent && onContentSelect(chapterId, episode.id, currentContentType.type)}
     >
       {/* Episode number badge */}
-      <div className="absolute top-4 left-4 bg-blue-900 text-white px-3 py-1 text-sm font-bold" style={{fontFamily: 'Calibri, Arial, sans-serif', backgroundColor: '#1e3a8a'}}>
+  <div className="absolute top-4 left-4 bg-blue-900 text-white px-3 py-1 text-sm font-bold" style={{backgroundColor: '#1e3a8a'}}>
         {episode.id.toUpperCase()}
       </div>
 
       {/* Coming Soon Badge */}
       {!episode.hasContent && (
-        <div className="absolute top-4 right-4 bg-yellow-500 text-black px-2 py-1 text-xs font-bold" style={{fontFamily: 'Calibri, Arial, sans-serif'}}>
+  <div className="absolute top-4 right-4 bg-yellow-500 text-black px-2 py-1 text-xs font-bold">
           COMING SOON
         </div>
       )}
 
       {/* Content container */}
-      <div className="relative w-full h-full flex flex-col justify-between p-6 pt-20">
+  <div className="relative w-full h-full flex flex-col justify-between p-6 pt-10">
         
         {/* Episode info - always visible */}
-        <div className="flex-grow flex flex-col justify-center mt-4">
-          <h3 className="text-gray-900 font-bold text-lg mb-4 leading-tight" style={{fontFamily: 'Calibri, Arial, sans-serif', fontWeight: 'bold'}}>
+  <div className="flex-grow flex flex-col justify-center mt-1">
+          <h3 className="text-gray-900 font-bold text-lg mb-4 leading-tight" style={{fontWeight: 'bold'}}>
             {episode.title}
           </h3>
-          <p className="text-gray-600 text-sm leading-relaxed" style={{fontFamily: 'Calibri, Arial, sans-serif'}}>
+          <p className="text-gray-600 text-sm leading-relaxed">
             {episode.description}
           </p>
         </div>
 
         {/* Content type carousel - visible on hover */}
-        <div className={`transition-all duration-300 ${isHovered && episode.hasContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          <div className="bg-gray-100 border-2 border-gray-300 p-4">
+        <div className={`transition-all duration-300 ${isHovered && episode.hasContent ? 'opacity-100 translate-y-0' : 'opacity-20 translate-y-4'}`}>
+          <div className="bg-gray-500 border-2 border-gray-400 p-4">
             <div className="flex items-center justify-between">
               <button
                 onClick={(e) => {
@@ -90,17 +88,23 @@ export function EpisodeCard({ episode, chapterId, onContentSelect }: EpisodeCard
                 <ChevronLeft size={20} />
               </button>
               
-              <div className="flex items-center gap-3">
-                <div className="w-16 h-16 bg-white border-2 border-gray-300 flex items-center justify-center overflow-hidden">
+              <div className="flex items-center justify-center">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    episode.hasContent && onContentSelect(chapterId, episode.id, currentContentType.type);
+                  }}
+                  className="focus:outline-none"
+                  disabled={!episode.hasContent}
+                  style={{ width: 60, height: 60, background: 'none', border: 'none', padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                  title={currentContentType.type}
+                >
                   <img 
                     src={currentContentType.icon}
                     alt={currentContentType.type}
-                    className="w-8 h-8 object-contain"
+                    style={{ width: 60, height: 60, objectFit: 'contain', display: 'block' }}
                   />
-                </div>
-                <span className="text-gray-900 text-sm font-medium" style={{fontFamily: 'Calibri, Arial, sans-serif'}}>
-                  {currentContentType.type}
-                </span>
+                </button>
               </div>
               
               <button
@@ -127,7 +131,7 @@ export function EpisodeCard({ episode, chapterId, onContentSelect }: EpisodeCard
               }`}
               disabled={!episode.hasContent}
               style={{
-                fontFamily: 'Calibri, Arial, sans-serif',
+                
                 fontWeight: 'bold',
                 backgroundColor: episode.hasContent ? '#1e3a8a' : undefined
               }}

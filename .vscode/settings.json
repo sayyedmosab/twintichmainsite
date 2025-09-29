@@ -30,5 +30,6 @@
     ],
     "chat.editor.fontSize": 16,
     "editor.fontSize": 16,
-    "chat.fontSize": 15
+    "chat.fontSize": 15,
+    "typescript.tsdk": "node_modules/typescript/lib"
 }

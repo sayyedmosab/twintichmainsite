@@ -70,14 +70,32 @@ export function ContentModal({ isOpen, onClose, episode, initialContentType }: C
         
         {/* Modal Header */}
         <div className="flex justify-between items-center p-6 bg-white shadow-lg border-b-2 border-gray-300">
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 bg-slate-900 flex items-center justify-center">
-              <span className="text-white font-bold text-sm">TT</span>
-            </div>
-            <div>
-              <h3 className="font-bold text-gray-900">{episode.title}</h3>
-              <p className="text-sm text-gray-600">{activeContentType}</p>
-            </div>
+          <div className="flex flex-col justify-center min-w-[220px] max-w-[320px]">
+            {/* Main Title (h2) and Subtitle (h4) based on active tab */}
+            {activeContentType === 'Article' && (
+              <>
+                <h2 className="text-2xl font-bold text-gray-900 leading-tight">Wiki Article</h2>
+                <h4 className="text-sm text-gray-600 font-normal mt-1">Explore the full written guide and key concepts for this episode.</h4>
+              </>
+            )}
+            {activeContentType === 'Podcast' && (
+              <>
+                <h2 className="text-2xl font-bold text-gray-900 leading-tight">Audio Podcast</h2>
+                <h4 className="text-sm text-gray-600 font-normal mt-1">Listen to the expert discussion and insights for this topic.</h4>
+              </>
+            )}
+            {activeContentType === 'Video' && (
+              <>
+                <h2 className="text-2xl font-bold text-gray-900 leading-tight">Video Lesson</h2>
+                <h4 className="text-sm text-gray-600 font-normal mt-1">Watch the visual walkthrough and demonstrations.</h4>
+              </>
+            )}
+            {activeContentType === 'Study Guide' && (
+              <>
+                <h2 className="text-2xl font-bold text-gray-900 leading-tight">Study Guide</h2>
+                <h4 className="text-sm text-gray-600 font-normal mt-1">Review the summary and key takeaways for revision.</h4>
+              </>
+            )}
           </div>
           
           {/* Content Type Navigation */}

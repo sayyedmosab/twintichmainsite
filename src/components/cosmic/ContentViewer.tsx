@@ -74,7 +74,7 @@ export function ContentViewer({ content, topic, domain, onBack, currentUser, onL
     return (
       <div className="prose prose-gray max-w-none">
         {content.type === 'video' && (
-          <div className="aspect-video bg-muted rounded-lg flex items-center justify-center mb-6">
+          <div className="aspect-video bg-muted flex items-center justify-center mb-6">
             <div className="text-center">
               <span className="text-6xl mb-2">📺</span>
               <p className="text-muted-foreground">{t('contentViewer.videoPlaceholder')}</p>
@@ -84,7 +84,7 @@ export function ContentViewer({ content, topic, domain, onBack, currentUser, onL
         )}
         
         {content.type === 'podcast' && (
-          <div className="bg-muted rounded-lg p-6 flex items-center justify-center mb-6">
+          <div className="bg-muted p-6 flex items-center justify-center mb-6">
             <div className="text-center">
               <span className="text-6xl mb-2">🎧</span>
               <p className="text-muted-foreground">{t('contentViewer.audioPlaceholder')}</p>
@@ -100,7 +100,7 @@ export function ContentViewer({ content, topic, domain, onBack, currentUser, onL
         ))}
 
         {content.type === 'guide' && (
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-6">
+          <div className="bg-blue-50 border border-blue-200 p-4 mt-6">
             <h4 className="font-semibold text-blue-900 mb-2">{t('contentViewer.studyGuideTitle')}</h4>
             <ul className="text-blue-800 space-y-1">
               <li>• {t('contentViewer.studyFeature1')}</li>
@@ -143,7 +143,7 @@ export function ContentViewer({ content, topic, domain, onBack, currentUser, onL
       <Card className="mb-6">
         <CardHeader>
           <div className="flex items-start gap-4">
-            <div className={`p-3 rounded-lg ${getContentTypeColor(content.type)}`}>
+            <div className={`p-3 ${getContentTypeColor(content.type)}`}> 
               {getContentIcon(content.type)}
             </div>
             <div className="flex-1">
@@ -183,11 +183,11 @@ export function ContentViewer({ content, topic, domain, onBack, currentUser, onL
 
       {/* Breadcrumb */}
       <div className="mb-6 text-sm text-muted-foreground">
-        <span className={`inline-flex items-center gap-1 px-2 py-1 rounded ${domain.color} text-white`}>
+  <span className={`inline-flex items-center gap-1 px-2 py-1 ${domain.color} text-white`}>
           {domain.icon} {domain.title}
         </span>
         <span className="mx-2">→</span>
-        <span className="bg-muted px-2 py-1 rounded">{topic.title}</span>
+  <span className="bg-muted px-2 py-1">{topic.title}</span>
       </div>
 
       {/* Content Body */}
@@ -264,9 +264,9 @@ export function ContentViewer({ content, topic, domain, onBack, currentUser, onL
               .map((relatedContent: ContentPiece) => (
                 <div 
                   key={relatedContent.id}
-                  className="flex items-center gap-3 p-3 rounded-lg border hover:bg-muted/50 transition-colors cursor-pointer"
+                  className="flex items-center gap-3 p-3 border hover:bg-muted/50 transition-colors cursor-pointer"
                 >
-                  <div className={`p-2 rounded ${getContentTypeColor(relatedContent.type)}`}>
+                  <div className={`p-2 ${getContentTypeColor(relatedContent.type)}`}> 
                     {getContentIcon(relatedContent.type)}
                   </div>
                   <div className="flex-1 min-w-0">

@@ -192,12 +192,22 @@ export function TwinScienceLearningHub() {
     console.log('🔵 TwinScienceLearningHub (App.tsx) - found chapter:', chapter?.title);
     console.log('🔵 TwinScienceLearningHub (App.tsx) - found episode:', episode?.title);
     
+    // Map short content type names to full content type names used by ContentModal
+    const contentTypeMap: { [key: string]: string } = {
+      'Article': 'Wiki-Article - Beyond pushing content, we invite you to shape it',
+      'Podcast': 'Audio Podcast - Listen to professional hosts take the Deep Dive',
+      'Video': 'Video Presentation - Watch engaging visuals to enhance your learning',
+      'Study Guide': 'Study Guide - Enrich your learning with core concepts and exercises'
+    };
+    
+    const mappedContentType = contentTypeMap[contentType] || contentTypeMap['Article'];
+    
     if (episode) {
-      console.log('🔵 TwinScienceLearningHub (App.tsx) - setting modal state to open');
+      console.log('🔵 TwinScienceLearningHub (App.tsx) - setting modal state to open with contentType:', mappedContentType);
       setModalState({
         isOpen: true,
         episode,
-        contentType
+        contentType: mappedContentType
       });
     }
   };
@@ -211,17 +221,17 @@ export function TwinScienceLearningHub() {
   };
 
   return (
-    <div className="twin-science-learning-hub" style={{fontFamily: 'Calibri, Arial, sans-serif'}}>
+  <div className="twin-science-learning-hub">
       <div className="container mx-auto px-6 py-12">
         <div className="space-y-16">
           {learningData.chapters.map((chapter) => (
             <section key={chapter.id} className="space-y-8">
               <div className="text-center lg:text-left">
-                <h2 className="text-3xl font-bold text-gray-900 mb-4 relative inline-block" style={{fontFamily: 'Calibri, Arial, sans-serif', fontWeight: 'bold'}}>
+                <h2 className="text-3xl font-bold text-gray-900 mb-4 relative inline-block" style={{fontWeight: 'bold'}}>
                   {chapter.title}
                   <div className="absolute -bottom-2 left-0 w-full h-1" style={{backgroundColor: '#1e3a8a'}}></div>
                 </h2>
-                <p className="text-gray-600 max-w-2xl" style={{fontFamily: 'Calibri, Arial, sans-serif'}}>
+                <p className="text-gray-600 max-w-2xl">
                   Master the fundamentals and explore practical applications through our interactive learning modules.
                 </p>
               </div>

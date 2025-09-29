@@ -109,7 +109,7 @@ const HtmlRenderer: React.FC<HtmlRendererProps> = ({ html, basePath }) => {
     }
   `;
   return (
-    <div className="html-prose prose max-w-none px-3" style={{ fontFamily: "Poppins, 'Noto Sans', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" }}>
+  <div className="html-prose prose max-w-none px-3">
       <style dangerouslySetInnerHTML={{ __html: fixCSS }} />
       <div dangerouslySetInnerHTML={{ __html: processed }} />
     </div>

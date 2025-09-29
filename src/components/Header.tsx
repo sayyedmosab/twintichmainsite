@@ -72,7 +72,7 @@ const Header: React.FC = () => {
   }
 
   return (
-    <header className="shadow-md sticky top-0 z-50 text-white" style={{ backgroundColor: '#00122d', fontFamily: 'Calibri, Arial, sans-serif' }}>
+  <header className="shadow-md sticky top-0 z-50 text-white" style={{ backgroundColor: '#00122d' }}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-3 items-center h-20">
           <div className="flex items-center justify-start">

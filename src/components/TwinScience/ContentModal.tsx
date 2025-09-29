@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { X } from 'lucide-react';
-import { ArticleContent } from './content/ArticleContent';
-import { PodcastContent } from './content/PodcastContent';
-import { VideoContent } from './content/VideoContent';
-import { StudyGuideContent } from './content/StudyGuideContent';
-import documentIcon from 'figma:asset/b359489b0f3c782aecf984af93b2162e3dd420ea.png';
-import microphoneIcon from 'figma:asset/914128a845781b950904a129e16aba74567d83b1.png';
-import studyGuideIcon from 'figma:asset/cc2e9938961f1ab1e50787550bbc713943b17718.png';
+import { ArticleContent } from './components/content/ArticleContent';
+import { PodcastContent } from './components/content/PodcastContent';
+import { VideoContent } from './components/content/VideoContent';
+import { StudyGuideContent } from './components/content/StudyGuideContent';
+import documentIcon from '/public/icons/wiki.png';
+import microphoneIcon from '/public/icons/mic.png';
+import studyGuideIcon from '/public/icons/study.png';
+import videoIcon from '/public/icons/vid.png';  
+
 
 interface Episode {
   id: string;
@@ -23,120 +25,102 @@ interface ContentModalProps {
 
 const contentTypes = [
   { 
-    type: 'Article', 
+    type: 'Wiki-Article - Beyond pushing content, we invite you to shape it', 
     icon: documentIcon,
-    color: 'bg-blue-200 text-blue-800 border-blue-300'
+    transparent: true
   },
   { 
-    type: 'Podcast', 
+    type: 'Audio Podcast - Listen to professional hosts take the Deep Dive', 
     icon: microphoneIcon,
-    color: 'bg-purple-200 text-purple-800 border-purple-300'
   },
   { 
-    type: 'Video', 
-    icon: 'https://images.unsplash.com/photo-1612548403247-aa2873e9422d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2aWRlbyUyMGNhbWVyYXxlbnwxfHx8fDE3NTg5MjAwNzN8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
-    color: 'bg-red-200 text-red-800 border-red-300'
+    type: 'Video Presentation - Watch engaging visuals to enhance your learning', 
+    icon: videoIcon,
   },
   { 
-    type: 'Study Guide', 
+    type: 'Study Guide - Enrich your learning with core concepts and exercises', 
     icon: studyGuideIcon,
-    color: 'bg-green-200 text-green-800 border-green-300'
   }
 ];
 
 export function ContentModal({ isOpen, onClose, episode, initialContentType }: ContentModalProps) {
   const [activeContentType, setActiveContentType] = useState(initialContentType);
+  const modalRef = useRef<HTMLDivElement>(null);
 
-  console.log('🟢 ContentModal - rendered with props:', { isOpen, episode: episode?.id, initialContentType });
+  // Update activeContentType when initialContentType changes
+  useEffect(() => {
+    setActiveContentType(initialContentType);
+  }, [initialContentType]);
 
   if (!isOpen || !episode) {
-    console.log('🟢 ContentModal - not rendering (isOpen:', isOpen, ', episode:', !!episode, ')');
     return null;
   }
 
   const renderContent = () => {
-    console.log('🟢 ContentModal - renderContent called with activeContentType:', activeContentType);
     switch (activeContentType) {
-      case 'Article':
-        console.log('🟢 ContentModal - returning ArticleContent component');
+      case 'Wiki-Article - Beyond pushing content, we invite you to shape it':
         return <ArticleContent episode={episode} />;
-      case 'Podcast':
-        console.log('🟢 ContentModal - returning PodcastContent component');
+      case 'Audio Podcast - Listen to professional hosts take the Deep Dive':
         return <PodcastContent episode={episode} />;
-      case 'Video':
-        console.log('🟢 ContentModal - returning VideoContent component');
+      case 'Video Presentation - Watch engaging visuals to enhance your learning':
         return <VideoContent episode={episode} />;
-      case 'Study Guide':
-        console.log('🟢 ContentModal - returning StudyGuideContent component');
+      case 'Study Guide - Enrich your learning with core concepts and exercises':
         return <StudyGuideContent episode={episode} />;
       default:
-        console.log('🟢 ContentModal - returning default ArticleContent component');
         return <ArticleContent episode={episode} />;
     }
   };
 
-  console.log('🟢 ContentModal - About to render JSX, episode:', episode?.title);
-
   return (
-    <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
-      <div className="bg-gray-100 w-full h-full max-w-7xl max-h-[90vh] flex flex-col shadow-2xl transform transition-all duration-300 overflow-hidden border-2 border-gray-300" style={{fontFamily: 'Calibri, Arial, sans-serif'}}>
-        
-        {/* Modal Header */}
-        <div className="flex justify-between items-center p-6 bg-white shadow-lg border-b-2 border-gray-300">
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 bg-slate-900 flex items-center justify-center">
-              <span className="text-white font-bold text-sm">TT</span>
-            </div>
-            <div>
-              <h3 className="font-bold text-gray-900">{episode.title}</h3>
-              <p className="text-sm text-gray-600">{activeContentType}</p>
-            </div>
+    <div
+      className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
+      onClick={e => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <div
+        ref={modalRef}
+        className="bg-gray-100 w-full h-full max-w-7xl max-h-[90vh] flex flex-col shadow-2xl transform transition-all duration-300 overflow-hidden border-2 border-gray-300"
+        style={{ pointerEvents: 'auto' }}
+      >
+        {/* Modal Header - Flex Row, 3 Columns */}
+        <div className="flex flex-row items-stretch px-6 py-3 bg-white shadow-lg border-b-2 border-gray-300 w-full" style={{ minHeight: 90, height: 90 }}>
+          {/* Left: Title/Subtitle */}
+          <div className="flex flex-col items-start justify-start min-w-[220px] max-w-[440px]">
+            <h2 className="text-3xl font-extrabold text-gray-900 leading-tight mb-0">
+              {activeContentType.split(' - ')[0]}
+            </h2>
+            <h4 className="text-lg text-gray-700 font-normal mt-2 mb-3" style={{ lineHeight: '1.2' }}>
+              {activeContentType.split(' - ')[1]}
+            </h4>
           </div>
-          
-          {/* Content Type Navigation */}
-          <div className="flex gap-2">
+          {/* Center: Tabs Bar */}
+          <div className="flex items-end justify-end gap-3 flex-1 mt-auto">
             {contentTypes.map((contentType) => (
-              <button
-                key={contentType.type}
-                onClick={() => {
-                  console.log('🟢 ContentModal - content type changed to:', contentType.type);
-                  setActiveContentType(contentType.type);
-                }}
-                className={`p-3 border-2 transition-all duration-200 ${
-                  activeContentType === contentType.type 
-                    ? contentType.color 
-                    : 'bg-gray-100 hover:bg-gray-200 border-gray-300'
-                }`}
+              <button key={contentType.type} onClick={() => setActiveContentType(contentType.type)}
+                className={`flex items-center justify-center transition-all duration-200 border-2 focus:outline-none focus:ring-2 focus:ring-blue-400 ${activeContentType === contentType.type ? 'bg-blue-50 border-blue-400 shadow scale-110' : 'bg-gray-100 hover:bg-gray-200 border-gray-300'}`}
+                style={{ width: 80, height: 80, padding: 0 }}
                 title={contentType.type}
               >
-                <div className="w-6 h-6 bg-white flex items-center justify-center overflow-hidden">
-                  <img 
-                    src={contentType.icon}
-                    alt={contentType.type}
-                    className="w-4 h-4 object-contain"
-                  />
-                </div>
+                <img src={contentType.icon} alt={contentType.type} style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }} />
               </button>
             ))}
           </div>
-          
-          <button 
-            onClick={() => {
-              console.log('🟢 ContentModal - close button clicked');
-              onClose();
-            }}
-            className="text-gray-500 hover:text-gray-800 transition-colors duration-200 p-2 hover:bg-gray-100"
-          >
-            <X size={24} />
-          </button>
+          {/* Right: X Button */}
+          <div className="flex items-end justify-end">
+            <button
+              onClick={() => onClose()}
+              className="ml-8 flex items-center justify-center w-10 h-10 border-2 border-gray-300 bg-white shadow hover:bg-gray-100 hover:border-blue-400 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              style={{ minWidth: 40 }}
+              title="Close"
+            >
+              <X size={24} />
+            </button>
+          </div>
         </div>
-
         {/* Modal Body */}
-        <div className="flex-grow overflow-hidden bg-gray-50">
-          {(() => {
-            console.log('🟢 ContentModal - About to render content, calling renderContent()');
-            return renderContent();
-          })()}
+        <div className="flex-grow min-h-0 overflow-hidden bg-gray-50">
+          {renderContent()}
         </div>
       </div>
     </div>
