@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import DiscussionForum from '../components/DiscussionForum';
-import ChapterSection from '../components/ChapterSection';
+//import ChapterSection from '../components/ChapterSection';
 import SupportingContent from '../components/SupportingContent';
 import MarkdownRenderer from '../components/MarkdownRenderer';
 import HtmlRenderer from '../components/HtmlRenderer';

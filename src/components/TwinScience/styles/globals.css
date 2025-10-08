@@ -187,3 +187,131 @@
 html {
   font-size: var(--font-size);
 }
+
+/* Article HTML Content Styling */
+.article-html-content {
+  font-family: Calibri, sans-serif !important;
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+  color: #374151 !important;
+}
+
+.article-html-content > *:first-child {
+  margin-top: 0 !important;
+}
+
+.article-html-content h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #1f2937;
+}
+
+.article-html-content h1:first-child {
+  margin-top: 0;
+}
+
+.article-html-content h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #1f2937;
+}
+
+.article-html-content h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: #1f2937;
+}
+
+.article-html-content p {
+  margin-bottom: 1rem;
+  text-align: justify;
+}
+
+.article-html-content ul,
+.article-html-content ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.article-html-content li {
+  margin-bottom: 0.5rem;
+}
+
+.article-html-content strong,
+.article-html-content b {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.article-html-content em,
+.article-html-content i {
+  font-style: italic;
+}
+
+.article-html-content a {
+  color: #1e3a8a;
+  text-decoration: underline;
+}
+
+.article-html-content a:hover {
+  color: #3b82f6;
+}
+
+.article-html-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+.article-html-content th,
+.article-html-content td {
+  border: 1px solid #d1d5db;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.article-html-content th {
+  background-color: #f3f4f6;
+  font-weight: 600;
+}
+
+.article-html-content img {
+  max-width: 100%;
+  height: auto;
+  margin: 1rem 0;
+}
+
+.article-html-content blockquote {
+  border-left: 4px solid #1e3a8a;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.article-html-content code {
+  background-color: #f3f4f6;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+}
+
+.article-html-content pre {
+  background-color: #f3f4f6;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.article-html-content pre code {
+  background-color: transparent;
+  padding: 0;
+}

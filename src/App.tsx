@@ -14,7 +14,7 @@ import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import JosoorVisionPage from './pages/josoor/JosoorVisionPage';
 import RoadmapPage from './pages/RoadmapPage';
-import ArchitectsForumPage from './pages/ArchitectsForumPage';
+//import ArchitectsForumPage from './pages/ArchitectsForumPage';
 import SimpleTestPage from './pages/SimpleTestPage';
 // Import Cosmic Components
 import { TwinSciencePage } from './pages/TwinSciencePageNew';
@@ -62,7 +62,7 @@ const App: React.FC = () => {
             <Route path="/roadmap" element={<RoadmapPage />} />
             <Route path="/twinscience" element={<TwinSciencePage />} />
             <Route path="/twinfactory" element={<TwinFactoryPage />} />
-            <Route path="/forum" element={<ArchitectsForumPage />} />
+{/*            <Route path="/forum" element={<ArchitectsForumPage />} />*/}
             <Route path="/test" element={<SimpleTestPage />} />
             <Route path="/architect" element={<ArchitectLessonsPage />} />
             <Route path="/3danimation" element={<ThreeDAnimationPage />} />

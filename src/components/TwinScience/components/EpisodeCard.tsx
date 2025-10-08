@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Episode {
@@ -10,6 +11,7 @@ interface Episode {
 
 interface ContentType {
   type: string;
+  displayName: string;
   icon: string;
 }
 
@@ -19,16 +21,17 @@ interface EpisodeCardProps {
   onContentSelect: (chapterId: string, episodeId: string, contentType: string) => void;
 }
 
-const contentTypes: ContentType[] = [
-  { type: 'Article', icon: '/icons/wiki.png' },
-  { type: 'Podcast', icon: '/icons/mic.png' },
-  { type: 'Video', icon: '/icons/vid.png' },
-  { type: 'Study Guide', icon: '/icons/study.png' }
-];
-
 export function EpisodeCard({ episode, chapterId, onContentSelect }: EpisodeCardProps) {
+  const { t } = useTranslation();
   const [isHovered, setIsHovered] = useState(false);
   const [currentIconIndex, setCurrentIconIndex] = useState(0);
+
+  const contentTypes: ContentType[] = [
+    { type: 'Article', displayName: t('twinScience.contentTypes.article'), icon: '/icons/wiki.png' },
+    { type: 'Podcast', displayName: t('twinScience.contentTypes.podcast'), icon: '/icons/mic.png' },
+    { type: 'Video', displayName: t('twinScience.contentTypes.video'), icon: '/icons/vid.png' },
+    { type: 'Study Guide', displayName: t('twinScience.contentTypes.studyGuide'), icon: '/icons/study.png' }
+  ];
 
   const nextIcon = () => {
     setCurrentIconIndex((prev) => (prev + 1) % contentTypes.length);
@@ -85,7 +88,7 @@ export function EpisodeCard({ episode, chapterId, onContentSelect }: EpisodeCard
                 className="text-gray-600 hover:text-blue-900 transition-colors duration-200 p-1"
                 disabled={contentTypes.length <= 1 || !episode.hasContent}
               >
-                <ChevronLeft size={20} />
+                <span style={{ fontSize: 32, fontWeight: 'bold', lineHeight: 1 }}>&lt;</span>
               </button>
               
               <div className="flex items-center justify-center">
@@ -115,7 +118,7 @@ export function EpisodeCard({ episode, chapterId, onContentSelect }: EpisodeCard
                 className="text-gray-600 hover:text-blue-900 transition-colors duration-200 p-1"
                 disabled={contentTypes.length <= 1 || !episode.hasContent}
               >
-                <ChevronRight size={20} />
+                <span style={{ fontSize: 32, fontWeight: 'bold', lineHeight: 1 }}>&gt;</span>
               </button>
             </div>
             
@@ -136,7 +139,7 @@ export function EpisodeCard({ episode, chapterId, onContentSelect }: EpisodeCard
                 backgroundColor: episode.hasContent ? '#1e3a8a' : undefined
               }}
             >
-              {episode.hasContent ? `Open ${currentContentType.type}` : 'Coming Soon'}
+              {episode.hasContent ? `${t('twinScience.openButton')} ${currentContentType.displayName.split(' - ')[0]}` : t('twinScience.comingSoon')}
             </button>
             
             {/* Indicator dots */}

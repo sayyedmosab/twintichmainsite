@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Play, Pause, Volume2, Maximize, Settings } from 'lucide-react';
+import { Play, Pause, Volume2, Maximize, Settings, Lock, MessageCircle, Crown, ThumbsUp } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import CommentsSystem from '../../../CommentsSystem';
 
 interface VideoContentProps {
   episode: {
@@ -10,10 +12,52 @@ interface VideoContentProps {
 }
 
 export function VideoContent({ episode }: VideoContentProps) {
-  // Video file path pattern: /article-assets/[episode]/[episode].mp4
+  // Video file path pattern: /article-assets/[episode]/[lang]/[episode].mp4
   const lessonId = episode.id.replace('-', '.');
-  const videoPath = `/article-assets/${lessonId}/${lessonId}.mp4`;
+  // Get current language from i18n using useTranslation hook
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language || 'en';
+  const isRTL = i18n.language === 'ar';
+  const videoPath = `/article-assets/${lang}/video/${lessonId}.mp4`;
   const [videoExists, setVideoExists] = useState(true);
+  
+  // Subscription state
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [showComments, setShowComments] = useState(false);
+  const [newComment, setNewComment] = useState('');
+  
+  // Mock premium comments
+  const [premiumComments] = useState([
+    {
+      id: 1,
+      author: 'Expert Member',
+      content: 'The visual demonstrations really help clarify these complex concepts. Great work!',
+      timestamp: '45 minutes ago',
+      likes: 8,
+      isPro: true
+    },
+    {
+      id: 2,
+      author: 'Pro Subscriber',
+      content: 'This video format is perfect for understanding the technical details.',
+      timestamp: '2 hours ago',
+      likes: 5,
+      isPro: true
+    }
+  ]);
+
+  const handleCommentSubmit = () => {
+    if (newComment.trim()) {
+      console.log('New comment:', newComment);
+      setNewComment('');
+      alert(t('contentViewer.commentSubmitted', 'Comment submitted successfully!'));
+    }
+  };
+
+  const handleSubscribe = () => {
+    setIsSubscribed(true);
+    alert(t('contentViewer.subscriptionActivated', 'Subscription activated! You can now access premium features.'));
+  };
 
   // Check if video file exists
   useEffect(() => {
@@ -23,10 +67,10 @@ export function VideoContent({ episode }: VideoContentProps) {
   }, [videoPath]);
 
   return (
-    <div className="w-full h-full flex flex-col p-6 gap-6 overflow-auto" style={{ maxHeight: '90vh' }}>
-      {/* Video Player */}
+    <div className={`w-full h-full flex flex-col p-6 gap-6 overflow-auto ${isRTL ? 'rtl' : 'ltr'}`} style={{ maxHeight: '90vh' }} dir={isRTL ? 'rtl' : 'ltr'}>
+      {/* Video Player - Reduced by 25% from max-w-6xl to max-w-4xl (roughly 75% of original) */}
       <div className="flex-grow flex items-center justify-center">
-        <div className="w-full max-w-6xl aspect-video bg-white border-2 border-gray-300 shadow-2xl overflow-hidden relative group flex items-center justify-center">
+        <div className="w-full max-w-4xl aspect-video bg-white border-2 border-gray-300 shadow-2xl overflow-hidden relative group flex items-center justify-center" style={{ borderRadius: '0' }}>
           {videoExists ? (
             <video controls style={{ width: '100%', height: '100%' }}>
               <source src={videoPath} type="video/mp4" />
@@ -41,67 +85,29 @@ export function VideoContent({ episode }: VideoContentProps) {
       </div>
 
       {/* Video Info and Comments */}
-      <div className="w-full max-w-6xl mx-auto flex-shrink-0">
+      <div className="w-full max-w-4xl mx-auto flex-shrink-0">
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Video Description */}
           <div className="flex-grow">
-            <div className="text-gray-900 mb-4">
-              <h2 className="text-2xl font-bold mb-2">{episode.title}</h2>
-              <p className="text-gray-600 leading-relaxed">{episode.description}</p>
-            </div>
-            <div className="flex items-center gap-6 text-sm text-gray-500 mb-4">
-              <span>1.2K views</span>
-              <span>•</span>
-              <span>2 days ago</span>
-              <span>•</span>
-              <span>TwinTech Learning</span>
-            </div>
-            <div className="flex items-center gap-4">
-              <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 border border-red-700 transition-colors duration-200 flex items-center gap-2">
-                <span>👍</span>
-                <span>124</span>
-              </button>
-              <button className="bg-gray-600 hover:bg-gray-500 text-white px-6 py-2 border border-gray-500 transition-colors duration-200 flex items-center gap-2">
-                <span>👎</span>
-                <span>3</span>
-              </button>
-              <button className="bg-gray-600 hover:bg-gray-500 text-white px-6 py-2 border border-gray-500 transition-colors duration-200">
-                Share
-              </button>
-            </div>
+            <p className="text-sm text-gray-600 mb-4">{t('contentViewer.videoDesc')}</p>
+            <button className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-4 transition-colors duration-200" style={{ borderRadius: '0' }}>
+              {t('contentViewer.watchVideo')}
+            </button>
           </div>
 
-          {/* Comments Section */}
-          <div className="lg:w-80 bg-gray-700 border border-gray-600 p-6">
-            <h3 className="text-white font-bold mb-4 flex items-center gap-2">
-              <span className="w-2 h-2 bg-red-500"></span>
-              Comments (47)
-            </h3>
-            <div className="space-y-4 mb-4">
-              <div className="flex gap-3">
-                <div className="w-8 h-8 bg-blue-600 flex items-center justify-center text-white text-sm font-bold">JD</div>
-                <div className="flex-grow">
-                  <p className="text-white text-sm"><span className="font-semibold">Jordan Davis</span><span className="text-gray-400 ml-2">2 hours ago</span></p>
-                  <p className="text-gray-300 text-sm mt-1">This explanation of digital twin architecture is exactly what I needed for my thesis!</p>
-                </div>
+          {/* Real Commenting System */}
+          <div className="lg:w-80 bg-white border border-gray-300 shadow-lg p-6" style={{ borderRadius: '0' }}>
+            <CommentsSystem contentType="video" episodeId={episode.id} />
+            
+            <div className="border-t border-gray-200 pt-4 mt-4">
+              <h4 className="font-bold mb-3 flex items-center gap-2">
+                <span className="w-2 h-2 bg-green-500" style={{ borderRadius: '0' }}></span>
+                {t('contentViewer.suggestedAdditions')}
+              </h4>
+              <div className="p-3 bg-green-50 border-2 border-green-300" style={{ borderRadius: '0' }}>
+                <p className="text-sm text-green-800">{t('contentViewer.implementationCosts')}</p>
+                <button className="text-xs text-green-600 hover:text-green-800 mt-1">+1 {t('contentViewer.support')}</button>
               </div>
-              <div className="flex gap-3">
-                <div className="w-8 h-8 bg-green-600 flex items-center justify-center text-white text-sm font-bold">SM</div>
-                <div className="flex-grow">
-                  <p className="text-white text-sm"><span className="font-semibold">Sarah Martinez</span><span className="text-gray-400 ml-2">4 hours ago</span></p>
-                  <p className="text-gray-300 text-sm mt-1">Great visuals! The 3D models really help understand the concepts.</p>
-                </div>
-              </div>
-            </div>
-            <div className="border-t border-gray-600 pt-4">
-              <textarea 
-                placeholder="Add a comment..."
-                className="w-full bg-gray-600 text-white border border-gray-500 p-3 text-sm resize-none focus:outline-none focus:border-red-500"
-                rows={3}
-              />
-              <button className="mt-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 border border-red-700 text-sm transition-colors duration-200">
-                Comment
-              </button>
             </div>
           </div>
         </div>

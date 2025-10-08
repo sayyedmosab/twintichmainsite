@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { EpisodeCard } from './components/EpisodeCard';
 import { ContentModal } from './ContentModal';
 
@@ -24,16 +25,16 @@ export interface Chapter {
 
 
 
-const learningData: { chapters: Chapter[] } = {
+const getLearningData = (t: any): { chapters: Chapter[] } => ({
   chapters: [
     {
       id: "chapter-1",
-      title: "Chapter 1: Introduction to Transformations",
+      title: t('twinScience.chapters.chapter1.title'),
       episodes: [
-        { 
-          id: "1-1", 
-          title: "What is an Organizational Transformation?", 
-          description: "The anatomy of organizations and understanding when transformation becomes necessary for strategic ambitions.",
+        {
+          id: "1-1",
+          title: t('twinScience.chapters.chapter1.episodes.1-1.title'),
+          description: t('twinScience.chapters.chapter1.episodes.1-1.description'),
           hasContent: true,
           contentAvailability: {
             article: true,
@@ -42,10 +43,10 @@ const learningData: { chapters: Chapter[] } = {
             studyGuide: true
           }
         },
-        { 
-          id: "1-2", 
-          title: "What is a Sector Transformation?", 
-          description: "Understanding sector value chains and how government policies reshape entire industries.",
+        {
+          id: "1-2",
+          title: t('twinScience.chapters.chapter1.episodes.1-2.title'),
+          description: t('twinScience.chapters.chapter1.episodes.1-2.description'),
           hasContent: true,
           contentAvailability: {
             article: true,
@@ -54,10 +55,10 @@ const learningData: { chapters: Chapter[] } = {
             studyGuide: false
           }
         },
-        { 
-          id: "1-3", 
-          title: "The People Transformation", 
-          description: "Why people transformation is pivotal - managing Old Guard and New Pioneers in complex change.",
+        {
+          id: "1-3",
+          title: t('twinScience.chapters.chapter1.episodes.1-3.title'),
+          description: t('twinScience.chapters.chapter1.episodes.1-3.description'),
           hasContent: true,
           contentAvailability: {
             article: true,
@@ -66,10 +67,10 @@ const learningData: { chapters: Chapter[] } = {
             studyGuide: false
           }
         },
-        { 
-          id: "1-4", 
-          title: "The Entangled Transformation", 
-          description: "How organizational, sector, and people transformations are woven together in complex change.",
+        {
+          id: "1-4",
+          title: t('twinScience.chapters.chapter1.episodes.1-4.title'),
+          description: t('twinScience.chapters.chapter1.episodes.1-4.description'),
           hasContent: true,
           contentAvailability: {
             article: true,
@@ -82,98 +83,101 @@ const learningData: { chapters: Chapter[] } = {
     },
     {
       id: "chapter-2",
-      title: "Chapter 2: Architecture & Design",
+      title: t('twinScience.chapters.chapter2.title'),
       episodes: [
-        { 
-          id: "2-1", 
-          title: "Strategic Performance (KPIs)", 
-          description: "Translating macro ambitions into measurable, manageable achievements that aggregate using real Saudi Arabia indicators.",
+        {
+          id: "2-1",
+          title: t('twinScience.chapters.chapter2.episodes.2-1.title'),
+          description: t('twinScience.chapters.chapter2.episodes.2-1.description'),
           hasContent: true
         },
-        { 
-          id: "2-2", 
-          title: "Portfolios & Initiatives", 
-          description: "Master sophisticated techniques for organizing and managing transformation portfolios and strategic initiatives.",
+        {
+          id: "2-2",
+          title: t('twinScience.chapters.chapter2.episodes.2-2.title'),
+          description: t('twinScience.chapters.chapter2.episodes.2-2.description'),
           hasContent: true
         },
-        { 
-          id: "2-3", 
-          title: "Process Architecture", 
-          description: "Understanding how process architecture provides the critical foundation for systematic transformation.",
+        {
+          id: "2-3",
+          title: t('twinScience.chapters.chapter2.episodes.2-3.title'),
+          description: t('twinScience.chapters.chapter2.episodes.2-3.description'),
           hasContent: true
         },
-        { 
-          id: "2-4", 
-          title: "Organizational Design", 
-          description: "Explore organizational design principles for creating structures that enable transformation success.",
+        {
+          id: "2-4",
+          title: t('twinScience.chapters.chapter2.episodes.2-4.title'),
+          description: t('twinScience.chapters.chapter2.episodes.2-4.description'),
           hasContent: true
         }
       ]
     },
     {
       id: "chapter-3",
-      title: "Chapter 3: Implementation & Governance",
+      title: t('twinScience.chapters.chapter3.title'),
       episodes: [
-        { 
-          id: "3-1", 
-          title: "The Integrated Governance", 
-          description: "Learn how integrated governance enables coordinated transformation across complex organizational ecosystems.",
+        {
+          id: "3-1",
+          title: t('twinScience.chapters.chapter3.episodes.3-1.title'),
+          description: t('twinScience.chapters.chapter3.episodes.3-1.description'),
           hasContent: true
         },
-        { 
-          id: "3-2", 
-          title: "The Delivery Engine", 
-          description: "Discover how to build and operate the delivery engine that transforms strategic vision into operational reality.",
+        {
+          id: "3-2",
+          title: t('twinScience.chapters.chapter3.episodes.3-2.title'),
+          description: t('twinScience.chapters.chapter3.episodes.3-2.description'),
           hasContent: true
         },
-        { 
-          id: "3-3", 
-          title: "Change Architecture", 
-          description: "Explore the architecture of change that provides structure and coordination for complex transformation programs.",
+        {
+          id: "3-3",
+          title: t('twinScience.chapters.chapter3.episodes.3-3.title'),
+          description: t('twinScience.chapters.chapter3.episodes.3-3.description'),
           hasContent: true
         },
-        { 
-          id: "3-4", 
-          title: "The Enablers", 
-          description: "Understand the critical enablers that support and accelerate transformation success across all organizational levels.",
+        {
+          id: "3-4",
+          title: t('twinScience.chapters.chapter3.episodes.3-4.title'),
+          description: t('twinScience.chapters.chapter3.episodes.3-4.description'),
           hasContent: true
         }
       ]
     },
     {
       id: "chapter-4",
-      title: "Chapter 4: 90-Day Implementation Sprints",
+      title: t('twinScience.chapters.chapter4.title'),
       episodes: [
-        { 
-          id: "4-1", 
-          title: "Day 1-15: Diagnose Your Starting Point", 
-          description: "Use the Public Sector Complexity Index to analyze your portfolio and identify critical objectives for your transformation sprint.",
+        {
+          id: "4-1",
+          title: t('twinScience.chapters.chapter4.episodes.4-1.title'),
+          description: t('twinScience.chapters.chapter4.episodes.4-1.description'),
           hasContent: true
         },
-        { 
-          id: "4-2", 
-          title: "Day 16-60: Architect Your First Golden Thread", 
-          description: "Build complete L0-L3 cascade using Entity-Relationship Diagrams, define KPIs, map processes, and assign owners.",
+        {
+          id: "4-2",
+          title: t('twinScience.chapters.chapter4.episodes.4-2.title'),
+          description: t('twinScience.chapters.chapter4.episodes.4-2.description'),
           hasContent: true
         },
-        { 
-          id: "4-3", 
-          title: "Day 61-90: Launch Your First Integrated Governance Forum", 
-          description: "Stand up monthly integrated reviews with GenAI-powered data presentation to demonstrate immediate transformation value.",
+        {
+          id: "4-3",
+          title: t('twinScience.chapters.chapter4.episodes.4-3.title'),
+          description: t('twinScience.chapters.chapter4.episodes.4-3.description'),
           hasContent: true
         },
-        { 
-          id: "4-4", 
-          title: "Measuring Success", 
+        {
+          id: "4-4",
+          title: "Measuring Success",
           description: "Establish key performance indicators and metrics to evaluate your transformation implementation success.",
           hasContent: false
         }
       ]
     }
   ]
-};
+});
 
 export function TwinScienceLearningHub() {
+  const { t, i18n } = useTranslation();
+  const learningData = useMemo(() => getLearningData(t), [t]);
+  const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
   const [modalState, setModalState] = useState<{
     isOpen: boolean;
     episode: Episode | null;
@@ -183,6 +187,24 @@ export function TwinScienceLearningHub() {
     episode: null,
     contentType: 'Article'
   });
+
+  const isRTL = i18n.language === 'ar';
+
+  useEffect(() => {
+    const handleLanguageChange = (lng: string) => {
+      console.log('🔄 TwinScience: Language changed to:', lng);
+      setCurrentLanguage(lng);
+    };
+
+    i18n.on('languageChanged', handleLanguageChange);
+    return () => {
+      i18n.off('languageChanged', handleLanguageChange);
+    };
+  }, [i18n]);
+
+  // Debug logging
+  console.log('🎯 TwinScience rendering with language:', currentLanguage);
+  console.log('🎯 Current title:', t('twinScience.title'));
 
   const handleContentSelect = (chapterId: string, episodeId: string, contentType: string) => {
     console.log('🔵 TwinScienceLearningHub (App.tsx) - handleContentSelect called:', { chapterId, episodeId, contentType });
@@ -194,20 +216,23 @@ export function TwinScienceLearningHub() {
     
     // Map short content type names to full content type names used by ContentModal
     const contentTypeMap: { [key: string]: string } = {
-      'Article': 'Wiki-Article - Beyond pushing content, we invite you to shape it',
-      'Podcast': 'Audio Podcast - Listen to professional hosts take the Deep Dive',
-      'Video': 'Video Presentation - Watch engaging visuals to enhance your learning',
-      'Study Guide': 'Study Guide - Enrich your learning with core concepts and exercises'
+      'Article': t('twinScience.contentTypes.article'),
+      'Podcast': t('twinScience.contentTypes.podcast'),
+      'Video': t('twinScience.contentTypes.video'),
+      'Study Guide': t('twinScience.contentTypes.studyGuide')
     };
+
+    // Get the full translated content type name
+    const fullContentType = contentTypeMap[contentType] || contentTypeMap['Article'];
     
     const mappedContentType = contentTypeMap[contentType] || contentTypeMap['Article'];
     
     if (episode) {
-      console.log('🔵 TwinScienceLearningHub (App.tsx) - setting modal state to open with contentType:', mappedContentType);
+      console.log('🔵 TwinScienceLearningHub (App.tsx) - setting modal state to open with contentType:', fullContentType);
       setModalState({
         isOpen: true,
         episode,
-        contentType: mappedContentType
+        contentType: fullContentType
       });
     }
   };
@@ -221,18 +246,28 @@ export function TwinScienceLearningHub() {
   };
 
   return (
-  <div className="twin-science-learning-hub">
+  <div className={`twin-science-learning-hub min-h-screen bg-gradient-to-b from-white via-blue-50 to-blue-100 ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="container mx-auto px-6 py-12">
+        {/* Header Section */}
+        <div className="text-center mb-16">
+          <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-blue-900 to-blue-800 bg-clip-text text-transparent">
+            {t('twinScience.title')}
+          </h1>
+          <p className="text-xl text-blue-800 max-w-3xl mx-auto leading-relaxed">
+            {t('twinScience.subtitle')}
+          </p>
+        </div>
+
         <div className="space-y-16">
           {learningData.chapters.map((chapter) => (
             <section key={chapter.id} className="space-y-8">
-              <div className="text-center lg:text-left">
-                <h2 className="text-3xl font-bold text-gray-900 mb-4 relative inline-block" style={{fontWeight: 'bold'}}>
+              <div className={`text-center lg:${isRTL ? 'text-right' : 'text-left'}`}>
+                <h2 className={`text-3xl font-bold text-gray-900 mb-4 relative inline-block ${isRTL ? 'text-right' : 'text-left'}`} style={{fontWeight: 'bold'}}>
                   {chapter.title}
-                  <div className="absolute -bottom-2 left-0 w-full h-1" style={{backgroundColor: '#1e3a8a'}}></div>
+                  <div className={`absolute -bottom-2 ${isRTL ? 'right-0' : 'left-0'} w-full h-1`} style={{backgroundColor: '#1e3a8a'}}></div>
                 </h2>
-                <p className="text-gray-600 max-w-2xl">
-                  Master the fundamentals and explore practical applications through our interactive learning modules.
+                <p className={`text-gray-600 max-w-2xl ${isRTL ? 'text-right' : 'text-left'}`}>
+                  {t('twinScience.sectionDescription')}
                 </p>
               </div>
               

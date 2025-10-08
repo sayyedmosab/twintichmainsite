@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { MessageCircle, Edit3, Flag, ThumbsUp, Plus } from 'lucide-react';
 
 interface ArticleContentProps {
   episode: {
@@ -12,25 +14,68 @@ export function ArticleContent({ episode }: ArticleContentProps) {
   const [articleContent, setArticleContent] = useState<string>('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isContributing, setIsContributing] = useState(false);
+  const [showComments, setShowComments] = useState(false);
+  const [newComment, setNewComment] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Mock login state
+  const { t, i18n } = useTranslation();
+
+  // Mock comments data
+  const [comments] = useState([
+    {
+      id: 1,
+      author: 'Dr. Sarah Ahmed',
+      content: 'This section could benefit from more examples of real-world implementations.',
+      timestamp: '2 hours ago',
+      likes: 3
+    },
+    {
+      id: 2, 
+      author: 'Engineering Student',
+      content: 'The digital twin concept is clearer now, but I\'d love to see more technical details.',
+      timestamp: '1 day ago',
+      likes: 1
+    }
+  ]);
+
+  const handleContribute = () => {
+    if (isLoggedIn) {
+      setIsContributing(true);
+    } else {
+      alert(t('contentViewer.needToLogin', 'Please log in to contribute'));
+    }
+  };
+
+  const handleCommentSubmit = () => {
+    if (newComment.trim()) {
+      // Mock comment submission
+      console.log('New comment:', newComment);
+      setNewComment('');
+      alert(t('contentViewer.commentSubmitted', 'Comment submitted successfully!'));
+    }
+  };
 
   useEffect(() => {
     const loadArticleContent = async () => {
       try {
         setLoading(true);
         setError(null);
-        
+
         // Map episode ID to lesson path (e.g., "1-1" -> "1.1")
         const lessonId = episode.id.replace('-', '.');
-        const articlePath = `/lessons/${lessonId}/${lessonId}.htm`;
-        
+        // Use current language to determine folder (en or ar)
+        const langFolder = i18n.language === 'ar' ? 'ar' : 'en';
+        const articlePath = `/article-assets/${lessonId}/${langFolder}/${lessonId}.html`;
+
         console.log('Loading article for episode:', episode.id);
+        console.log('Current language:', i18n.language);
         console.log('Fetching from path:', articlePath);
-        
+
         const response = await fetch(articlePath);
         if (!response.ok) {
           throw new Error(`Failed to load article: ${response.status}`);
         }
-        
+
         const htmlContent = await response.text();
         console.log('Successfully loaded article content, length:', htmlContent.length);
         setArticleContent(htmlContent);
@@ -44,7 +89,7 @@ export function ArticleContent({ episode }: ArticleContentProps) {
     };
 
     loadArticleContent();
-  }, [episode.id]);
+  }, [episode.id, i18n.language]);
 
   if (loading) {
     return (
@@ -74,13 +119,6 @@ export function ArticleContent({ episode }: ArticleContentProps) {
       {/* Main Article Content */}
       <div className="flex-grow bg-white border-2 border-slate-300 shadow-lg overflow-hidden">
         <article className="h-full flex flex-col">
-          <div className="w-full h-64 bg-gradient-to-r from-slate-600 to-slate-800 flex items-center justify-center text-white">
-            <div className="text-center">
-              <div className="text-6xl mb-4">📖</div>
-              <h3 className="text-2xl font-bold">Real Article Content</h3>
-              <p className="text-slate-300 mt-2">Episode {episode.id.replace('-', '.')}</p>
-            </div>
-          </div>
           <div className="p-8 flex-grow overflow-y-auto">
             {/* Render the actual HTML content */}
             <div 
@@ -96,32 +134,96 @@ export function ArticleContent({ episode }: ArticleContentProps) {
         </article>
       </div>
       
-      {/* Wiki-style Sidebar with contribution features */}
+      {/* Wiki-style Sidebar with functional contribution features */}
       <div className="w-full lg:w-80 flex-shrink-0 bg-white border-2 border-slate-300 shadow-lg p-6 space-y-6">
-  <div className="text-center p-4 bg-blue-50 border-2 border-blue-300">
-          <h4 className="font-bold text-blue-800 mb-2">📝 Want to contribute?</h4>
+        {/* Contribution Section */}
+        <div className="text-center p-4 bg-blue-50 border-2 border-blue-300">
+          <h4 className="font-bold text-blue-800 mb-2 flex items-center justify-center gap-2">
+            <Edit3 size={20} />
+            {t('contentViewer.wantToContribute', '📝 Want to contribute?')}
+          </h4>
           <p className="text-sm text-blue-700 mb-3">
-            Help improve this article by adding your insights and expertise.
+            {t('contentViewer.wantToContributeDesc', 'Help improve this article by adding your insights and expertise.')}
           </p>
-          <button className="w-full bg-blue-600 text-white py-2 px-4 hover:bg-blue-700 transition-colors">
-            Register to Edit
+          <button 
+            onClick={handleContribute}
+            className="w-full bg-blue-600 text-white py-2 px-4 hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+          >
+            <Plus size={16} />
+            {isLoggedIn ? t('contentViewer.startEditing', 'Start Editing') : t('contentViewer.registerToEdit', 'Register to Edit')}
           </button>
-        </div>
-
-  <div className="p-4 bg-gray-50 border-2 border-gray-300">
-          <h4 className="font-bold text-gray-800 mb-3">💬 Recent Comments</h4>
-          <div className="space-y-3">
-            <div className="text-sm">
-              <p className="text-gray-600 mb-1">Login required to view comments</p>
-              <button className="text-blue-600 hover:text-blue-800 underline">
-                Sign in to participate
+          {isContributing && (
+            <div className="mt-3 text-left">
+              <textarea
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+                placeholder={t('contentViewer.addSuggestion', 'Add your suggestion or improvement...')}
+                className="w-full p-2 border border-gray-300 rounded text-sm h-20 resize-none"
+              />
+              <button
+                onClick={handleCommentSubmit}
+                className="mt-2 w-full bg-green-600 text-white py-1 px-3 text-sm hover:bg-green-700 transition-colors"
+              >
+                {t('contentViewer.submitSuggestion', 'Submit Suggestion')}
               </button>
             </div>
-          </div>
+          )}
         </div>
 
-  <div className="p-4 bg-green-50 border-2 border-green-300">
-          <h4 className="font-bold text-green-800 mb-3">📚 Related Articles</h4>
+        {/* Comments Section */}
+        <div className="p-4 bg-gray-50 border-2 border-gray-300">
+          <h4 className="font-bold text-gray-800 mb-3 flex items-center gap-2">
+            <MessageCircle size={20} />
+            {t('contentViewer.recentComments', '💬 Recent Comments')}
+          </h4>
+          {isLoggedIn ? (
+            <div className="space-y-3">
+              {showComments ? (
+                <>
+                  {comments.map((comment) => (
+                    <div key={comment.id} className="bg-white p-3 border border-gray-200 rounded">
+                      <div className="flex justify-between items-start mb-2">
+                        <span className="font-semibold text-sm text-gray-800">{comment.author}</span>
+                        <span className="text-xs text-gray-500">{comment.timestamp}</span>
+                      </div>
+                      <p className="text-sm text-gray-700 mb-2">{comment.content}</p>
+                      <div className="flex items-center gap-2">
+                        <button className="flex items-center gap-1 text-xs text-gray-600 hover:text-blue-600">
+                          <ThumbsUp size={12} />
+                          {comment.likes}
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                  <button 
+                    onClick={() => setShowComments(false)}
+                    className="w-full text-center text-blue-600 hover:text-blue-800 text-sm"
+                  >
+                    {t('contentViewer.hideComments', 'Hide Comments')}
+                  </button>
+                </>
+              ) : (
+                <button 
+                  onClick={() => setShowComments(true)}
+                  className="w-full text-center text-blue-600 hover:text-blue-800 text-sm"
+                >
+                  {t('contentViewer.showComments', 'Show Comments')} ({comments.length})
+                </button>
+              )}
+            </div>
+          ) : (
+            <div className="text-sm">
+              <p className="text-gray-600 mb-1">{t('contentViewer.loginToViewComments', 'Login required to view comments')}</p>
+              <button className="text-blue-600 hover:text-blue-800 underline">
+                {t('contentViewer.signInToParticipate', 'Sign in to participate')}
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* Related Articles Section */}
+        <div className="p-4 bg-green-50 border-2 border-green-300">
+          <h4 className="font-bold text-green-800 mb-3">{t('contentViewer.relatedArticles', '📚 Related Articles')}</h4>
           <ul className="space-y-2 text-sm">
             <li><a href="#" className="text-green-700 hover:text-green-900 underline">Episode 1.2: The History of Digital Twins</a></li>
             <li><a href="#" className="text-green-700 hover:text-green-900 underline">Episode 1.3: Key Components</a></li>
@@ -129,56 +231,20 @@ export function ArticleContent({ episode }: ArticleContentProps) {
           </ul>
         </div>
 
-  <div className="p-4 bg-yellow-50 border-2 border-yellow-300">
-          <h4 className="font-bold text-yellow-800 mb-3">⭐ Article Quality</h4>
+        {/* Quality Control Section */}
+        <div className="p-4 bg-yellow-50 border-2 border-yellow-300">
+          <h4 className="font-bold text-yellow-800 mb-3 flex items-center gap-2">
+            <Flag size={20} />
+            {t('contentViewer.articleQuality', '⭐ Article Quality')}
+          </h4>
           <div className="text-sm text-yellow-700">
-            <p className="mb-2">Help us maintain quality:</p>
+            <p className="mb-2">{t('contentViewer.helpMaintainQuality', 'Help us maintain quality:')}</p>
             <button className="w-full bg-yellow-600 text-white py-1 px-3 text-xs hover:bg-yellow-700 transition-colors mb-2">
-              Report an Issue
+              {t('contentViewer.reportIssue', 'Report an Issue')}
             </button>
             <button className="w-full bg-yellow-600 text-white py-1 px-3 text-xs hover:bg-yellow-700 transition-colors">
-              Suggest Improvement
+              {t('contentViewer.suggestImprovement', 'Suggest Improvement')}
             </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-            Help improve this article by adding comments or suggestions.
-          </p>
-          <button className="mt-3 bg-slate-700 hover:bg-slate-900 text-white font-semibold py-2 px-4 transition-colors duration-200 border-2 border-slate-800">
-            Join Community
-          </button>
-        </div>
-        
-        <div>
-          <h4 className="font-bold mb-3 flex items-center gap-2 text-slate-900">
-            <span className="w-2 h-2 bg-blue-600"></span>
-            Recent Comments
-          </h4>
-          <div className="space-y-3">
-            <div className="p-3 bg-slate-50 border-2 border-slate-200">
-              <p className="text-sm text-slate-600">Great explanation of the core concepts!</p>
-              <p className="text-xs text-slate-500 mt-1">- Sarah Chen, 2 hours ago</p>
-            </div>
-            <div className="p-3 bg-slate-50 border-2 border-slate-200">
-              <p className="text-sm text-slate-600">Could use more examples from manufacturing.</p>
-              <p className="text-xs text-slate-500 mt-1">- Mike Rodriguez, 1 day ago</p>
-            </div>
-          </div>
-        </div>
-        
-        <div>
-          <h4 className="font-bold mb-3 flex items-center gap-2 text-slate-900">
-            <span className="w-2 h-2 bg-slate-600"></span>
-            Suggested Additions
-          </h4>
-          <div className="space-y-2">
-            <div className="p-3 bg-slate-50 border-2 border-slate-300">
-              <p className="text-sm text-slate-800">Add section on implementation costs</p>
-              <button className="text-xs text-blue-600 hover:text-blue-800 mt-1 font-bold">+1 Support</button>
-            </div>
           </div>
         </div>
       </div>

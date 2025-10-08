@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { EpisodeCard } from './EpisodeCard';
 import { ContentModal } from './ContentModal';
 
@@ -16,126 +17,150 @@ export interface Chapter {
   episodes: Episode[];
 }
 
-const learningData: { chapters: Chapter[] } = {
+const getLearningData = (t: any): { chapters: Chapter[] } => ({
   chapters: [
     {
       id: "chapter-1",
-      title: "Chapter 1: Introduction to Digital Twins",
+      title: t('twinScience.chapters.chapter1.title'),
       episodes: [
-        { 
-          id: "1-1", 
-          title: "What is an Organizational Transformation?", 
-          description: "Learn about organizational transformation as a structural response to strategic ambition that exceeds current institutional capacity.",
+        {
+          id: "1-1",
+          title: t('twinScience.chapters.chapter1.episodes.1-1.title'),
+          description: t('twinScience.chapters.chapter1.episodes.1-1.description'),
           hasContent: true
         },
-        { 
-          id: "1-2", 
-          title: "The History of Digital Twins", 
-          description: "Explore the fascinating origins and evolution of digital twins, from NASA's space missions to modern manufacturing.",
+        {
+          id: "1-2",
+          title: t('twinScience.chapters.chapter1.episodes.1-2.title'),
+          description: t('twinScience.chapters.chapter1.episodes.1-2.description'),
           hasContent: true
         },
-        { 
-          id: "1-3", 
-          title: "Key Components", 
-          description: "Learn about the essential elements that make up a functional and effective digital twin system.",
+        {
+          id: "1-3",
+          title: t('twinScience.chapters.chapter1.episodes.1-3.title'),
+          description: t('twinScience.chapters.chapter1.episodes.1-3.description'),
           hasContent: true
         },
-        { 
-          id: "1-4", 
-          title: "Benefits and Use Cases", 
-          description: "Discover the real-world advantages and applications of digital twins across various sectors and industries.",
+        {
+          id: "1-4",
+          title: t('twinScience.chapters.chapter1.episodes.1-4.title'),
+          description: t('twinScience.chapters.chapter1.episodes.1-4.description'),
           hasContent: true
         }
       ]
     },
     {
       id: "chapter-2",
-      title: "Chapter 2: Building a Digital Twin",
+      title: t('twinScience.chapters.chapter2.title'),
       episodes: [
-        { 
-          id: "2-1", 
-          title: "Data Acquisition", 
-          description: "Dive into the advanced methods and IoT sensors used to gather real-time data from physical assets.",
+        {
+          id: "2-1",
+          title: t('twinScience.chapters.chapter2.episodes.2-1.title'),
+          description: t('twinScience.chapters.chapter2.episodes.2-1.description'),
           hasContent: true
         },
-        { 
-          id: "2-2", 
-          title: "Modeling and Simulation", 
-          description: "Master the sophisticated techniques for creating accurate virtual models and running predictive simulations.",
+        {
+          id: "2-2",
+          title: t('twinScience.chapters.chapter2.episodes.2-2.title'),
+          description: t('twinScience.chapters.chapter2.episodes.2-2.description'),
           hasContent: true
         },
-        { 
-          id: "2-3", 
-          title: "Integration with IoT", 
-          description: "Understand how the Internet of Things (IoT) provides the critical data pipeline for seamless connectivity.",
+        {
+          id: "2-3",
+          title: t('twinScience.chapters.chapter2.episodes.2-3.title'),
+          description: t('twinScience.chapters.chapter2.episodes.2-3.description'),
           hasContent: true
         },
-        { 
-          id: "2-4", 
-          title: "Visualization Techniques", 
-          description: "Explore cutting-edge methods to visualize complex digital twin data for actionable business insights.",
+        {
+          id: "2-4",
+          title: t('twinScience.chapters.chapter2.episodes.2-4.title'),
+          description: t('twinScience.chapters.chapter2.episodes.2-4.description'),
           hasContent: true
         }
       ]
     },
     {
       id: "chapter-3",
-      title: "Chapter 3: Advanced Applications",
+      title: t('twinScience.chapters.chapter3.title'),
       episodes: [
-        { 
-          id: "3-1", 
-          title: "Predictive Maintenance", 
-          description: "Learn how digital twins enable proactive maintenance strategies that reduce downtime and costs.",
+        {
+          id: "3-1",
+          title: t('twinScience.chapters.chapter3.episodes.3-1.title'),
+          description: t('twinScience.chapters.chapter3.episodes.3-1.description'),
           hasContent: true
         },
-        { 
-          id: "3-2", 
-          title: "Smart Manufacturing", 
-          description: "Discover how digital twins are transforming production lines and enabling Industry 4.0 initiatives.",
+        {
+          id: "3-2",
+          title: t('twinScience.chapters.chapter3.episodes.3-2.title'),
+          description: t('twinScience.chapters.chapter3.episodes.3-2.description'),
           hasContent: true
         },
-        { 
-          id: "3-3", 
-          title: "Supply Chain Optimization", 
-          description: "Explore how digital twins provide end-to-end visibility and optimization across complex supply networks.",
+        {
+          id: "3-3",
+          title: t('twinScience.chapters.chapter3.episodes.3-3.title'),
+          description: t('twinScience.chapters.chapter3.episodes.3-3.description'),
           hasContent: true
         },
-        { 
-          id: "3-4", 
-          title: "Future Trends", 
-          description: "Stay ahead of the curve with emerging trends and future possibilities in digital twin technology.",
+        {
+          id: "3-4",
+          title: t('twinScience.chapters.chapter3.episodes.3-4.title'),
+          description: t('twinScience.chapters.chapter3.episodes.3-4.description'),
           hasContent: true
         }
       ]
     },
     {
       id: "chapter-4",
-      title: "Chapter 4: Implementation and Best Practices",
+      title: t('twinScience.chapters.chapter4.title'),
       episodes: [
-        { 
-          id: "4-1", 
-          title: "Project Planning and Strategy", 
-          description: "Learn essential planning strategies for successful digital twin implementation projects.",
+        {
+          id: "4-1",
+          title: t('twinScience.chapters.chapter4.episodes.4-1.title'),
+          description: t('twinScience.chapters.chapter4.episodes.4-1.description'),
           hasContent: true
         },
-        { 
-          id: "4-2", 
-          title: "Technology Stack Selection", 
-          description: "Understand how to choose the right tools and technologies for your digital twin solution.",
+        {
+          id: "4-2",
+          title: t('twinScience.chapters.chapter4.episodes.4-2.title'),
+          description: t('twinScience.chapters.chapter4.episodes.4-2.description'),
           hasContent: true
         },
-        { 
-          id: "4-3", 
-          title: "Common Challenges and Solutions", 
-          description: "Navigate typical implementation challenges with proven strategies and best practices.",
+        {
+          id: "4-3",
+          title: t('twinScience.chapters.chapter4.episodes.4-3.title'),
+          description: t('twinScience.chapters.chapter4.episodes.4-3.description'),
           hasContent: false
         }
       ]
     }
   ]
-};
+});
 
 export function TwinScienceLearningHub() {
+  const { t, i18n } = useTranslation();
+  const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
+  const learningData = getLearningData(t);
+
+  useEffect(() => {
+    const handleLanguageChange = (lng: string) => {
+      console.log('🔄 TwinScience: Language changed to:', lng);
+      console.log('🔄 TwinScience: Title translation:', t('twinScience.title'));
+      setCurrentLanguage(lng);
+    };
+
+    i18n.on('languageChanged', handleLanguageChange);
+    return () => {
+      i18n.off('languageChanged', handleLanguageChange);
+    };
+  }, [i18n]);
+
+  // Debug logging
+  console.log('🎯 TwinScience rendering with language:', currentLanguage);
+  console.log('🎯 Current title:', t('twinScience.title'));
+
+  // Re-calculate data when language changes
+  const updatedLearningData = useMemo(() => getLearningData(t), [t, currentLanguage]);
+
   const [modalState, setModalState] = useState<{
     isOpen: boolean;
     episode: Episode | null;
@@ -148,7 +173,9 @@ export function TwinScienceLearningHub() {
 
   const handleContentSelect = (chapterId: string, episodeId: string, contentType: string) => {
     console.log('🔵 TwinScienceLearningHub - handleContentSelect called:', { chapterId, episodeId, contentType });
-    const chapter = learningData.chapters.find(c => c.id === chapterId);
+    console.log('🔵 Current language:', currentLanguage);
+    console.log('🔵 Title translation:', t('twinScience.title'));
+    const chapter = updatedLearningData.chapters.find(c => c.id === chapterId);
     const episode = chapter?.episodes.find(e => e.id === episodeId);
     
     console.log('🔵 TwinScienceLearningHub - found chapter:', chapter?.title);
@@ -156,10 +183,10 @@ export function TwinScienceLearningHub() {
     
     // Map short content type names to full content type names used by ContentModal
     const contentTypeMap: { [key: string]: string } = {
-      'Article': 'Wiki-Article - Beyond pushing content, we invite you to shape it',
-      'Podcast': 'Audio Podcast - Listen to professional hosts take the Deep Dive',
-      'Video': 'Video Presentation - Watch engaging visuals to enhance your learning',
-      'Study Guide': 'Study Guide - Enrich your learning with core concepts and exercises'
+      'Article': t('twinScience.contentTypes.article'),
+      'Podcast': t('twinScience.contentTypes.podcast'),
+      'Video': t('twinScience.contentTypes.video'),
+      'Study Guide': t('twinScience.contentTypes.studyGuide')
     };
     
     const mappedContentType = contentTypeMap[contentType] || contentTypeMap['Article'];
@@ -186,18 +213,17 @@ export function TwinScienceLearningHub() {
     <div className="twin-science-learning-hub min-h-screen bg-gradient-to-b from-white via-blue-50 to-blue-100">
       <div className="container mx-auto px-6 py-12">
         {/* Header Section */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-8">
           <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-blue-900 to-blue-800 bg-clip-text text-transparent">
-            TwinScience Learning Hub
+            {t('twinScience.title')}
           </h1>
           <p className="text-xl text-blue-800 max-w-3xl mx-auto leading-relaxed">
-            Master the cutting-edge world of Digital Twin technology through interactive learning experiences. 
-            Explore comprehensive modules designed for the future of intelligent systems.
+            {t('twinScience.subtitle')}
           </p>
         </div>
 
         <div className="space-y-16">
-          {learningData.chapters.map((chapter) => (
+          {updatedLearningData.chapters.map((chapter) => (
             <section key={chapter.id} className="space-y-8">
               <div className="text-center lg:text-left">
                 <h2 className="text-3xl font-bold text-blue-900 mb-4 relative inline-block">
@@ -205,7 +231,7 @@ export function TwinScienceLearningHub() {
                   <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-blue-700 to-blue-900"></div>
                 </h2>
                 <p className="text-blue-700 max-w-2xl">
-                  Master the fundamentals and explore practical applications through our interactive learning modules.
+                  {t('twinScience.sectionDescription')}
                 </p>
               </div>
               

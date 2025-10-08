@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { CheckCircle, Circle, BookOpen, Target, Lightbulb } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 interface StudyGuideContentProps {
   episode: {
@@ -20,7 +21,10 @@ interface StudyItem {
 
 export function StudyGuideContent({ episode }: StudyGuideContentProps) {
   const lessonId = episode.id.replace('-', '.');
-  const studyPath = `/article-assets/${lessonId}/${lessonId}.study.md`;
+  // Get current language from i18n using useTranslation hook
+  const { i18n } = useTranslation();
+  const lang = i18n.language || 'en';
+  const studyPath = `/article-assets/${lang}/study/${lessonId}.study.md`;
   const [markdown, setMarkdown] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);

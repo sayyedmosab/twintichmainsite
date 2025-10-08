@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'sans': ['Poppins', 'sans-serif'],
+  'sans': ['Calibri', 'Poppins', 'Segoe UI', 'Arial', 'sans-serif'],
         'mono': ['JetBrains Mono', 'monospace'],
       }
     }
