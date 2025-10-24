@@ -44,10 +44,17 @@ const Header: React.FC = () => {
 
   // Language switching function
   const toggleLanguage = () => {
-    const newLang = i18n.language === 'en' ? 'ar' : 'en';
+    const currentLang = i18n.language;
+    const newLang = currentLang === 'en' ? 'ar' : 'en';
+    console.log('🔄 Language switch requested:', currentLang, '->', newLang);
+    console.log('🔄 Available twinScience translations before switch:', Object.keys(i18n.getResourceBundle(newLang, 'translation').twinScience || {}));
+    
     i18n.changeLanguage(newLang);
     document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = newLang;
+    
+    console.log('🔄 Language switch completed. New language:', i18n.language);
+    console.log('🔄 Available twinScience translations after switch:', Object.keys(i18n.getResourceBundle(newLang, 'translation').twinScience || {}));
   };
 
   // Determine which logo to show based on current path

@@ -39,7 +39,7 @@ const RoadmapPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4">
+    <div className="min-h-screen py-12 px-4" style={{ backgroundColor: '#f0f8ff' }}>
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
           <h1 className="standardized-title text-gray-900 mb-4">Transformation Roadmap</h1>

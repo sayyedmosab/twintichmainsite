@@ -12,7 +12,7 @@
 html, body {
   height: 100%;
   overflow: auto;
-  font-family: 'Calibri';
+  font-family: 'Tajawal', 'Calibri', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -29,7 +29,7 @@ html, body {
 /* Standardized Title Styles - matching HomePage "Imagine a parallel universe" */
 .standardized-title,
 h1.standardized-title {
-  font-family: 'Calibri';
+  font-family: 'Tajawal', 'Calibri';
   font-weight: 600;
   font-size: 2.5rem;
   line-height: 1.2;
@@ -135,9 +135,9 @@ h1.standardized-title {
 
 /* Typography */
 
-/* Headings use only Calibri */
+/* Headings use Tajawal */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Calibri';
+  font-family: 'Tajawal', 'Calibri', 'Segoe UI', sans-serif;
   font-weight: 700;
   letter-spacing: -0.025em;
 }
@@ -181,24 +181,38 @@ button, input, textarea, select {
 }
 
 /* Custom font families - Sharp, non-bendy fonts */
-/* Monospace code uses only Calibri for consistency */
+/* Monospace code uses Calibri historically; prefer Tajawal for UI consistency */
 .font-mono {
-  font-family: 'Calibri';
+  font-family: 'Tajawal', 'Calibri', ui-monospace, SFMono-Regular, Menlo, Monaco, 'Courier New', monospace;
   font-feature-settings: "liga" 0;
   font-variant-ligatures: none;
 }
 
 
 body {
-  font-family: 'Calibri';
+  font-family: 'Tajawal', 'Calibri', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-feature-settings: "liga" 0;
   font-variant-ligatures: none;
+}
+
+/* Arabic webfont: use Tajawal for Arabic/RTL pages so Arabic glyphs render consistently */
+html[lang='ar'],
+html[dir='rtl'] {
+  font-family: 'Tajawal', 'Calibri', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Ensure header/nav use Tajawal under Arabic/RTL context (inherits otherwise) */
+html[lang='ar'] .app-header,
+html[dir='rtl'] .app-header,
+html[lang='ar'] header,
+html[dir='rtl'] header {
+  font-family: 'Tajawal', 'Calibri', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 /* Ensure sharp, geometric text rendering */
 /* Headings use sharp, professional fonts */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  font-family: 'Tajawal', 'Calibri', 'Segoe UI', sans-serif;
   font-weight: 700;
   letter-spacing: -0.025em;
 }
@@ -212,19 +226,26 @@ h1, h2, h3, h4, h5, h6 {
 .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
   color: #111827;
   font-weight: 700;
-  font-family: 'Calibri';
+  font-family: 'Tajawal', 'Calibri';
 }
 
 
 .prose p {
   color: #374151;
   line-height: 1.7;
-  font-family: 'Calibri';
+  font-family: 'Tajawal', 'Calibri';
 }
 
 .prose img {
   border: 1px solid #d1d5db;
   box-shadow: none;
+}
+
+/* Page-specific override: ensure Josoor page prose appears white over hero background */
+.josoor-vision-page .prose,
+.josoor-vision-page .prose p,
+.josoor-vision-page p {
+  color: #ffffff !important;
 }
 
 /* Sharp scrollbar styling */
@@ -289,7 +310,7 @@ html {
 /* Professional button styling */
 
 button {
-  font-family: 'Calibri';
+  font-family: 'Tajawal', 'Calibri';
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -299,13 +320,19 @@ button {
 /* Professional input styling */
 
 input, textarea, select {
-  font-family: 'Calibri';
+  font-family: 'Tajawal', 'Calibri';
   border: 1px solid #d1d5db;
 }
 
 input:focus, textarea:focus, select:focus {
   border-color: #111827;
   box-shadow: 0 0 0 2px rgba(17, 24, 39, 0.1);
+}
+
+/* Make Tajawal the primary font across the whole site.
+   Put this at the end so it overrides earlier Calibri declarations. */
+html, body, :root, .app-header, header, .content-area, .prose, h1, h2, h3, h4, h5, h6, p {
+  font-family: 'Tajawal', 'Poppins', 'Calibri', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 /* Counter styles for ordered lists */

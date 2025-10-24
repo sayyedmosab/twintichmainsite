@@ -6,64 +6,64 @@
   <title>RubiksCubeExperience – CDN</title>
   <style>
     :root { --bg:transparent; --panel:#0a0f1c; --text:#e5e7eb; --accent:#7c3aed; }
-    html, body { height: 100%; margin: 0; background: transparent; color: var(--text); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; scrollbar-width: none; -ms-overflow-style: none; }
+  html, body { height: 100%; margin: 0; background: #94e4ff; color: var(--text); font-family: 'Tajawal', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; scrollbar-width: none; -ms-overflow-style: none; }
     html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
     .wrap { position: relative; height: 100%; }
     .bg-video { position: fixed; inset: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 0; }
-    .bg-tint { position: fixed; inset: 0; background: rgba(10,15,28,0.64); z-index: 0; }
+  .bg-tint { position: fixed; inset: 0; background: rgba(10,15,28,0.64); z-index: 0; }
 .hero-row { display: none; }
-.text-col { width: 450px; max-width: 640px; padding: 0 19px 0 60px; color: #ffffff; font-family: Poppins, sans-serif; position: sticky; top: 60px; }
+  .text-col { width: 450px; max-width: 640px; padding: 0 19px 0 60px; color: #ffffff; font-family: 'Tajawal', Poppins, sans-serif; position: sticky; top: 60px; }
 .text-section { min-height: 590.4px; display: flex; align-items: flex-start; justify-content: flex-start; padding-top: 60px; }
-.text-col h1 { margin: 20px 0 12px; font: 400 65px/76.1px "Allerta Stencil", sans-serif; color: #ffffff; text-shadow: 0 0 2px rgba(255,255,255,0.544), 0 0 12px rgba(76,201,255,0.531), 0 0 28px rgba(76,201,255,0.498), 0 0 56px rgba(30,144,255,0.476), 0 0 110px rgba(14,110,253,0.434); }
+.text-col h1 { margin: 20px 0 12px; font: 400 85px/99.1px "Allerta Stencil", sans-serif; color: #ffffff; text-shadow: 0 0 2px rgba(255,255,255,0.544), 0 0 12px rgba(76,201,255,0.531), 0 0 28px rgba(76,201,255,0.498), 0 0 56px rgba(30,144,255,0.476), 0 0 110px rgba(14,110,253,0.434); }
 .hero-row section:nth-of-type(2) .text-col h1 { font: 400 40px/40px "Allerta Stencil", sans-serif; }
 .hero-row section:nth-of-type(3) .text-col h1 { font: 400 40px/40px "Allerta Stencil", sans-serif; }
 .hero-row section:nth-of-type(1) .text-col { width: 640px; }
-.hero-row section:nth-of-type(1) .text-col h1 { font: 400 92px/91.1px "Allerta Stencil", sans-serif; color: #ffffff; text-shadow: 0 0 3px rgba(255,255,255,0.544), 0 0 18px rgba(76,201,255,0.544), 0 0 40px rgba(76,201,255,0.52), 0 0 84px rgba(30,144,255,0.488), 0 0 140px rgba(14,110,253,0.462); }
+.hero-row section:nth-of-type(1) .text-col h1 { font: 400 120px/118.9px "Allerta Stencil", sans-serif; color: #ffffff; text-shadow: 0 0 3px rgba(255,255,255,0.544), 0 0 18px rgba(76,201,255,0.544), 0 0 40px rgba(76,201,255,0.52), 0 0 84px rgba(30,144,255,0.488), 0 0 140px rgba(14,110,253,0.462); }
 .hero-row section:nth-of-type(1) .text-col h2 { font-size: 27px; }
-.text-col h2 { font-weight: 600; margin: 0 0 20px; text-transform: uppercase; letter-spacing: 1.30458px; font-size: 16px; color: rgba(37, 128, 250, 1); }
-.text-col p  { font-weight: 300; margin: 0; font-size: clamp(0.95rem, 1.2vw, 1.25rem); line-height: 1.6; }
-.hero-row section:nth-of-type(1) .text-col p { font-size: 18px; line-height: 24px; }
+.text-col h2 { font-weight: 700; margin: 0 0 20px; text-transform: uppercase; letter-spacing: 1.30458px; font-size: 21px; color: rgba(37, 128, 250, 1); }
+.text-col p  { font-weight: 300; margin: 0; font-size: clamp(1.2rem, 1.5vw, 1.5rem); line-height: 1.6; }
+.hero-row section:nth-of-type(1) .text-col p { font-size: 23px; line-height: 30px; }
 .sticky-canvas { position: fixed; top: 0; left: 33.333vw; width: 66.666vw; height: 100vh; overflow: hidden; background: transparent; z-index: 2; }
     #stage { background: transparent !important; }
     #stage { width: 100%; height: 100%; display:block; }
     .spacer { height: 20000px; } /* Scroll length to span all phases */
     .phase-pad { height: 0px; }
     .phase-overlay { position: fixed; inset: 0; z-index: 3; pointer-events: none; }
-    .phase-overlay .overlay-inner { position: absolute; top: 60px; left: 0; font-family: Poppins, sans-serif; color: #ffffff; }
-    .phase-text-block { position: absolute; top: 0; left: 0; width: 575px !important; max-width: none !important; padding: 0 19px 0 56px; box-sizing: content-box; opacity: 1; pointer-events: none; font-family: Poppins, sans-serif; color: #ffffff; transform: translateY(0); transition: none; z-index: 1; visibility: hidden; will-change: transform; }
+  .phase-overlay .overlay-inner { position: absolute; top: 60px; left: 0; font-family: 'Tajawal', Calibri, sans-serif; color: #ffffff; }
+  .phase-text-block { position: absolute; top: 0; left: 0; width: 625px !important; max-width: none !important; padding: 0 19px 0 56px; box-sizing: content-box; opacity: 1; pointer-events: none; font-family: 'Tajawal', Calibri, sans-serif; color: #ffffff; transform: translateY(0); transition: none; z-index: 1; visibility: hidden; will-change: transform; }
     .phase-text-block.finale-blocks { pointer-events: auto; }
     /* Match backup typography inside overlay */
-    .phase-overlay .phase-text-block h1 { margin: 20px 0 12px; font: 400 65px/76.1px "Allerta Stencil", sans-serif; color: #ffffff; text-shadow: 0 0 2px rgba(255,255,255,0.544), 0 0 12px rgba(76,201,255,0.531), 0 0 28px rgba(76,201,255,0.498), 0 0 56px rgba(30,144,255,0.476), 0 0 110px rgba(14,110,253,0.434); }
-    .phase-overlay .phase-text-block[data-key="intro-1"] h1 { font: 400 92px/91.1px "Allerta Stencil", sans-serif; color: #ffffff; text-shadow: 0 0 3px rgba(255,255,255,0.544), 0 0 18px rgba(76,201,255,0.544), 0 0 40px rgba(76,201,255,0.52), 0 0 84px rgba(30,144,255,0.488), 0 0 140px rgba(14,110,253,0.462); }
-    .phase-overlay .phase-text-block[data-key="p89-future"] h1 { font: 400 92px/91.1px "Allerta Stencil", sans-serif; color: #ffffff; text-shadow: 0 0 3px rgba(255,255,255,0.544), 0 0 18px rgba(76,201,255,0.544), 0 0 40px rgba(76,201,255,0.52), 0 0 84px rgba(30,144,255,0.488), 0 0 140px rgba(14,110,253,0.462); }
-    .phase-overlay .phase-text-block h2 { font-weight: 600; margin: 0 0 20px; text-transform: uppercase; letter-spacing: 1.30458px; font-size: 16px; color: rgba(37, 128, 250, 1); }
-        .phase-overlay .phase-text-block:not([data-key="intro-1"]) h2 { font-size: 24px; font-weight: 700; color: rgba(37, 128, 250, 1); }
-    .phase-overlay .phase-text-block[data-key="intro-1"] h2 { font-size: 28px; font-weight: 700; color: rgba(37, 128, 250, 1); }
-    .phase-overlay .phase-text-block[data-key="p89-future"] h2 { font-size: 28px; font-weight: 700; color: rgba(37, 128, 250, 1); }
-    .phase-overlay .phase-text-block p  { font-weight: 300; margin: 0; font-size: 18px; line-height: 24px; }
-    .phase-overlay .phase-text-block[data-key="intro-1"] p { font-size: 18px; line-height: 24px; }
-    .phase-overlay .phase-text-block[data-key="p89-future"] p { font-size: 18px; line-height: 24px; }
+    .phase-overlay .phase-text-block h1 { margin: 20px 0 12px; font: 400 68px/85px "Allerta Stencil", sans-serif; color: #ffffff; text-shadow: 0 0 2px rgba(255,255,255,0.544), 0 0 12px rgba(76,201,255,0.531), 0 0 28px rgba(76,201,255,0.498), 0 0 56px rgba(30,144,255,0.476), 0 0 110px rgba(14,110,253,0.434); }
+    .phase-overlay .phase-text-block[data-key="intro-1"] h1 { font: 400 72px/86px "Allerta Stencil", sans-serif; color: #ffffff; text-shadow: 0 0 3px rgba(255,255,255,0.544), 0 0 18px rgba(76,201,255,0.544), 0 0 40px rgba(76,201,255,0.52), 0 0 84px rgba(30,144,255,0.488), 0 0 140px rgba(14,110,253,0.462); }
+    .phase-overlay .phase-text-block[data-key="p89-future"] h1 { font: 400 72px/86px "Allerta Stencil", sans-serif; color: #ffffff; text-shadow: 0 0 3px rgba(255,255,255,0.544), 0 0 18px rgba(76,201,255,0.544), 0 0 40px rgba(76,201,255,0.52), 0 0 84px rgba(30,144,255,0.488), 0 0 140px rgba(14,110,253,0.462); }
+    .phase-overlay .phase-text-block h2 { font-weight: 700; margin: 0 0 20px; text-transform: uppercase; letter-spacing: 1.30458px; font-size: 21px; color: rgba(37, 128, 250, 1); }
+        .phase-overlay .phase-text-block:not([data-key="intro-1"]) h2 { font-size: 36px; font-weight: 700; color: rgba(37, 128, 250, 1); }
+    .phase-overlay .phase-text-block[data-key="intro-1"] h2 { font-size: 36px; font-weight: 700; color: rgba(37, 128, 250, 1); }
+    .phase-overlay .phase-text-block[data-key="p89-future"] h2 { font-size: 36px; font-weight: 700; color: rgba(37, 128, 250, 1); }
+    .phase-overlay .phase-text-block p  { font-weight: 300; margin: 0; font-size: 22px; line-height: 30px; }
+    .phase-overlay .phase-text-block[data-key="intro-1"] p { font-size: 22px; line-height: 30px; }
+    .phase-overlay .phase-text-block[data-key="p89-future"] p { font-size: 22px; line-height: 30px; }
     .phase-text-block.active { z-index: 2; visibility: visible; }
     .phase-viewport { position: relative; overflow: visible; height: 600px; }
-    @media (prefers-reduced-motion: reduce) { .phase-text-block { transition: none !important; transform: translateY(0) !important; } .phase-text-block.leaving { transform: translateY(0) !important; } }
+  @media (prefers-reduced-motion: reduce) { .phase-text-block { transition: none !important; } .phase-text-block.leaving { transition: none !important; } }
     .phase-text-block.leaving { visibility: visible; }
 
     /* Overlay-specific typography and sizing */
     .phase-overlay .phase-text-block[data-key="intro-1"] { width: 650px !important; max-width: none !important; }
-    .phase-overlay .phase-text-block[data-key="p89-future"] { width: 560px !important; max-width: none !important; }
+    .phase-overlay .phase-text-block[data-key="p89-future"] { width: 580px !important; max-width: none !important; }
     .phase-overlay .phase-text-block[data-key="intro-2"],
     .phase-overlay .phase-text-block[data-key="intro-3"],
     .phase-overlay .phase-text-block[data-key="p23-your-org"],
     .phase-overlay .phase-text-block[data-key="p4-hidden"],
     .phase-overlay .phase-text-block[data-key="p56-where"],
-    .phase-overlay .phase-text-block[data-key="p7-two-years"] { width: 560px !important; max-width: none !important; } 
+    .phase-overlay .phase-text-block[data-key="p7-two-years"] { width: 600px !important; max-width: none !important; } 
         /* Ensure children use container width */
     .phase-text-block > h1, .phase-text-block > h2, .phase-text-block > p { display: block; max-width: 100%; }
     /* Ensure consistent top alignment between blocks */
     #phaseOverlay .phase-text-block h1:first-child { margin-top: 20px; }
-        .phase-overlay .phase-text-block[data-key="intro-1"] h1 { font: 400 92px/91.1px "Allerta Stencil", sans-serif; color: #ffffff; text-shadow: 0 0 3px rgba(255,255,255,0.544), 0 0 18px rgba(76,201,255,0.544), 0 0 40px rgba(76,201,255,0.52), 0 0 84px rgba(30,144,255,0.488), 0 0 140px rgba(14,110,253,0.462); }
-    .phase-overlay .phase-text-block[data-key="intro-1"] h2 { font-size: 24px; font-weight: 700; color: rgba(37, 128, 250, 1); }
-    .phase-overlay .phase-text-block[data-key="intro-1"] p  { font-size: 18px; line-height: 24px; }
+        .phase-overlay .phase-text-block[data-key="intro-1"] h1 { font: 400 85px/100px "Allerta Stencil", sans-serif; color: #ffffff; text-shadow: 0 0 3px rgba(255,255,255,0.544), 0 0 18px rgba(76,201,255,0.544), 0 0 40px rgba(76,201,255,0.52), 0 0 84px rgba(30,144,255,0.488), 0 0 140px rgba(14,110,253,0.462); }
+    .phase-overlay .phase-text-block[data-key="intro-1"] h2 { font-size: 31px; font-weight: 700; color: rgba(37, 128, 250, 1); }
+    .phase-overlay .phase-text-block[data-key="intro-1"] p  { font-size: 23px; line-height: 30px; }
     
     /* Finale columns styling */
     .finale-columns {
@@ -75,7 +75,7 @@
       justify-content: center;
       align-items: flex-start;
       gap: 80px;
-      font-family: Poppins, sans-serif;
+      font-family: 'Tajawal', Calibri, sans-serif;
       color: #ffffff;
       z-index: 10;
       pointer-events: auto; /* Enable pointer events for finale columns */
@@ -84,7 +84,7 @@
     
     .finale-left-column,
     .finale-right-column {
-      width: 400px;
+      width: 460px;
       padding: 30px 30px 60px 30px; /* Added padding-bottom */
       background: rgba(10, 15, 28, 0.8);
       border: 1px solid rgba(37, 128, 250, 0.3);
@@ -103,13 +103,13 @@
     }
     
     .finale-logo {
-      width: 48px;
-      height: 48px;
+      width: 68px;
+      height: 68px;
       object-fit: contain;
     }
     
     .finale-columns h1 {
-      font: 400 48px/52px "Allerta Stencil", sans-serif;
+      font: 400 48px/53px "Allerta Stencil", sans-serif;
       color: #ffffff;
       text-shadow: 0 0 2px rgba(255,255,255,0.544), 0 0 12px rgba(76,201,255,0.531), 0 0 28px rgba(76,201,255,0.498);
       margin: 0;
@@ -117,7 +117,7 @@
     
     .finale-columns h2 {
       font-weight: 700;
-      font-size: 20px;
+      font-size: 26px;
       color: rgba(37, 128, 250, 1);
       text-transform: uppercase;
       letter-spacing: 1.2px;
@@ -126,8 +126,8 @@
     
     .finale-columns p {
       font-weight: 300;
-      font-size: 16px;
-      line-height: 22px;
+      font-size: 21px;
+      line-height: 28px;
       margin: 0 0 24px 0;
     }
     
@@ -138,8 +138,8 @@
     }
     
     .finale-columns li {
-      font-size: 14px;
-      line-height: 20px;
+      font-size: 18px;
+      line-height: 26px;
       padding: 8px 0;
       border-bottom: 1px solid rgba(37, 128, 250, 0.2);
       color: rgba(255, 255, 255, 0.8);
@@ -154,10 +154,10 @@
       border: none;
       border-radius: 8px;
       color: #ffffff;
-      font-family: Poppins, sans-serif;
-      font-size: 16px;
+  font-family: 'Tajawal', Poppins, sans-serif;
+      font-size: 18px;
       font-weight: 600;
-      padding: 12px 32px;
+      padding: 15px 42px;
       cursor: pointer;
       pointer-events: auto; /* Explicitly enable pointer events */
       transition: all 0.3s ease;
@@ -200,7 +200,7 @@
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link href=
-     "https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Poppins:wght@400;600;700&display=swap" rel=
+     "https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&family=Allerta+Stencil&family=Poppins:wght@400;600;700&display=swap" rel=
      "stylesheet">
     
    <!-- Load GSAP for animations -->
@@ -217,7 +217,7 @@
 </head>
 <body>
   <div class="wrap">
-  <img class="bg-image" src="/images/HomeBackground.png" alt="Background" style="position:fixed; inset:0; width:100vw; height:100vh; object-fit:cover; z-index:0;" />
+  <!-- <img class="bg-image" src="/images/HomeBackground.png" alt="Background" style="position:fixed; inset:0; width:100vw; height:100vh; object-fit:cover; z-index:0;" /> -->
     <div class="bg-tint"></div>
 
     <!-- Phase-driven overlay text -->
@@ -265,36 +265,36 @@
           </div>
 
           <div class="phase-text-block" data-key="twinlab">
-            <h1>TwinLab</h1>
-            <h2>KNOWLEDGE HUB</h2>
+            <h1>Twin Science</h1>
+            <h3>Shaping the Next</h3>
             <p>Contribute ideas, research, and insights to shape the future of transformations. Join a community of thinkers exploring the frontier of organizational complexity.</p>
           </div>
           <div class="phase-text-block" data-key="twinstudio">
-            <h1>TwinStudio</h1>
-            <h2>BUILDERS HUB</h2>
-            <p>Begin your own strategy execution journey. Put the Digital Twin to work with tools, templates, and guided implementations. Start transforming with actionable insights.</p>
+            <h1>Twin Studio</h1>
+            <h3>Building Bridges</h3>
+            <p>Begin your own strategy execution journey. Put the Digital Twin to work with tools, templates, and guided implementations. Start transforming your organization.</p>
           </div>
             <div class="phase-text-block finale-blocks" data-key="finale-twinlab-twinstudio">
               <div class="finale-columns">
                 <div class="finale-left-column">
                   <div class="finale-header">
-                    <img src="/assets/cosmic/twinlab-logo.png" alt="TwinLab Logo" class="finale-logo">
-                    <h1>TwinLab</h1>
+                    <img src="/assets/cosmic/twinlab-logo.png" height="68" alt="TwinScience Logo" class="finale-logo">
+                    <h1>TwinScience</h1>
                   </div>
-                  <h2>KNOWLEDGE PATH</h2>
-                  <p>Contribute ideas, research, and insights to shape the future of transformations. Join a community of thinkers exploring the frontier of organizational complexity.</p>
-                  <div style="height: 36px;"></div>
-                  <a href="#/twinlab" class="finale-enter-btn" aria-label="Enter TwinLab platform" title="Navigate to TwinLab - Knowledge Path" target="_top">Enter</a>
+                   <h2>Shaping the Next</h2>
+                  <p>Learn the new foundations, contribute ideas and and shape the Next phase of human prosperity.</p>
+                  <div style="height: 68px;"></div>
+                  <a href="#/twinscience" class="finale-enter-btn" aria-label="Enter TwinScience platform" title="Navigate to TwinScience - Knowledge Path" target="_top">Enter</a>
                 </div>
                 <div class="finale-right-column">
                   <div class="finale-header">
-                    <img src="/images/josoorlogo.png" alt="TwinStudio Logo" class="finale-logo">
+                    <img src="/images/josoorlogo.png" height="68" alt="TwinStudio Logo" class="finale-logo">
                     <h1>TwinStudio</h1>
                   </div>
-                  <h2>BUILDER PATH</h2>
-                  <p>Begin your own strategy execution journey. Put the Digital Twin to work with tools, templates, and guided implementations. Transform your organization with actionable insights.</p>
-                  <div style="height: 36px;"></div>
-                  <a href="#/roadmap" class="finale-enter-btn" aria-label="Enter TwinStudio" title="Navigate to TwinStudio - Roadmap" target="_top">Enter</a>
+                   <h2>Building Bridges</h2>
+                  <p>Begin your own strategy execution journey. Pick up the tools and start transforming your organization.</p>
+                  <div style="height: 68px;"></div>
+                  <a href="#/twinscience" class="finale-enter-btn" aria-label="Enter TwinStudio" title="Navigate to TwinStudio - Roadmap" target="_top">Enter</a>
                 </div>
               </div>
             </div>
@@ -1041,7 +1041,7 @@ FLOW</h2>
       const fallbackMsg = document.createElement('div');
       fallbackMsg.innerHTML = `
         <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-                    color: white; text-align: center; font-family: Arial;">
+                    color: white; text-align: center; font-family: 'Tajawal', Arial;">
           <h3>3D Graphics Unavailable</h3>
           <p>WebGL is not supported in this environment.</p>
         </div>`;

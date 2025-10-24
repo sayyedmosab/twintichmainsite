@@ -48,7 +48,6 @@ export function VideoContent({ episode }: VideoContentProps) {
 
   const handleCommentSubmit = () => {
     if (newComment.trim()) {
-      console.log('New comment:', newComment);
       setNewComment('');
       alert(t('contentViewer.commentSubmitted', 'Comment submitted successfully!'));
     }

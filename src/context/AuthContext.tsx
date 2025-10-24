@@ -29,6 +29,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   useEffect(() => {
     const init = async () => {
+      if (!supabase) {
+        setLoading(false);
+        return;
+      }
+
       try {
         const { data: { session } } = await supabase.auth.getSession();
         setUser(session?.user ? { id: session.user.id, email: session.user.email || '' } : null);
@@ -42,6 +47,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     init();
 
+    if (!supabase) return;
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ? { id: session.user.id, email: session.user.email || '' } : null);
       setLoading(false);
@@ -51,6 +58,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, []);
 
   const login = async (email: string, password: string): Promise<{ error: AuthError | null }> => {
+    if (!supabase) {
+      return { error: { name: 'AuthError', message: 'Authentication service is not available.' } };
+    }
+
     try {
       const { error } = await supabase.auth.signInWithPassword({
         email,
@@ -68,6 +79,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const register = async (email: string, password: string): Promise<{ error: AuthError | null }> => {
+    if (!supabase) {
+      return { error: { name: 'AuthError', message: 'Authentication service is not available.' } };
+    }
+
     try {
       const { data, error } = await supabase.auth.signUp({
         email,
@@ -97,6 +112,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const loginWithGoogle = async (): Promise<{ error: AuthError | null }> => {
+    if (!supabase) {
+      return { error: { name: 'AuthError', message: 'Authentication service is not available.' } };
+    }
+
     try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
@@ -120,6 +139,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const loginWithApple = async (): Promise<{ error: AuthError | null }> => {
+    if (!supabase) {
+      return { error: { name: 'AuthError', message: 'Authentication service is not available.' } };
+    }
+
     try {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'apple',
@@ -140,6 +163,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const logout = async (): Promise<{ error: AuthError | null }> => {
+    if (!supabase) {
+      return { error: { name: 'AuthError', message: 'Authentication service is not available.' } };
+    }
+
     try {
       const { error } = await supabase.auth.signOut();
       if (error) {

@@ -192,7 +192,6 @@ export function TwinScienceLearningHub() {
 
   useEffect(() => {
     const handleLanguageChange = (lng: string) => {
-      console.log('🔄 TwinScience: Language changed to:', lng);
       setCurrentLanguage(lng);
     };
 
@@ -202,19 +201,11 @@ export function TwinScienceLearningHub() {
     };
   }, [i18n]);
 
-  // Debug logging
-  console.log('🎯 TwinScience rendering with language:', currentLanguage);
-  console.log('🎯 Current title:', t('twinScience.title'));
 
   const handleContentSelect = (chapterId: string, episodeId: string, contentType: string) => {
-    console.log('🔵 TwinScienceLearningHub (App.tsx) - handleContentSelect called:', { chapterId, episodeId, contentType });
     const chapter = learningData.chapters.find(c => c.id === chapterId);
     const episode = chapter?.episodes.find(e => e.id === episodeId);
-    
-    console.log('🔵 TwinScienceLearningHub (App.tsx) - found chapter:', chapter?.title);
-    console.log('🔵 TwinScienceLearningHub (App.tsx) - found episode:', episode?.title);
-    
-    // Map short content type names to full content type names used by ContentModal
+
     const contentTypeMap: { [key: string]: string } = {
       'Article': t('twinScience.contentTypes.article'),
       'Podcast': t('twinScience.contentTypes.podcast'),
@@ -222,13 +213,9 @@ export function TwinScienceLearningHub() {
       'Study Guide': t('twinScience.contentTypes.studyGuide')
     };
 
-    // Get the full translated content type name
     const fullContentType = contentTypeMap[contentType] || contentTypeMap['Article'];
-    
-    const mappedContentType = contentTypeMap[contentType] || contentTypeMap['Article'];
-    
+
     if (episode) {
-      console.log('🔵 TwinScienceLearningHub (App.tsx) - setting modal state to open with contentType:', fullContentType);
       setModalState({
         isOpen: true,
         episode,
@@ -246,7 +233,7 @@ export function TwinScienceLearningHub() {
   };
 
   return (
-  <div className={`twin-science-learning-hub min-h-screen bg-gradient-to-b from-white via-blue-50 to-blue-100 ${isRTL ? 'rtl' : 'ltr'}`} dir={isRTL ? 'rtl' : 'ltr'}>
+  <div className={`twin-science-learning-hub min-h-screen ${isRTL ? 'rtl' : 'ltr'}`} style={{ backgroundColor: '#f0f8ff' }} dir={isRTL ? 'rtl' : 'ltr'}>
       <div className="container mx-auto px-6 py-12">
         {/* Header Section */}
         <div className="text-center mb-16">

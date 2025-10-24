@@ -1,4 +1,5 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef, forwardRef, useImperativeHandle } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface RubiksIframeProps {
   height?: string;
@@ -8,8 +9,17 @@ interface RubiksIframeProps {
   onPhaseChange?: (id: number, label: string) => void;
 }
 
-const RubiksIframe: React.FC<RubiksIframeProps> = ({ height = '100vh', progress = null, onReady, onProgress, onPhaseChange }) => {
-  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+const RubiksIframe = forwardRef<HTMLIFrameElement, RubiksIframeProps>(
+  ({ height = '100vh', progress = null, onReady, onProgress, onPhaseChange }, ref) => {
+    const iframeRef = useRef<HTMLIFrameElement | null>(null);
+    useImperativeHandle(ref, () => iframeRef.current as HTMLIFrameElement, []);
+    const { i18n } = useTranslation();
+
+    // Choose iframe src based on current language
+    const iframeSrc = useMemo(() => {
+      const isArabic = i18n.language && i18n.language.startsWith('ar');
+      return isArabic ? '/rubiks-cdn-ar.html' : '/rubiks-cdn.html';
+    }, [i18n.language]);
 
   const targetOrigin = useMemo(() => '*', []);
 
@@ -19,6 +29,7 @@ const RubiksIframe: React.FC<RubiksIframeProps> = ({ height = '100vh', progress 
       const data = e && (e.data as any);
       if (!data || typeof data !== 'object') return;
       if (data.type === 'RUBIKS_READY') {
+        console.log('[RubiksIframe] Received RUBIKS_READY from iframe');
         onReady && onReady();
       } else if (data.type === 'RUBIKS_PROGRESS') {
         const v = Number(data.value);
@@ -47,18 +58,19 @@ const RubiksIframe: React.FC<RubiksIframeProps> = ({ height = '100vh', progress 
     }
   }, [progress, targetOrigin]);
 
-  return (
-    <div style={{ position: 'relative', width: '100%', height }}>
-      <iframe
-        ref={iframeRef}
-        src="/rubiks-cdn.html"
-        title="Rubiks Animation"
-        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }}
-        allow="autoplay; fullscreen; xr-spatial-tracking; clipboard-write"
-        sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-top-navigation"
-      />
-    </div>
-  );
-};
+    return (
+      <div style={{ position: 'relative', width: '100%', height }}>
+        <iframe
+          ref={iframeRef}
+          src={iframeSrc}
+          title="Rubiks Animation"
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }}
+          allow="autoplay; fullscreen; xr-spatial-tracking; clipboard-write"
+          sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-top-navigation"
+        />
+      </div>
+    );
+  }
+);
 
 export default RubiksIframe;

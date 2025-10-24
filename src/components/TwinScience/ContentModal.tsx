@@ -10,7 +10,6 @@ import microphoneIcon from '/icons/mic.png';
 import studyGuideIcon from '/icons/study.png';
 import videoIcon from '/icons/vid.png';
 
-
 interface Episode {
   id: string;
   title: string;
@@ -48,12 +47,12 @@ export function ContentModal({ isOpen, onClose, episode, initialContentType }: C
   const { t, i18n } = useTranslation();
   const contentTypes = useMemo(() => getContentTypes(t), [t]);
   const [activeContentType, setActiveContentType] = useState(initialContentType);
-  const [key, setKey] = useState(0); // Force re-render on language change
+  const [key, setKey] = useState(0);
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleLanguageChange = () => {
-      setKey(prev => prev + 1); // Force re-render
+      setKey(prev => prev + 1);
     };
 
     i18n.on('languageChanged', handleLanguageChange);
@@ -62,7 +61,6 @@ export function ContentModal({ isOpen, onClose, episode, initialContentType }: C
     };
   }, [i18n]);
 
-  // Update activeContentType when initialContentType changes
   useEffect(() => {
     setActiveContentType(initialContentType);
   }, [initialContentType]);
@@ -103,25 +101,22 @@ export function ContentModal({ isOpen, onClose, episode, initialContentType }: C
         className="bg-gray-100 w-full h-full max-w-7xl max-h-[90vh] flex flex-col shadow-2xl transform transition-all duration-300 overflow-hidden border-2 border-gray-300"
         style={{ pointerEvents: 'auto' }}
       >
-        {/* Modal Header - Flex Row, 3 Columns */}
         <div className="flex flex-row items-stretch px-6 py-3 bg-white shadow-lg border-b-2 border-gray-300 w-full" style={{ minHeight: 90, height: 90 }}>
-          {/* Left: Title/Subtitle */}
           <div className="flex flex-col items-start justify-start min-w-[220px] max-w-[440px]">
             <h2 className="text-3xl font-extrabold text-gray-900 leading-tight mb-0">
               {activeContentType.split(' - ')[0]}
             </h2>
-            <h4 className="text-lg text-  gray-700 font-normal mt-2 mb-3" style={{ lineHeight: '1.2' }}>
+            <h4 className="text-lg text-gray-700 font-normal mt-2 mb-3" style={{ lineHeight: '1.2' }}>
               {activeContentType.split(' - ')[1]}
             </h4>
           </div>
-          {/* Center: Tabs Bar */}
           <div className="flex items-end justify-center gap-3 flex-1 mt-auto">
             {contentTypes.map((contentType) => (
               <button
                 key={contentType.type}
                 onClick={() => setActiveContentType(contentType.type)}
                 className={`flex flex-row items-center justify-center transition-all duration-200 border-2 focus:outline-none focus:ring-2 focus:ring-blue-400 ${activeContentType === contentType.type ? 'bg-blue-50 border-blue-400 shadow scale-110' : 'bg-gray-100 hover:bg-gray-200 border-gray-300'}`}
-                style={{ width: 200, height: 80, padding: 0, overflow: 'hidden' }}
+                style={{ width: 240, height: 80, padding: 0, overflow: 'hidden' }}
                 title={contentType.type}
               >
                 <img
@@ -132,7 +127,7 @@ export function ContentModal({ isOpen, onClose, episode, initialContentType }: C
                     height: 64,
                     objectFit: 'contain',
                     display: 'block',
-                    marginRight: i18n.language === 'en' ? 12 : 12,
+                    marginRight: i18n.language === 'en' ? 8 : 12,
                     flexShrink: 0
                   }}
                 />
@@ -140,7 +135,7 @@ export function ContentModal({ isOpen, onClose, episode, initialContentType }: C
                   className="font-semibold text-left"
                   style={{
                     whiteSpace: 'nowrap',
-                    fontSize: i18n.language === 'en' ? 12: undefined,
+                    fontSize: i18n.language === 'en' ? 12 : undefined,
                     flexShrink: 1
                   }}
                 >
@@ -149,7 +144,6 @@ export function ContentModal({ isOpen, onClose, episode, initialContentType }: C
               </button>
             ))}
           </div>
-          {/* Right: X Button */}
           <div className="flex items-end justify-end">
             <button
               onClick={() => onClose()}
@@ -161,7 +155,6 @@ export function ContentModal({ isOpen, onClose, episode, initialContentType }: C
             </button>
           </div>
         </div>
-        {/* Modal Body */}
         <div className="flex-grow min-h-0 overflow-hidden bg-gray-50">
           {renderContent()}
         </div>

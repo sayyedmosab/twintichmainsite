@@ -25,7 +25,7 @@ import {
 const navLinks: NavLinkType[] = [
   { id: 1, text: 'Home', href: '/', icon: Home },
   { id: 4, text: 'TwinScience', href: '/twinscience', icon: MessageSquare },
-  { id: 3, text: 'TwinStudio', href: '/roadmap', icon: Target },
+  { id: 3, text: 'TwinStudio', href: '/twinstudio', icon: Target },
   { id: 5, text: 'TwinFactory', href: '/twinfactory', icon: Wand2 },
   { id: 2, text: 'About', href: '/about', icon: BookOpen },
 ];
@@ -40,7 +40,25 @@ const Header: React.FC = () => {
   const toggleLanguage = () => {
     const newLang = i18n.language === 'en' ? 'ar' : 'en';
     i18n.changeLanguage(newLang);
+    // Keep document language and direction in sync so CSS that targets
+    // html[lang='ar'] or html[dir='rtl'] will apply immediately.
+    try {
+      document.documentElement.lang = newLang;
+      document.documentElement.dir = newLang === 'ar' ? 'rtl' : 'ltr';
+    } catch (e) {
+      /* ignore in non-browser environments */
+    }
   };
+
+  // Ensure document lang/dir reflect current i18n language on mount and when it changes
+  React.useEffect(() => {
+    try {
+      document.documentElement.lang = i18n.language || 'en';
+      document.documentElement.dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
+    } catch (e) {
+      /* ignore in non-browser environments */
+    }
+  }, [i18n.language]);
 
   const isRTL = i18n.language === 'ar';
 
@@ -54,7 +72,7 @@ const Header: React.FC = () => {
   const isAuraPage = pathname.startsWith('/aura');
   const isWeatherMapPage = pathname.startsWith('/weathermap');
 
-  let logoSrc = '/images/aittlogo.png';
+  let logoSrc = 'https://cdn.builder.io/api/v1/image/assets%2Fc88de0889c4545b98ff911f5842e062a%2F3946223c891f43aa905e5654a7991123?format=webp&width=800';
   let logoAlt = 'AI Twin Tech';
 
   if (isJosoorPage) {
@@ -72,7 +90,8 @@ const Header: React.FC = () => {
   }
 
   return (
-  <header className="shadow-md sticky top-0 z-50 text-white" style={{ backgroundColor: '#00122d' }}>
+  // keep header layout LTR so logo stays left and controls stay right even when page dir=rtl
+  <header dir="ltr" className="shadow-md sticky top-0 z-50 text-white" style={{ backgroundColor: '#00122d' }}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-3 items-center h-20">
           <div className="flex items-center justify-start">
@@ -86,7 +105,7 @@ const Header: React.FC = () => {
           </div>
 
           <div className="hidden md:flex items-center justify-center">
-            <nav className="flex items-center gap-x-8" dir={isRTL ? 'rtl' : 'ltr'}>
+            <nav className="flex items-center gap-x-4" dir={isRTL ? 'rtl' : 'ltr'}>
               {navLinks.map((link) => {
                 const isActive = link.href === '/' ? pathname === '/' : pathname.startsWith(link.href);
                 const IconComponent = link.icon;
@@ -94,7 +113,7 @@ const Header: React.FC = () => {
                   <div key={link.id} className="relative group">
                     <Link
                       to={link.href}
-                      className={`py-1 px-3 flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : 'flex-row'} whitespace-nowrap transition-colors duration-300 ${
+                      className={`py-1 px-1 flex items-center gap-1 ${isRTL ? 'flex-row-reverse' : 'flex-row'} whitespace-nowrap transition-colors duration-300 ${
                         isActive ? 'text-electric-blue-400 font-semibold' : 'text-gray-300 hover:text-electric-blue-400'
                       }`}
                     >
@@ -103,7 +122,7 @@ const Header: React.FC = () => {
                           <IconComponent size={20} />
                         </span>
                       )}
-                      <span className={`${isRTL ? 'text-right' : 'text-left'} inline-block ${isRTL ? 'mr-2' : 'ml-2'}`} style={{ order: isRTL ? 1 : 2 }}>
+                      <span className={`${isRTL ? 'text-right' : 'text-left'} inline-block ml-1`} style={{ order: isRTL ? 1 : 2 }}>
                         {link.id === 1 ? t('nav.home') : link.id === 2 ? t('nav.about') : link.id === 3 ? t('nav.twinStudio') : link.id === 4 ? t('nav.twinScience') : link.id === 5 ? t('nav.twinFactory') : link.text}
                       </span>
                     </Link>

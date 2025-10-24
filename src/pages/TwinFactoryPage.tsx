@@ -5,7 +5,7 @@ const TwinFactoryPage: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
+    <div className="min-h-screen" style={{ backgroundColor: '#f0f8ff' }}>
       <main className="container mx-auto px-4 py-16">
         <div className="text-center max-w-4xl mx-auto">
           <h1 className="standardized-title text-gray-900 mb-8">

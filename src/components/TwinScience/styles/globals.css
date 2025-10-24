@@ -190,7 +190,7 @@ html {
 
 /* Article HTML Content Styling */
 .article-html-content {
-  font-family: Calibri, sans-serif !important;
+  font-family: 'Tajawal', 'Poppins', Calibri, sans-serif !important;
   font-size: 16px !important;
   line-height: 1.6 !important;
   color: #374151 !important;

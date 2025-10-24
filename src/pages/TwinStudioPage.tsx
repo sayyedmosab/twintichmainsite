@@ -1,19 +1,14 @@
 import React, { useEffect, useRef, useState, Suspense, lazy } from 'react';
 import { useTranslation } from 'react-i18next';
-import Frame from '../components/Frame';
-import Hero from '../components/Hero';
 
 const RubiksIframe = lazy(() => import('../components/RubiksIframe'));
 
-
-const HomePage: React.FC = () => {
+const TwinStudioPage: React.FC = () => {
   useEffect(() => {
-    document.title = 'AI Twin Tech';
+    document.title = 'TwinStudio - AI Twin Tech';
   }, []);
+
   const { i18n } = useTranslation();
-
-  const scrollingSections = [];
-
   const rubiksIframeRef = useRef<HTMLIFrameElement | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
 
@@ -27,7 +22,7 @@ const HomePage: React.FC = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial call
+    handleScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -42,16 +37,13 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="bg-transparent" dir={i18n.language === 'ar' ? 'rtl' : 'ltr'}>
-      {/* Rubiks Animation */}
       <section className="relative z-0">
         <Suspense fallback={<div style={{ height: 'calc(100vh - 5rem)', background: '#94e4ff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><div>Loading 3D animation...</div></div>}>
           <RubiksIframe ref={rubiksIframeRef} progress={scrollProgress} height="calc(100vh - 5rem)" />
         </Suspense>
       </section>
-
-
     </div>
   );
 };
 
-export default HomePage;
+export default TwinStudioPage;
